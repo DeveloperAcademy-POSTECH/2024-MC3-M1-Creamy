@@ -113,6 +113,7 @@
 		512DD16A2C538E550033985C /* App */ = {
 			isa = PBXGroup;
 			children = (
+				BD5B21742C5370DE006E13F8 /* Model */,
 				512DD1592C538B410033985C /* TurtleNeckApp.swift */,
 			);
 			path = App;

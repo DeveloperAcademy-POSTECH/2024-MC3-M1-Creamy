@@ -51,9 +51,12 @@
 		512DD1302C5323170033985C /* TurtleNeck */ = {
 			isa = PBXGroup;
 			children = (
-				512DD1312C5323170033985C /* TurtleNeckApp.swift */,
-				512DD1332C5323170033985C /* ContentView.swift */,
-				512DD1352C5323190033985C /* Assets.xcassets */,
+				512DD13F2C5323510033985C /* App */,
+				512DD1412C5323760033985C /* Data */,
+				512DD1422C53237A0033985C /* Domain */,
+				512DD14C2C5326FE0033985C /* Helper */,
+				512DD1402C5323660033985C /* Presentaion */,
+				512DD1432C53239F0033985C /* Resource */,
 				512DD1372C5323190033985C /* Preview Content */,
 			);
 			path = TurtleNeck;
@@ -65,6 +68,107 @@
 				512DD1382C5323190033985C /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		512DD13F2C5323510033985C /* App */ = {
+			isa = PBXGroup;
+			children = (
+				512DD1312C5323170033985C /* TurtleNeckApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		512DD1402C5323660033985C /* Presentaion */ = {
+			isa = PBXGroup;
+			children = (
+				512DD1462C5324440033985C /* Main */,
+				512DD1442C5323E10033985C /* Onboarding */,
+				512DD1452C53243B0033985C /* Setting */,
+				512DD1472C53247C0033985C /* Noti */,
+				512DD1332C5323170033985C /* ContentView.swift */,
+			);
+			path = Presentaion;
+			sourceTree = "<group>";
+		};
+		512DD1412C5323760033985C /* Data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		512DD1422C53237A0033985C /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				512DD1482C5326090033985C /* Entity */,
+				512DD14A2C53261E0033985C /* Interface */,
+				512DD1492C53260F0033985C /* UseCase */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		512DD1432C53239F0033985C /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				512DD1352C5323190033985C /* Assets.xcassets */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		512DD1442C5323E10033985C /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		512DD1452C53243B0033985C /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		512DD1462C5324440033985C /* Main */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		512DD1472C53247C0033985C /* Noti */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Noti;
+			sourceTree = "<group>";
+		};
+		512DD1482C5326090033985C /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		512DD1492C53260F0033985C /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		512DD14A2C53261E0033985C /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Interface;
+			sourceTree = "<group>";
+		};
+		512DD14C2C5326FE0033985C /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -203,6 +203,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		BD5B21742C5370DE006E13F8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BD5B21752C5370F4006E13F8 /* User.swift */,
+				BD5B21772C537155006E13F8 /* AlertStatistic.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */

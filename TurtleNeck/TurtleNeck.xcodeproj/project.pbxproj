@@ -19,6 +19,8 @@
 		512DD1802C5392A60033985C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512DD17F2C5392A60033985C /* MainView.swift */; };
 		512DD1822C5392BF0033985C /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512DD1812C5392BF0033985C /* OnboardingView.swift */; };
 		512DD1842C5392CC0033985C /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512DD1832C5392CC0033985C /* SettingView.swift */; };
+		BD2713122C539C12000820F6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2713112C539C12000820F6 /* User.swift */; };
+		BD2713142C539C34000820F6 /* AlertStatistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2713132C539C34000820F6 /* AlertStatistic.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		512DD17F2C5392A60033985C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		512DD1812C5392BF0033985C /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		512DD1832C5392CC0033985C /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		BD2713112C539C12000820F6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		BD2713132C539C34000820F6 /* AlertStatistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertStatistic.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +140,7 @@
 		512DD16D2C538F390033985C /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				BD2713102C539BFF000820F6 /* Model */,
 				512DD16E2C538FD90033985C /* DummyService.swift */,
 			);
 			path = Data;
@@ -187,6 +192,15 @@
 				512DD1812C5392BF0033985C /* OnboardingView.swift */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		BD2713102C539BFF000820F6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BD2713112C539C12000820F6 /* User.swift */,
+				BD2713132C539C34000820F6 /* AlertStatistic.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,6 +276,7 @@
 				512DD1792C5390AF0033985C /* DummyServiceInterface.swift in Sources */,
 				512DD1842C5392CC0033985C /* SettingView.swift in Sources */,
 				512DD1802C5392A60033985C /* MainView.swift in Sources */,
+				BD2713142C539C34000820F6 /* AlertStatistic.swift in Sources */,
 				512DD15C2C538B410033985C /* ContentView.swift in Sources */,
 				512DD1822C5392BF0033985C /* OnboardingView.swift in Sources */,
 				512DD1752C5390590033985C /* DummyEntity.swift in Sources */,
@@ -269,6 +284,7 @@
 				512DD16F2C538FD90033985C /* DummyService.swift in Sources */,
 				512DD15A2C538B410033985C /* TurtleNeckApp.swift in Sources */,
 				512DD17B2C5391660033985C /* DummyHelper.swift in Sources */,
+				BD2713122C539C12000820F6 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,7 +419,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TurtleNeck/Preview Content\"";
-				DEVELOPMENT_TEAM = 6UR3X5MRY6;
+				DEVELOPMENT_TEAM = PK4L7H6D6F;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -430,7 +446,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TurtleNeck/Preview Content\"";
-				DEVELOPMENT_TEAM = 6UR3X5MRY6;
+				DEVELOPMENT_TEAM = PK4L7H6D6F;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

@@ -13,5 +13,10 @@ struct TurtleNeckApp: App {
         WindowGroup {
             ContentView()
         }
+        
+        MenuBarExtra("TurtleNeckApp", systemImage: "tortoise.fill") {
+            MainView()
+                .frame(width: 344,height: 240)
+        }.menuBarExtraStyle(.window)
     }
 }

@@ -25,6 +25,7 @@ struct NotiPermissionView: View {
                     .multilineTextAlignment(.center)
                     .lineSpacing(4)
                     .font(.callout)
+                    .foregroundColor(.subTextGray)
             }
             
             Spacer()
@@ -34,11 +35,10 @@ struct NotiPermissionView: View {
                 router.navigate(to: .checkDevice)
             } label: {
                 Text("다음")
-                    .foregroundStyle(.green)
+                    .foregroundColor(.primary)
                     .frame(width: 200, height: 33)
             }
             .buttonStyle(.plain)
-            .border(.black)
         }
         .padding(.top, 132)
         .padding(.bottom, 61)

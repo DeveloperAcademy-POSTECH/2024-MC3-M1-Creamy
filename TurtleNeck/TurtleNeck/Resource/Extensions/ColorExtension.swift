@@ -8,10 +8,16 @@
 import SwiftUI
 //원하는 컬러 생성
 extension Color {
- 
-    static let green01 = Color(hex: "788A2C")
-    static let green02 = Color(hex: "F8FBE9")
-    static let green03 = Color(hex: "C0CA97")
+    /// 기능에 대한 설명
+    static let subTextGray = Color(hex: "1A1A1A")
+    /// buttonText + icon에 사용
+    static let primary = Color(hex: "788A2C")
+    
+    static let chevron = Color(hex: "C0CA97")
+    
+    static let iconHoverBG = Color(hex: "F8FBE9")
+    
+    static let buttonHoverBG = Color(hex: "EDF2DB")
     
 }
 

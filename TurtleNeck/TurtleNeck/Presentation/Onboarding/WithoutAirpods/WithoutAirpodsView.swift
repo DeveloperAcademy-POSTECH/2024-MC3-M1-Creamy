@@ -9,12 +9,14 @@ import SwiftUI
 
 struct WithoutAirpodsView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-        
-        Button {
-        
-        } label: {
-            Text("시작하기")
+        VStack{
+            Text("Hello, World!")
+            
+            Button {
+                
+            } label: {
+                Text("시작하기")
+            }
         }
     }
 }

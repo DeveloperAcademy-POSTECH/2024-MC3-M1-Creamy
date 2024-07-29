@@ -8,18 +8,19 @@
 import SwiftUI
 
 struct NotiPermissionView: View {
+    @EnvironmentObject var router: Router
+    
     var body: some View {
-        NavigationStack{
+        VStack{
             Text("알림 허용이 필요해요")
             Text("더 올바른 자세 유지를 도울 수 있도록\n 알림 허용이 필요해요")
             
             Button {
-            
+                router.navigate(to: .checkDevice)
             } label: {
                 Text("다음")
             }
         }
-        .frame(maxWidth: 800, maxHeight: 560)
     }
 }
 

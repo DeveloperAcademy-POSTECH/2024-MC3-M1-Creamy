@@ -20,12 +20,10 @@ struct ContentView: View {
                     NotiPermissionView()
                 }
             }
-            .padding()
             .navigationDestination(for: Router.Destination.self) { destination in
                 destinationPath(destination: destination)
             }
         }
-        .frame(maxWidth: 800, maxHeight: 560)
         .environmentObject(router)
     }
 }

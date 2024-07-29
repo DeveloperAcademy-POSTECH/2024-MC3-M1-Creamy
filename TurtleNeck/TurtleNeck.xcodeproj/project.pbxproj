@@ -23,6 +23,7 @@
 		512DD1842C5392CC0033985C /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512DD1832C5392CC0033985C /* SettingView.swift */; };
 		BD2713122C539C12000820F6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2713112C539C12000820F6 /* User.swift */; };
 		BD2713142C539C34000820F6 /* AlertStatistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2713132C539C34000820F6 /* AlertStatistic.swift */; };
+		BD3C636C2C57E818002B3FA9 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD3C636B2C57E818002B3FA9 /* Info.plist */; };
 		BD76C5DB2C5678E6004993EC /* CheckDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76C5DA2C5678E6004993EC /* CheckDeviceView.swift */; };
 		BD76C5DD2C56790F004993EC /* MotionPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76C5DC2C56790F004993EC /* MotionPermissionView.swift */; };
 		BD76C5DF2C567952004993EC /* MeasureReadyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76C5DE2C567952004993EC /* MeasureReadyView.swift */; };
@@ -52,6 +53,7 @@
 		512DD1832C5392CC0033985C /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		BD2713112C539C12000820F6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		BD2713132C539C34000820F6 /* AlertStatistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertStatistic.swift; sourceTree = "<group>"; };
+		BD3C636B2C57E818002B3FA9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BD76C5DA2C5678E6004993EC /* CheckDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckDeviceView.swift; sourceTree = "<group>"; };
 		BD76C5DC2C56790F004993EC /* MotionPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionPermissionView.swift; sourceTree = "<group>"; };
 		BD76C5DE2C567952004993EC /* MeasureReadyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureReadyView.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 		512DD1582C538B410033985C /* TurtleNeck */ = {
 			isa = PBXGroup;
 			children = (
+				BD3C636B2C57E818002B3FA9 /* Info.plist */,
 				512DD1622C538B430033985C /* TurtleNeck.entitlements */,
 				512DD16A2C538E550033985C /* App */,
 				512DD16D2C538F390033985C /* Data */,
@@ -309,6 +312,7 @@
 			files = (
 				512DD1612C538B430033985C /* Preview Assets.xcassets in Resources */,
 				512DD15E2C538B430033985C /* Assets.xcassets in Resources */,
+				BD3C636C2C57E818002B3FA9 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -479,6 +483,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TurtleNeck/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -506,6 +511,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TurtleNeck/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

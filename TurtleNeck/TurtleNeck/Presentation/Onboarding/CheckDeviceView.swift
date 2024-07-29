@@ -10,6 +10,9 @@ import SwiftUI
 struct CheckDeviceView: View {
     @EnvironmentObject var router: Router
     
+    @State var isWithAirpodsHover = false
+    @State var isWithoutAirpodsHover = false
+    
     var body: some View {
         VStack(spacing: 16){
             Image("checkDeviceImg")
@@ -26,25 +29,44 @@ struct CheckDeviceView: View {
             Spacer()
             
             HStack(spacing: 16){
-                Button {
-                    router.navigate(to: .motionPermission)
-                } label: {
-                    Text("에어팟으로 자세 측정하기")
-                        .foregroundStyle(.green)
-                        .frame(width: 200, height: 33)
+                ZStack (alignment: .bottom){
+                    if isWithAirpodsHover{
+                        Text("에어팟 3세대, 에어팟 프로, 맥스 모델만 가능해요")
+                            .font(.footnote)
+//                            .padding(.top, 58)
+//                            .transition(.opacity)
+                    }
+                    
+                    Button {
+                        router.navigate(to: .motionPermission)
+                    } label: {
+                        Text("에어팟으로 자세 측정하기")
+                            .frame(width: 200, height: 33)
+                            .foregroundColor(isWithAirpodsHover ? .red : .green)
+                            .background(isWithAirpodsHover ? Color.green : Color.clear)
+                    }
+                    .buttonStyle(.plain)
+                    .border(.black)
+                    .onHover(perform: { hovering in
+                        isWithAirpodsHover = hovering
+                    })
+                    .padding(.bottom, 20)
                 }
-                .buttonStyle(.plain)
-                .border(.black)
+                .padding(.bottom, -20)
                 
                 Button {
                     router.navigate(to: .withoutAirpods)
                 } label: {
                     Text("에어팟 없이 알림만 받기")
-                        .foregroundStyle(.green)
                         .frame(width: 200, height: 33)
+                        .foregroundColor(isWithoutAirpodsHover ? .red : .green)
+                        .background(isWithoutAirpodsHover ? Color.green : Color.clear)
                 }
                 .buttonStyle(.plain)
                 .border(.black)
+                .onHover(perform: { hovering in
+                    isWithoutAirpodsHover = hovering
+                })
             }
         }
         .padding(.top, 35)

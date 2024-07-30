@@ -19,6 +19,7 @@ struct MeasureFinishView: View {
                 Text("시작하기")
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 

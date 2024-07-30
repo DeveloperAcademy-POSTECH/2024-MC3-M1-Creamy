@@ -73,6 +73,7 @@ struct CheckDeviceView: View {
                 })
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.top, 35)
         .padding(.bottom, 61)
         .border(.black)

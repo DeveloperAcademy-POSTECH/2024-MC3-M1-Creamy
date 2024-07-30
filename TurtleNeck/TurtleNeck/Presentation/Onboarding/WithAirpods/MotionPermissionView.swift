@@ -37,6 +37,7 @@ struct MotionPermissionView: View {
             }
             .buttonStyle(.plain)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.top, 117)
         .padding(.bottom, 61)
         .border(.black)

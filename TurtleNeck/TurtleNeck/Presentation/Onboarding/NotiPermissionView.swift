@@ -40,8 +40,10 @@ struct NotiPermissionView: View {
             }
             .buttonStyle(.plain)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.top, 132)
         .padding(.bottom, 61)
+        .border(.black)
     }
 }
 

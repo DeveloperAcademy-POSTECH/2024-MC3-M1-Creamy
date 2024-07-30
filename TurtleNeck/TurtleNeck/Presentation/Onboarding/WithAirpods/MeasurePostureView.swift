@@ -61,8 +61,10 @@ struct MeasureCountDownView: View {
                 .font(.callout)
                 .foregroundColor(.subTextGray)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.top, 112)
         .padding(.bottom, 162)
+        .border(.black)
     }
 }
 
@@ -118,6 +120,7 @@ struct MeasuringView: View {
                 .font(.callout)
                 .foregroundColor(.subTextGray)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.top, 30)
         .padding(.bottom, 134)
         .border(.black)

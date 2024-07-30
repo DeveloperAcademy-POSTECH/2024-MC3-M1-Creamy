@@ -63,6 +63,7 @@ struct MeasureReadyView: View {
                 })
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.top, 117)
         .padding(.bottom, 44)
         .border(.black)

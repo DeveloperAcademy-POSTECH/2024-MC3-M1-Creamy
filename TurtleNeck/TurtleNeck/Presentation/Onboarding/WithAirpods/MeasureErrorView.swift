@@ -19,6 +19,7 @@ struct MeasureErrorView: View {
                 Text("다시 측정하기")
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 

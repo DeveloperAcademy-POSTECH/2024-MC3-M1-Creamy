@@ -19,7 +19,7 @@ ex) `[Feat/#12] 알림 설정 기능 구현`
 
 ### Branch Naming
 ``` 
-ex) `feat#24-DataModeling`
+ex) `feat/#24-DataModeling`
 
 태그#이슈번호-기능설명 순으로 작성!
 

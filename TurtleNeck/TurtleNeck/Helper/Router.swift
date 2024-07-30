@@ -16,6 +16,7 @@ final class Router: ObservableObject {
         case motionPermission
         case measureReady
         case measurePosture
+        case measureFinish
         case measureError
         case withoutAirpods
     }
@@ -51,6 +52,8 @@ extension View {
             MeasureReadyView()
         case .measurePosture:
             MeasurePostureView()
+        case .measureFinish:
+            MeasureFinishView()
         case .measureError:
             MeasureErrorView()
         case .withoutAirpods:

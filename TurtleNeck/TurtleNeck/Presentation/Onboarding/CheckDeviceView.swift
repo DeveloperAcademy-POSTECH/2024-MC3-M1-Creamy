@@ -11,7 +11,6 @@ struct CheckDeviceView: View {
     @EnvironmentObject var router: Router
     
     @State private var isWithAirpodsHover = false
-    @State private var isWithoutAirpodsHover = false
     
     private var image: String {
         isWithAirpodsHover ? "withMax" : "withoutAirpods"
@@ -41,42 +40,30 @@ struct CheckDeviceView: View {
                             .foregroundColor(Color(hex: "BE6060"))
                     }
                     
-                    Button {
-                        router.navigate(to: .motionPermission)
-                    } label: {
-                        Text("에어팟으로 자세 측정하기")
-                            .frame(width: 200, height: 33)
-                            .foregroundColor(.primary)
-                            .background(isWithAirpodsHover ? Color.buttonHoverBG : Color.clear)
-                    }
-                    .buttonStyle(.plain)
-                    .cornerRadius(12)
-                    .onHover(perform: { hovering in
+                    HoverableButton(
+                        action: {
+                            router.navigate(to: .motionPermission)
+                        },
+                        label: "에어팟으로 자세 측정하기"
+                    )
+                    .onHover { hovering in
                         isWithAirpodsHover = hovering
-                    })
+                    }
                     .padding(.bottom, 20)
                 }
                 .padding(.bottom, -20)
                 
-                Button {
-                    router.navigate(to: .withoutAirpods)
-                } label: {
-                    Text("에어팟 없이 알림만 받기")
-                        .frame(width: 200, height: 33)
-                        .foregroundColor(.primary)
-                        .background(isWithoutAirpodsHover ? Color.buttonHoverBG : Color.clear)
-                }
-                .buttonStyle(.plain)
-                .cornerRadius(12)
-                .onHover(perform: { hovering in
-                    isWithoutAirpodsHover = hovering
-                })
+                HoverableButton(
+                    action: {
+                        router.navigate(to: .withoutAirpods)
+                    },
+                    label: "에어팟 없이 알림만 받기"
+                )
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.top, 35)
         .padding(.bottom, 61)
-        .border(.black)
     }
 }
 

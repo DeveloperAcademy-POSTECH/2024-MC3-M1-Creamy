@@ -28,19 +28,16 @@ struct MotionPermissionView: View {
             
             Spacer()
             
-            Button {
-                router.navigate(to: .measureReady)
-            } label: {
-                Text("다음")
-                    .foregroundColor(.primary)
-                    .frame(width: 200, height: 33)
-            }
-            .buttonStyle(.plain)
+            HoverableButton(
+                action: {
+                    router.navigate(to: .measureReady)
+                },
+                label: "다음"
+            )
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.top, 117)
         .padding(.bottom, 61)
-        .border(.black)
     }
 }
 

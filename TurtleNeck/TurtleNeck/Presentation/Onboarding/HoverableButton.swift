@@ -10,19 +10,15 @@ import SwiftUI
 struct HoverableButton: View {
     let action: () -> Void
     let label: String
-    let width: CGFloat
-    let height: CGFloat
-    let defaultBackgroundColor: Color
-    let hoverBackgroundColor: Color
     
     @State private var isHovered: Bool = false
     
     var body: some View {
         Button(action: action) {
             Text(label)
-                .frame(width: width, height: height)
+                .frame(width: 200, height: 33)
                 .foregroundColor(.primary)
-                .background(isHovered ? hoverBackgroundColor : defaultBackgroundColor)
+                .background(isHovered ? Color.buttonHoverBG : Color.clear)
                 .cornerRadius(12)
         }
         .buttonStyle(.plain)
@@ -32,6 +28,6 @@ struct HoverableButton: View {
     }
 }
 
-#Preview {
-    HoverableButtonView()
-}
+//#Preview {
+//    HoverableButton()
+//}

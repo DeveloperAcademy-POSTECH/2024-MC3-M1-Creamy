@@ -10,9 +10,6 @@ import SwiftUI
 struct MeasureErrorView: View {
     @EnvironmentObject var router: Router
     
-    @State var isMeasureAgainHover = false
-    @State var isWithoutAirpodsHover = false
-    
     var body: some View {
         VStack(spacing: 16){
            Image("error")
@@ -31,33 +28,13 @@ struct MeasureErrorView: View {
             Spacer()
             
             VStack(spacing: 8){
-                Button {
+                HoverableButton(action: {
                     router.navigate(to: .measureReady)
-                } label: {
-                    Text("다시 측정하기")
-                        .frame(width: 200, height: 33)
-                        .foregroundColor(.primary)
-                        .background(isMeasureAgainHover ? Color.buttonHoverBG : Color.clear)
-                }
-                .buttonStyle(.plain)
-                .cornerRadius(12)
-                .onHover(perform: { hovering in
-                    isMeasureAgainHover = hovering
-                })
+                }, label: "다시 측정하기")
                 
-                Button {
+                HoverableButton(action: {
                     router.navigate(to: .withoutAirpods)
-                } label: {
-                    Text("에어팟 없이 알림만 받기")
-                        .frame(width: 200, height: 33)
-                        .foregroundColor(.primary)
-                        .background(isWithoutAirpodsHover ? Color.buttonHoverBG : Color.clear)
-                }
-                .buttonStyle(.plain)
-                .cornerRadius(12)
-                .onHover(perform: { hovering in
-                    isWithoutAirpodsHover = hovering
-                })
+                }, label: "에어팟 없이 알림만 받기")
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

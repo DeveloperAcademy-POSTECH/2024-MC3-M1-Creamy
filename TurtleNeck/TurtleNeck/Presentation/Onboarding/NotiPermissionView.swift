@@ -30,20 +30,16 @@ struct NotiPermissionView: View {
             
             Spacer()
             
-            Button {
-                print("clicked")
-                router.navigate(to: .checkDevice)
-            } label: {
-                Text("다음")
-                    .foregroundColor(.primary)
-                    .frame(width: 200, height: 33)
-            }
-            .buttonStyle(.plain)
+            HoverableButton(
+                action: {
+                    router.navigate(to: .checkDevice)
+                },
+                label: "다음"
+            )
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.top, 132)
         .padding(.bottom, 61)
-        .border(.black)
     }
 }
 

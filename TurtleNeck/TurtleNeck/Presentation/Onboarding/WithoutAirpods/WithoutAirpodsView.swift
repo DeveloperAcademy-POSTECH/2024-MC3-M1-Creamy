@@ -28,19 +28,9 @@ struct WithoutAirpodsView: View {
             
             Spacer()
             
-            Button {
+            HoverableButton(action: {
                 
-            } label: {
-                Text("시작하기")
-                    .frame(width: 200, height: 33)
-                    .foregroundColor(.primary)
-                    .background(isAppStartHover ? Color.buttonHoverBG : Color.clear)
-            }
-            .buttonStyle(.plain)
-            .cornerRadius(12)
-            .onHover(perform: { hovering in
-                isAppStartHover = hovering
-            })
+            }, label: "시작하기")
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.top, 93)

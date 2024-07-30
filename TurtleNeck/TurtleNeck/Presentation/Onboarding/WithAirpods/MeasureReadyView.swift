@@ -10,9 +10,6 @@ import SwiftUI
 struct MeasureReadyView: View {
     @EnvironmentObject var router: Router
     
-    @State var isMeasureStartHover = false
-    @State var isWithoutAirpodsHover = false
-    
     var body: some View {
         VStack (spacing: 16){
             Rectangle()
@@ -34,39 +31,24 @@ struct MeasureReadyView: View {
             Spacer()
             
             VStack(spacing: 8){
-                Button {
-                    router.navigate(to: .measurePosture)
-                } label: {
-                    Text("측정 시작하기")
-                        .frame(width: 200, height: 33)
-                        .foregroundColor(.primary)
-                        .background(isMeasureStartHover ? Color.buttonHoverBG : Color.clear)
-                }
-                .buttonStyle(.plain)
-                .cornerRadius(12)
-                .onHover(perform: { hovering in
-                    isMeasureStartHover = hovering
-                })
+                HoverableButton(
+                    action: {
+                        router.navigate(to: .measurePosture)
+                    },
+                    label: "측정 시작하기"
+                )
                 
-                Button {
-                    router.navigate(to: .withoutAirpods)
-                } label: {
-                    Text("에어팟 없이 알림만 받기")
-                        .frame(width: 200, height: 33)
-                        .foregroundColor(.primary)
-                        .background(isWithoutAirpodsHover ? Color.buttonHoverBG : Color.clear)
-                }
-                .buttonStyle(.plain)
-                .cornerRadius(12)
-                .onHover(perform: { hovering in
-                    isWithoutAirpodsHover = hovering
-                })
+                HoverableButton(
+                    action: {
+                        router.navigate(to: .withoutAirpods)
+                    },
+                    label: "에어팟 없이 알림만 받기"
+                )
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.top, 117)
         .padding(.bottom, 44)
-        .border(.black)
     }
 }
 

@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct MeasureFinishView: View {
-    @State private var isAppStartHover = false
-    @State private var isMeasureAgainHover = false
+    @EnvironmentObject var router: Router
     
     var body: some View {
         VStack(spacing: 16){
@@ -32,33 +31,19 @@ struct MeasureFinishView: View {
             Spacer()
             
             VStack(spacing: 16){
-                Button {
-                    
-                } label: {
-                    Text("시작하기")
-                        .frame(width: 200, height: 33)
-                        .foregroundColor(.primary)
-                        .background(isAppStartHover ? Color.buttonHoverBG : Color.clear)
-                }
-                .buttonStyle(.plain)
-                .cornerRadius(12)
-                .onHover(perform: { hovering in
-                    isAppStartHover = hovering
-                })
+                HoverableButton(
+                    action: {
+                       
+                    },
+                    label: "시작하기"
+                )
                 
-                Button {
-                    
-                } label: {
-                    Text("다시 측정하기")
-                        .frame(width: 200, height: 33)
-                        .foregroundColor(.primary)
-                        .background(isMeasureAgainHover ? Color.buttonHoverBG : Color.clear)
-                }
-                .buttonStyle(.plain)
-                .cornerRadius(12)
-                .onHover(perform: { hovering in
-                    isMeasureAgainHover = hovering
-                })
+                HoverableButton(
+                    action: {
+                        router.navigate(to: .measureReady)
+                    },
+                    label: "다시 측정하기"
+                )
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

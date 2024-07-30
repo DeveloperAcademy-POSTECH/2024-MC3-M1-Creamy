@@ -10,12 +10,16 @@ import SwiftUI
 struct CheckDeviceView: View {
     @EnvironmentObject var router: Router
     
-    @State var isWithAirpodsHover = false
-    @State var isWithoutAirpodsHover = false
+    @State private var isWithAirpodsHover = false
+    @State private var isWithoutAirpodsHover = false
+    
+    private var image: String {
+        isWithAirpodsHover ? "withMax" : "withoutAirpods"
+    }
     
     var body: some View {
         VStack(spacing: 16){
-            Image("checkDeviceImg")
+            Image(image)
             
             Text("에어팟 사용 여부를 선택해 주세요.")
                 .font(.title3)
@@ -25,6 +29,7 @@ struct CheckDeviceView: View {
                 .multilineTextAlignment(.center)
                 .lineSpacing(4)
                 .font(.callout)
+                .foregroundColor(.subTextGray)
             
             Spacer()
             
@@ -70,6 +75,7 @@ struct CheckDeviceView: View {
         }
         .padding(.top, 35)
         .padding(.bottom, 61)
+        .border(.black)
     }
 }
 

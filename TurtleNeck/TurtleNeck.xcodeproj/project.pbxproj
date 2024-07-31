@@ -201,6 +201,7 @@
 		512DD16B2C538E580033985C /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				BD17242F2C5A245000C80B4B /* Components */,
 				512DD17D2C5392680033985C /* Main */,
 				512DD17E2C53926F0033985C /* Onboarding */,
 				512DD17C2C5392530033985C /* Setting */,
@@ -277,9 +278,16 @@
 				BD76C5DA2C5678E6004993EC /* CheckDeviceView.swift */,
 				BD76C5E22C5679F4004993EC /* WithAirpods */,
 				BD76C5E42C567A66004993EC /* WithoutAirpods */,
-				BD17242C2C592FF200C80B4B /* HoverableButton.swift */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		BD17242F2C5A245000C80B4B /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				BD17242C2C592FF200C80B4B /* HoverableButton.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		BD2713102C539BFF000820F6 /* Model */ = {

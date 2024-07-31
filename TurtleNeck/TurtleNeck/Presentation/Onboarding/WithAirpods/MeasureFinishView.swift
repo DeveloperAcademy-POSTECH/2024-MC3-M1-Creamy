@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct MeasureFinishView: View {
-    @EnvironmentObject var router: Router
-    
     var body: some View {
         VStack(spacing: 16){
             Rectangle()
@@ -40,7 +38,7 @@ struct MeasureFinishView: View {
                 
                 HoverableButton(
                     action: {
-                        router.navigate(to: .measureReady)
+                        Router.shared.navigate(to: .measureReady)
                     },
                     label: "다시 측정하기"
                 )

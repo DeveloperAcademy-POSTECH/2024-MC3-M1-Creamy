@@ -14,9 +14,19 @@ struct TurtleNeckApp: App {
             ContentView()
         }
         
-        MenuBarExtra("TurtleNeckApp", systemImage: "tortoise.fill") {
-            MainView()
-                .frame(width: 344,height: 240)
-        }.menuBarExtraStyle(.window)
+        MenuBarExtra {
+            MainView().frame(width: 348,height: 232)
+        } label: {
+            let image: NSImage = {
+                let ratio = $0.size.height / $0.size.width
+                $0.size.height = 30
+                $0.size.width = 30 / ratio
+                return $0
+            }(NSImage(named: "withMax")!)
+
+            Image(nsImage: image)
+            
+        }
+        .menuBarExtraStyle(.window)
     }
 }

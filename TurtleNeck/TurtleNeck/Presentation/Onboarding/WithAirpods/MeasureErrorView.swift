@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct MeasureErrorView: View {
-    @EnvironmentObject var router: Router
-    
     var body: some View {
         VStack(spacing: 16){
            Image("error")
@@ -29,11 +27,11 @@ struct MeasureErrorView: View {
             
             VStack(spacing: 8){
                 HoverableButton(action: {
-                    router.navigate(to: .measureReady)
+                    Router.shared.navigate(to: .measureReady)
                 }, label: "다시 측정하기")
                 
                 HoverableButton(action: {
-                    router.navigate(to: .withoutAirpods)
+                    Router.shared.navigate(to: .withoutAirpods)
                 }, label: "에어팟 없이 알림만 받기")
             }
         }

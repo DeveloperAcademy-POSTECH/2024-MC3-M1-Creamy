@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var router = Router()
     @State var isFirst: Bool = true
+    
+    @StateObject private var router = Router.shared
     
     var body: some View {
         NavigationStack(path: $router.navPath) {
@@ -20,11 +21,10 @@ struct ContentView: View {
                     NotiPermissionView()
                 }
             }
-            .navigationDestination(for: Router.Destination.self) { destination in
+            .navigationDestination(for: Destination.self) { destination in
                 destinationPath(destination: destination)
             }
         }
-        .environmentObject(router)
     }
 }
 

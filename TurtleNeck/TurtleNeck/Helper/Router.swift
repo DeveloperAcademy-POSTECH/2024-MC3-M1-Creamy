@@ -8,20 +8,25 @@
 import Foundation
 import SwiftUI
 
+// 가능한 destination들을 enum으로 전부 정의해줌
+enum Destination: Codable, Hashable {
+    case notiPermission
+    case checkDevice
+    case motionPermission
+    case measureReady
+    case measurePosture
+    case measureFinish
+    case measureError
+    case withoutAirpods
+}
+
 final class Router: ObservableObject {
-    /// 가능한 destination들을 enum으로 전부 정의해줌
-    public enum Destination: Codable, Hashable {
-        case notiPermission
-        case checkDevice
-        case motionPermission
-        case measureReady
-        case measurePosture
-        case measureFinish
-        case measureError
-        case withoutAirpods
-    }
+    //싱글톤 패턴 적용
+    static let shared = Router()
     
     @Published var navPath = NavigationPath()
+    
+    private init(){}
     
     func navigate(to destination: Destination) {
         navPath.append(destination)
@@ -40,7 +45,7 @@ final class Router: ObservableObject {
 //MARK: destination을 관리하는 extension
 extension View {
     @ViewBuilder
-    func destinationPath(destination: Router.Destination) -> some View {
+    func destinationPath(destination: Destination) -> some View {
         switch destination {
         case .notiPermission:
             NotiPermissionView()

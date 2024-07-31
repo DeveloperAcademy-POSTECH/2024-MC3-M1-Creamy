@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct MeasureReadyView: View {
-    @EnvironmentObject var router: Router
-    
     var body: some View {
         VStack (spacing: 16){
             Rectangle()
@@ -33,14 +31,14 @@ struct MeasureReadyView: View {
             VStack(spacing: 8){
                 HoverableButton(
                     action: {
-                        router.navigate(to: .measurePosture)
+                        Router.shared.navigate(to: .measurePosture)
                     },
                     label: "측정 시작하기"
                 )
                 
                 HoverableButton(
                     action: {
-                        router.navigate(to: .withoutAirpods)
+                        Router.shared.navigate(to: .withoutAirpods)
                     },
                     label: "에어팟 없이 알림만 받기"
                 )

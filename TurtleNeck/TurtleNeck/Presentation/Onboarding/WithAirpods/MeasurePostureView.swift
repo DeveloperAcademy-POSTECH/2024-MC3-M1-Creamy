@@ -68,8 +68,6 @@ struct MeasureCountDownView: View {
 }
 
 struct MeasuringView: View {
-    @EnvironmentObject var router: Router
-    
     @State private var progress = 0.0
     private let totalTime: Double = 5.0
     private let timer = Timer.publish(every: 0.05, on: .main, in: .common).autoconnect()
@@ -106,7 +104,7 @@ struct MeasuringView: View {
                 } else {
                     timer.upstream.connect().cancel()
                     
-                    router.navigate(to: .measureFinish)
+                    Router.shared.navigate(to: .measureFinish)
                 }
             }
             

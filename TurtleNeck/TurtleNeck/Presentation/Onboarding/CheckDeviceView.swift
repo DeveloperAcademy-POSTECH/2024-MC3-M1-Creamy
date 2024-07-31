@@ -7,9 +7,7 @@
 
 import SwiftUI
 
-struct CheckDeviceView: View {
-    @EnvironmentObject var router: Router
-    
+struct CheckDeviceView: View {    
     @State private var isWithAirpodsHover = false
     
     private var image: String {
@@ -42,7 +40,7 @@ struct CheckDeviceView: View {
                     
                     HoverableButton(
                         action: {
-                            router.navigate(to: .motionPermission)
+                            Router.shared.navigate(to: .motionPermission)
                         },
                         label: "에어팟으로 자세 측정하기"
                     )
@@ -55,7 +53,7 @@ struct CheckDeviceView: View {
                 
                 HoverableButton(
                     action: {
-                        router.navigate(to: .withoutAirpods)
+                        Router.shared.navigate(to: .withoutAirpods)
                     },
                     label: "에어팟 없이 알림만 받기"
                 )

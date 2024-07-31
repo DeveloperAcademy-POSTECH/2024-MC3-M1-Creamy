@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct MotionPermissionView: View {
-    @EnvironmentObject var router: Router
-    
     var body: some View {
         VStack(spacing: 16){
             Rectangle()
@@ -30,7 +28,7 @@ struct MotionPermissionView: View {
             
             HoverableButton(
                 action: {
-                    router.navigate(to: .measureReady)
+                    Router.shared.navigate(to: .measureReady)
                 },
                 label: "다음"
             )

@@ -8,14 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var isFirst: Bool = true
+    
+    @StateObject private var router = Router.shared
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack(path: $router.navPath) {
+            VStack{
+                if isFirst{
+                    NotiPermissionView()
+                } else{
+                    NotiPermissionView()
+                }
+            }
+            .navigationDestination(for: Destination.self) { destination in
+                destinationPath(destination: destination)
+            }
         }
-        .padding()
     }
 }
 

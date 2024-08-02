@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import CoreMotion
 
 struct MotionPermissionView: View {
+    @StateObject private var motionManager = HeadphoneMotionManager()
+    
     var body: some View {
         VStack(spacing: 16){
             Rectangle()
@@ -32,6 +35,10 @@ struct MotionPermissionView: View {
                 },
                 label: "다음"
             )
+        }
+        .onAppear{
+            // 일단 stop, 권한만 받아옴
+            motionManager.stopUpdates()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.top, 117)

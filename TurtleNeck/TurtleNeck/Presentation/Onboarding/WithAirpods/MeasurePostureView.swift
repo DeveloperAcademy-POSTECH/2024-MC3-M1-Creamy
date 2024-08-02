@@ -9,43 +9,27 @@ import SwiftUI
 
 struct MeasurePostureView: View {
     @State private var isCountdownComplete = false
-    @State private var countdown = 3
+    @State private var pitchValues: [Double] = []
+    @StateObject private var motionManager = HeadphoneMotionManager()
     
     var body: some View {
         VStack {
             if isCountdownComplete {
-                MeasuringView()
-            } else {
-                MeasureCountDownView(countdown: $countdown)
+                MeasuringView(pitchValues: $pitchValues, motionManager: motionManager)
                     .onAppear {
-                        startCountdown()
+                        motionManager.startUpdates()
                     }
-            }
-        }
-    }
-    
-    private func startCountdown() {
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
-            if countdown > 1 {
-                countdown -= 1
             } else {
-                timer.invalidate()
-                withAnimation {
-                    isCountdownComplete = true
-                }
+                MeasureCountDownView(isCountdownComplete: $isCountdownComplete)
             }
         }
     }
 }
 
-#Preview {
-    MeasurePostureView()
-        .frame(width: 560, height: 560)
-        .background(.white)
-}
-
+//MARK: - 카운트다운 뷰
 struct MeasureCountDownView: View {
-    @Binding var countdown: Int
+    @State private var countdown = 3
+    @Binding var isCountdownComplete: Bool
     
     var body: some View {
         VStack(spacing: 16) {
@@ -64,19 +48,39 @@ struct MeasureCountDownView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.top, 112)
         .padding(.bottom, 162)
+        .onAppear {
+            startCountdown()
+        }
+    }
+    
+    /// countdown 타이머 함수
+    private func startCountdown() {
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+            if countdown > 1 {
+                countdown -= 1
+            } else {
+                timer.invalidate()
+                withAnimation {
+                    isCountdownComplete = true
+                }
+            }
+        }
     }
 }
 
+//MARK: - 자세 측정 중 뷰
 struct MeasuringView: View {
+    @Binding var pitchValues: [Double]
+    @ObservedObject var motionManager: HeadphoneMotionManager
     @State private var progress = 0.0
     private let totalTime: Double = 5.0
-    private let timer = Timer.publish(every: 0.05, on: .main, in: .common).autoconnect()
+    @State private var timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
     
     var body: some View {
         VStack(spacing: 16){
             ZStack {
                 Image("Img_Measuring")
-                
+                //원모양 progress bar
                 Circle()
                     .strokeBorder(Color(hex: "EAEFD7"), style: StrokeStyle(
                         lineWidth: 10,
@@ -98,12 +102,16 @@ struct MeasuringView: View {
                 
             }
             .padding(.top, 30)
+            // 타이머가 0.1초마다 바뀔 때의 동작 설정
             .onReceive(timer) { _ in
                 if progress < 1.0 {
-                    progress += 1.0 / (totalTime / 0.05)
+                    progress += 1.0 / (totalTime / 0.1)
+                    print(progress)
+                    pitchValues.append(motionManager.pitch)
                 } else {
                     timer.upstream.connect().cancel()
-                    
+                    motionManager.stopUpdates()
+                    print("5초 동안의 평균 pitch 값: \(calculateAveragePitch())")
                     Router.shared.navigate(to: .measureFinish)
                 }
             }
@@ -124,4 +132,18 @@ struct MeasuringView: View {
         .padding(.top, 30)
         .padding(.bottom, 134)
     }
+    
+    ///pitch값의 평균을 구하는 함수
+    private func calculateAveragePitch() -> Double {
+        let total = pitchValues.reduce(0, +)
+        let average = total / Double(pitchValues.count)
+        print("총 pitch의 수: \(pitchValues.count)")
+        return average
+    }
+}
+
+#Preview {
+    MeasurePostureView()
+        .frame(width: 560, height: 560)
+        .background(.white)
 }

@@ -9,6 +9,17 @@
 /* Begin PBXBuildFile section */
 		4F8160242C5536120030E5D6 /* RealTimePostureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8160232C5536120030E5D6 /* RealTimePostureView.swift */; };
 		4F8160262C5536380030E5D6 /* WeekPostureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8160252C5536380030E5D6 /* WeekPostureView.swift */; };
+		4F81605F2C57EBE30030E5D6 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F81605E2C57EBE30030E5D6 /* ColorExtension.swift */; };
+		4F8160692C57EC1B0030E5D6 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4F8160602C57EC1A0030E5D6 /* Pretendard-Regular.otf */; };
+		4F81606A2C57EC1B0030E5D6 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4F8160612C57EC1A0030E5D6 /* Pretendard-Thin.otf */; };
+		4F81606B2C57EC1B0030E5D6 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4F8160622C57EC1A0030E5D6 /* Pretendard-SemiBold.otf */; };
+		4F81606C2C57EC1B0030E5D6 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4F8160632C57EC1B0030E5D6 /* Pretendard-Light.otf */; };
+		4F81606D2C57EC1B0030E5D6 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4F8160642C57EC1B0030E5D6 /* Pretendard-Medium.otf */; };
+		4F81606E2C57EC1B0030E5D6 /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4F8160652C57EC1B0030E5D6 /* Pretendard-Black.otf */; };
+		4F81606F2C57EC1B0030E5D6 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4F8160662C57EC1B0030E5D6 /* Pretendard-Bold.otf */; };
+		4F8160702C57EC1B0030E5D6 /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4F8160672C57EC1B0030E5D6 /* Pretendard-ExtraBold.otf */; };
+		4F8160712C57EC1B0030E5D6 /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4F8160682C57EC1B0030E5D6 /* Pretendard-ExtraLight.otf */; };
+		4F8160732C57EC5B0030E5D6 /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8160722C57EC5B0030E5D6 /* FontExtension.swift */; };
 		512DD15A2C538B410033985C /* TurtleNeckApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512DD1592C538B410033985C /* TurtleNeckApp.swift */; };
 		512DD15C2C538B410033985C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512DD15B2C538B410033985C /* ContentView.swift */; };
 		512DD15E2C538B430033985C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 512DD15D2C538B430033985C /* Assets.xcassets */; };
@@ -19,16 +30,38 @@
 		512DD1792C5390AF0033985C /* DummyServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512DD1782C5390AF0033985C /* DummyServiceInterface.swift */; };
 		512DD17B2C5391660033985C /* DummyHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512DD17A2C5391660033985C /* DummyHelper.swift */; };
 		512DD1802C5392A60033985C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512DD17F2C5392A60033985C /* MainView.swift */; };
-		512DD1822C5392BF0033985C /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512DD1812C5392BF0033985C /* OnboardingView.swift */; };
+		512DD1822C5392BF0033985C /* NotiPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512DD1812C5392BF0033985C /* NotiPermissionView.swift */; };
 		512DD1842C5392CC0033985C /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512DD1832C5392CC0033985C /* SettingView.swift */; };
 		51EB27582C5C7F2500CEE9FB /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EB27572C5C7F2500CEE9FB /* NotificationManager.swift */; };
+		BD17242D2C592FF200C80B4B /* HoverableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD17242C2C592FF200C80B4B /* HoverableButton.swift */; };
 		BD2713122C539C12000820F6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2713112C539C12000820F6 /* User.swift */; };
-		BD2713142C539C34000820F6 /* AlertStatistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2713132C539C34000820F6 /* AlertStatistic.swift */; };
+		BD500FBA2C5BDFED00F0D257 /* HeadphoneMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD500FB92C5BDFED00F0D257 /* HeadphoneMotionManager.swift */; };
+		BD2713142C539C34000820F6 /* NotiStatistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2713132C539C34000820F6 /* NotiStatistic.swift */; };
+		BD76C5DB2C5678E6004993EC /* CheckDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76C5DA2C5678E6004993EC /* CheckDeviceView.swift */; };
+		BD76C5DD2C56790F004993EC /* MotionPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76C5DC2C56790F004993EC /* MotionPermissionView.swift */; };
+		BD76C5DF2C567952004993EC /* MeasureReadyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76C5DE2C567952004993EC /* MeasureReadyView.swift */; };
+		BD76C5E12C5679C9004993EC /* MeasurePostureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76C5E02C5679C9004993EC /* MeasurePostureView.swift */; };
+		BD76C5E62C567ACC004993EC /* WithoutAirpodsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76C5E52C567ACC004993EC /* WithoutAirpodsView.swift */; };
+		BD76C5E82C567B1E004993EC /* MeasureFinishView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76C5E72C567B1E004993EC /* MeasureFinishView.swift */; };
+		BD76C5EA2C567C6F004993EC /* MeasureErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76C5E92C567C6F004993EC /* MeasureErrorView.swift */; };
+		BD76C5EE2C56AE83004993EC /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76C5ED2C56AE83004993EC /* Router.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4F8160232C5536120030E5D6 /* RealTimePostureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealTimePostureView.swift; sourceTree = "<group>"; };
 		4F8160252C5536380030E5D6 /* WeekPostureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekPostureView.swift; sourceTree = "<group>"; };
+		4F81605E2C57EBE30030E5D6 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
+		4F8160602C57EC1A0030E5D6 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
+		4F8160612C57EC1A0030E5D6 /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
+		4F8160622C57EC1A0030E5D6 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
+		4F8160632C57EC1B0030E5D6 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
+		4F8160642C57EC1B0030E5D6 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
+		4F8160652C57EC1B0030E5D6 /* Pretendard-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Black.otf"; sourceTree = "<group>"; };
+		4F8160662C57EC1B0030E5D6 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
+		4F8160672C57EC1B0030E5D6 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
+		4F8160682C57EC1B0030E5D6 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
+		4F8160722C57EC5B0030E5D6 /* FontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
+		4F8160742C57EC840030E5D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		512DD1562C538B410033985C /* TurtleNeck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TurtleNeck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		512DD1592C538B410033985C /* TurtleNeckApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurtleNeckApp.swift; sourceTree = "<group>"; };
 		512DD15B2C538B410033985C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -41,11 +74,21 @@
 		512DD1782C5390AF0033985C /* DummyServiceInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyServiceInterface.swift; sourceTree = "<group>"; };
 		512DD17A2C5391660033985C /* DummyHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyHelper.swift; sourceTree = "<group>"; };
 		512DD17F2C5392A60033985C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		512DD1812C5392BF0033985C /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		512DD1812C5392BF0033985C /* NotiPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiPermissionView.swift; sourceTree = "<group>"; };
 		512DD1832C5392CC0033985C /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		51EB27572C5C7F2500CEE9FB /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		BD17242C2C592FF200C80B4B /* HoverableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoverableButton.swift; sourceTree = "<group>"; };
 		BD2713112C539C12000820F6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		BD2713132C539C34000820F6 /* AlertStatistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertStatistic.swift; sourceTree = "<group>"; };
+		BD500FB92C5BDFED00F0D257 /* HeadphoneMotionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadphoneMotionManager.swift; sourceTree = "<group>"; };
+		BD2713132C539C34000820F6 /* NotiStatistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiStatistic.swift; sourceTree = "<group>"; };
+		BD76C5DA2C5678E6004993EC /* CheckDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckDeviceView.swift; sourceTree = "<group>"; };
+		BD76C5DC2C56790F004993EC /* MotionPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionPermissionView.swift; sourceTree = "<group>"; };
+		BD76C5DE2C567952004993EC /* MeasureReadyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureReadyView.swift; sourceTree = "<group>"; };
+		BD76C5E02C5679C9004993EC /* MeasurePostureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurePostureView.swift; sourceTree = "<group>"; };
+		BD76C5E52C567ACC004993EC /* WithoutAirpodsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithoutAirpodsView.swift; sourceTree = "<group>"; };
+		BD76C5E72C567B1E004993EC /* MeasureFinishView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureFinishView.swift; sourceTree = "<group>"; };
+		BD76C5E92C567C6F004993EC /* MeasureErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureErrorView.swift; sourceTree = "<group>"; };
+		BD76C5ED2C56AE83004993EC /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +102,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F8160592C57EB800030E5D6 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				512DD15D2C538B430033985C /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		4F81605C2C57EB9B0030E5D6 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				4F8160652C57EC1B0030E5D6 /* Pretendard-Black.otf */,
+				4F8160662C57EC1B0030E5D6 /* Pretendard-Bold.otf */,
+				4F8160672C57EC1B0030E5D6 /* Pretendard-ExtraBold.otf */,
+				4F8160682C57EC1B0030E5D6 /* Pretendard-ExtraLight.otf */,
+				4F8160632C57EC1B0030E5D6 /* Pretendard-Light.otf */,
+				4F8160642C57EC1B0030E5D6 /* Pretendard-Medium.otf */,
+				4F8160602C57EC1A0030E5D6 /* Pretendard-Regular.otf */,
+				4F8160622C57EC1A0030E5D6 /* Pretendard-SemiBold.otf */,
+				4F8160612C57EC1A0030E5D6 /* Pretendard-Thin.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		4F81605D2C57EBB10030E5D6 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4F81605E2C57EBE30030E5D6 /* ColorExtension.swift */,
+				4F8160722C57EC5B0030E5D6 /* FontExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		512DD14D2C538B410033985C = {
 			isa = PBXGroup;
 			children = (
@@ -78,6 +154,7 @@
 		512DD1582C538B410033985C /* TurtleNeck */ = {
 			isa = PBXGroup;
 			children = (
+				4F8160742C57EC840030E5D6 /* Info.plist */,
 				512DD1622C538B430033985C /* TurtleNeck.entitlements */,
 				512DD16A2C538E550033985C /* App */,
 				512DD16D2C538F390033985C /* Data */,
@@ -102,6 +179,8 @@
 			isa = PBXGroup;
 			children = (
 				512DD17A2C5391660033985C /* DummyHelper.swift */,
+				BD76C5ED2C56AE83004993EC /* Router.swift */,
+				BD500FB92C5BDFED00F0D257 /* HeadphoneMotionManager.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -128,6 +207,7 @@
 		512DD16B2C538E580033985C /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				BD17242F2C5A245000C80B4B /* Components */,
 				512DD17D2C5392680033985C /* Main */,
 				512DD17E2C53926F0033985C /* Onboarding */,
 				512DD17C2C5392530033985C /* Setting */,
@@ -139,7 +219,9 @@
 		512DD16C2C538F360033985C /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				512DD15D2C538B430033985C /* Assets.xcassets */,
+				4F81605D2C57EBB10030E5D6 /* Extensions */,
+				4F81605C2C57EB9B0030E5D6 /* Fonts */,
+				4F8160592C57EB800030E5D6 /* Assets */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -198,18 +280,49 @@
 		512DD17E2C53926F0033985C /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				512DD1812C5392BF0033985C /* OnboardingView.swift */,
+				512DD1812C5392BF0033985C /* NotiPermissionView.swift */,
+				BD76C5DA2C5678E6004993EC /* CheckDeviceView.swift */,
+				BD76C5E22C5679F4004993EC /* WithAirpods */,
+				BD76C5E42C567A66004993EC /* WithoutAirpods */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		BD17242F2C5A245000C80B4B /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				BD17242C2C592FF200C80B4B /* HoverableButton.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		BD2713102C539BFF000820F6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				BD2713112C539C12000820F6 /* User.swift */,
-				BD2713132C539C34000820F6 /* AlertStatistic.swift */,
+				BD2713132C539C34000820F6 /* NotiStatistic.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		BD76C5E22C5679F4004993EC /* WithAirpods */ = {
+			isa = PBXGroup;
+			children = (
+				BD76C5DC2C56790F004993EC /* MotionPermissionView.swift */,
+				BD76C5DE2C567952004993EC /* MeasureReadyView.swift */,
+				BD76C5E02C5679C9004993EC /* MeasurePostureView.swift */,
+				BD76C5E72C567B1E004993EC /* MeasureFinishView.swift */,
+				BD76C5E92C567C6F004993EC /* MeasureErrorView.swift */,
+			);
+			path = WithAirpods;
+			sourceTree = "<group>";
+		};
+		BD76C5E42C567A66004993EC /* WithoutAirpods */ = {
+			isa = PBXGroup;
+			children = (
+				BD76C5E52C567ACC004993EC /* WithoutAirpodsView.swift */,
+			);
+			path = WithoutAirpods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,8 +383,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F81606D2C57EC1B0030E5D6 /* Pretendard-Medium.otf in Resources */,
 				512DD1612C538B430033985C /* Preview Assets.xcassets in Resources */,
+				4F8160702C57EC1B0030E5D6 /* Pretendard-ExtraBold.otf in Resources */,
+				4F8160692C57EC1B0030E5D6 /* Pretendard-Regular.otf in Resources */,
+				4F81606B2C57EC1B0030E5D6 /* Pretendard-SemiBold.otf in Resources */,
 				512DD15E2C538B430033985C /* Assets.xcassets in Resources */,
+				4F81606A2C57EC1B0030E5D6 /* Pretendard-Thin.otf in Resources */,
+				4F81606E2C57EC1B0030E5D6 /* Pretendard-Black.otf in Resources */,
+				4F81606F2C57EC1B0030E5D6 /* Pretendard-Bold.otf in Resources */,
+				4F81606C2C57EC1B0030E5D6 /* Pretendard-Light.otf in Resources */,
+				4F8160712C57EC1B0030E5D6 /* Pretendard-ExtraLight.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,20 +404,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD76C5EE2C56AE83004993EC /* Router.swift in Sources */,
 				512DD1792C5390AF0033985C /* DummyServiceInterface.swift in Sources */,
+				BD500FBA2C5BDFED00F0D257 /* HeadphoneMotionManager.swift in Sources */,
+				BD17242D2C592FF200C80B4B /* HoverableButton.swift in Sources */,
 				512DD1842C5392CC0033985C /* SettingView.swift in Sources */,
+				4F8160732C57EC5B0030E5D6 /* FontExtension.swift in Sources */,
 				512DD1802C5392A60033985C /* MainView.swift in Sources */,
-				BD2713142C539C34000820F6 /* AlertStatistic.swift in Sources */,
+				BD76C5DF2C567952004993EC /* MeasureReadyView.swift in Sources */,
+				BD2713142C539C34000820F6 /* NotiStatistic.swift in Sources */,
 				512DD15C2C538B410033985C /* ContentView.swift in Sources */,
-				512DD1822C5392BF0033985C /* OnboardingView.swift in Sources */,
+				512DD1822C5392BF0033985C /* NotiPermissionView.swift in Sources */,
+				BD76C5E82C567B1E004993EC /* MeasureFinishView.swift in Sources */,
+				BD76C5DD2C56790F004993EC /* MotionPermissionView.swift in Sources */,
 				512DD1752C5390590033985C /* DummyEntity.swift in Sources */,
 				512DD1772C53907F0033985C /* DummyUseCase.swift in Sources */,
 				512DD16F2C538FD90033985C /* DummyService.swift in Sources */,
+				BD76C5E12C5679C9004993EC /* MeasurePostureView.swift in Sources */,
+				BD76C5E62C567ACC004993EC /* WithoutAirpodsView.swift in Sources */,
+				BD76C5DB2C5678E6004993EC /* CheckDeviceView.swift in Sources */,
+				4F81605F2C57EBE30030E5D6 /* ColorExtension.swift in Sources */,
 				4F8160242C5536120030E5D6 /* RealTimePostureView.swift in Sources */,
 				4F8160262C5536380030E5D6 /* WeekPostureView.swift in Sources */,
 				512DD15A2C538B410033985C /* TurtleNeckApp.swift in Sources */,
 				51EB27582C5C7F2500CEE9FB /* NotificationManager.swift in Sources */,
 				512DD17B2C5391660033985C /* DummyHelper.swift in Sources */,
+				BD76C5EA2C567C6F004993EC /* MeasureErrorView.swift in Sources */,
 				BD2713122C539C12000820F6 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -431,11 +565,13 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TurtleNeck/Preview Content\"";
-				DEVELOPMENT_TEAM = U6CCD5BT22;
+				DEVELOPMENT_TEAM = PK4L7H6D6F;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TurtleNeck/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMotionUsageDescription = "자세를 측정하기 위해 에어팟의\\n모션데이터에 접근이 필요해요.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -458,11 +594,13 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TurtleNeck/Preview Content\"";
-				DEVELOPMENT_TEAM = U6CCD5BT22;
+				DEVELOPMENT_TEAM = PK4L7H6D6F;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TurtleNeck/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMotionUsageDescription = "자세를 측정하기 위해 에어팟의\\n모션데이터에 접근이 필요해요.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",

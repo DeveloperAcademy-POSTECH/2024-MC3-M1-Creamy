@@ -13,7 +13,7 @@ struct TurtleNeckApp: App {
         WindowGroup {
             ContentView()
         }
-        
+
         MenuBarExtra {
             MainView().frame(width: 348,height: 232)
         } label: {
@@ -23,10 +23,11 @@ struct TurtleNeckApp: App {
                 $0.size.width = 30 / ratio
                 return $0
             }(NSImage(named: "withMax")!)
-
+            
             Image(nsImage: image)
             
         }
         .menuBarExtraStyle(.window)
     }
 }
+

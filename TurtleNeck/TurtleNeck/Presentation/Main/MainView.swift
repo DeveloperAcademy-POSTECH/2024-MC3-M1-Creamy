@@ -19,35 +19,7 @@ struct MainView: View {
                 
                 segmentView.padding(EdgeInsets(top: 4, leading: 0, bottom: 0, trailing: 16))
                 
-                Button(action: {
-                    isMute.toggle()
-                }){
-                    Image(systemName: isMute ? "speaker" : "speaker.slash")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 16,height: 16)
-                        .foregroundColor(.primary)
-                }.buttonStyle(.plain)
-                
-                Button(action: {
-
-                }){
-                    Image(systemName:"macwindow.on.rectangle")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 17,height: 17)
-                        .foregroundColor(.primary)
-                }.buttonStyle(.plain)
-                
-                Button(action: {
-                    
-                }){
-                    Image(systemName: "gear")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 16,height: 16)
-                        .foregroundColor(.primary)
-                }.buttonStyle(.plain)
+                TopMenuView()
             }
             .padding(.top, 12)
             

@@ -14,14 +14,14 @@ class User {
     var goodPosture: Double
     var goodPostureRange : Double
     var disturbMode : Bool
-    var alertCycle: Int
-    @Relationship(deleteRule: .cascade) var alertStatistics: [AlertStatistic]?
+    var notiCycle: Int
+    @Relationship(deleteRule: .cascade) var notiStatistics: [NotiStatistic]?
     
-    init(isFirst: Bool, goodPosture: Double, goodPostureRange: Double, disturbMode: Bool, alertCycle: Int) {
+    init(isFirst: Bool, goodPosture: Double, goodPostureRange: Double, disturbMode: Bool, notiCycle: Int) {
         self.isFirst = isFirst
         self.goodPosture = goodPosture
         self.goodPostureRange = goodPostureRange
         self.disturbMode = disturbMode
-        self.alertCycle = alertCycle
+        self.notiCycle = notiCycle
     }
 }

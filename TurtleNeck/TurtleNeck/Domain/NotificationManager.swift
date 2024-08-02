@@ -8,6 +8,7 @@
 import Foundation
 import UserNotifications
 
+// TODO: enum 정리하기
 enum NotiContent: Int {
     case worse1 = 1
     case worse2 = 2
@@ -79,6 +80,7 @@ class NotificationManager {
             switch setting.authorizationStatus {
             case .notDetermined:
                 print("알림 권한 미설정 상태")
+                // TODO: 알림 권한 미설정 상태일 경우 권한 요청 자동으로 할지 결정하기
                 self.requestNotiPermission()
             case .denied:
                 print("알림 권한 불허용 상태")
@@ -111,6 +113,7 @@ class NotificationManager {
     }
     
     // 알림 설정하기
+    // TODO: state 값(어떤 알림을 설정할지 결정하는 값) 어떤 형태의 값으로 할지 결정하기
     func settingTimeNoti(state: String) {
         
         var randomInt = 0
@@ -167,6 +170,7 @@ class NotificationManager {
         }
     }
     
+    // 설정된 알림 전체 제거하기
     func removeTimeNoti() {
         notiCenter.removeAllPendingNotificationRequests()
     }

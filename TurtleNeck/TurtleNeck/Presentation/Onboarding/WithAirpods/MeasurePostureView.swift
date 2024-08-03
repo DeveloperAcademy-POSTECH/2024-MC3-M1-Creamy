@@ -13,13 +13,21 @@ struct MeasurePostureView: View {
     @State private var pitchValues: [Double] = []
     @StateObject private var motionManager = HeadphoneMotionManager()
     
+    @State private var isAirPodsConnected = false
+    @StateObject private var airPodsDetector = AirPodsDetector()
+    
     var body: some View {
         VStack {
             if isCountdownComplete {
-                MeasuringView(pitchValues: $pitchValues, motionManager: motionManager)
-                    .onAppear {
-                        motionManager.startUpdates()
-                    }
+                // 에어팟 연결상태 확인
+                if isAirPodsConnected {
+                    MeasuringView(pitchValues: $pitchValues, motionManager: motionManager)
+                        .onAppear {
+                            motionManager.startUpdates()
+                        }
+                } else {
+                    MeasureErrorView()
+                }
             } else {
                 MeasureCountDownView(isCountdownComplete: $isCountdownComplete)
             }

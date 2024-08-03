@@ -32,6 +32,7 @@
 		512DD1802C5392A60033985C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512DD17F2C5392A60033985C /* MainView.swift */; };
 		512DD1822C5392BF0033985C /* NotiPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512DD1812C5392BF0033985C /* NotiPermissionView.swift */; };
 		512DD1842C5392CC0033985C /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512DD1832C5392CC0033985C /* SettingView.swift */; };
+		51C09D042C5E42A8003307F2 /* NotificationContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C09D032C5E42A8003307F2 /* NotificationContent.swift */; };
 		51EB27582C5C7F2500CEE9FB /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EB27572C5C7F2500CEE9FB /* NotificationManager.swift */; };
 		BD17242D2C592FF200C80B4B /* HoverableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD17242C2C592FF200C80B4B /* HoverableButton.swift */; };
 		BD2713122C539C12000820F6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2713112C539C12000820F6 /* User.swift */; };
@@ -76,6 +77,7 @@
 		512DD17F2C5392A60033985C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		512DD1812C5392BF0033985C /* NotiPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiPermissionView.swift; sourceTree = "<group>"; };
 		512DD1832C5392CC0033985C /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		51C09D032C5E42A8003307F2 /* NotificationContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationContent.swift; sourceTree = "<group>"; };
 		51EB27572C5C7F2500CEE9FB /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		BD17242C2C592FF200C80B4B /* HoverableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoverableButton.swift; sourceTree = "<group>"; };
 		BD2713112C539C12000820F6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -191,7 +193,6 @@
 				512DD1732C53901F0033985C /* Entity */,
 				512DD1712C5390140033985C /* UseCase */,
 				512DD1702C5390110033985C /* Interface */,
-				51EB27572C5C7F2500CEE9FB /* NotificationManager.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -246,6 +247,7 @@
 		512DD1712C5390140033985C /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
+				51EB27572C5C7F2500CEE9FB /* NotificationManager.swift */,
 				512DD1762C53907F0033985C /* DummyUseCase.swift */,
 			);
 			path = UseCase;
@@ -254,6 +256,7 @@
 		512DD1732C53901F0033985C /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				51C09D032C5E42A8003307F2 /* NotificationContent.swift */,
 				512DD1742C5390590033985C /* DummyEntity.swift */,
 			);
 			path = Entity;
@@ -422,6 +425,7 @@
 				512DD16F2C538FD90033985C /* DummyService.swift in Sources */,
 				BD76C5E12C5679C9004993EC /* MeasurePostureView.swift in Sources */,
 				BD76C5E62C567ACC004993EC /* WithoutAirpodsView.swift in Sources */,
+				51C09D042C5E42A8003307F2 /* NotificationContent.swift in Sources */,
 				BD76C5DB2C5678E6004993EC /* CheckDeviceView.swift in Sources */,
 				4F81605F2C57EBE30030E5D6 /* ColorExtension.swift in Sources */,
 				4F8160242C5536120030E5D6 /* RealTimePostureView.swift in Sources */,

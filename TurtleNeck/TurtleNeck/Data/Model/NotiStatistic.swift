@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-class AlertStatistic {
+class NotiStatistic {
     @Attribute(.unique) var id = UUID()
     var date: Date
     var time: Int

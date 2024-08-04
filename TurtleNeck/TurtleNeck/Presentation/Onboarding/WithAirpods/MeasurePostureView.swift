@@ -10,24 +10,15 @@ import SwiftData
 
 struct MeasurePostureView: View {
     @State private var isCountdownComplete = false
-    @State private var pitchValues: [Double] = []
     @StateObject private var motionManager = HeadphoneMotionManager()
-    
-    @State private var isAirPodsConnected = false
-    @StateObject private var airPodsDetector = AirPodsDetector()
     
     var body: some View {
         VStack {
             if isCountdownComplete {
-                // 에어팟 연결상태 확인
-                if isAirPodsConnected {
-                    MeasuringView(pitchValues: $pitchValues, motionManager: motionManager)
-                        .onAppear {
-                            motionManager.startUpdates()
-                        }
-                } else {
-                    MeasureErrorView()
-                }
+                MeasuringView(motionManager: motionManager)
+                    .onAppear {
+                        motionManager.startUpdates()
+                    }
             } else {
                 MeasureCountDownView(isCountdownComplete: $isCountdownComplete)
             }
@@ -79,7 +70,7 @@ struct MeasureCountDownView: View {
 
 //MARK: - 자세 측정 중 뷰
 struct MeasuringView: View {
-    @Binding var pitchValues: [Double]
+    @State private var pitchValues: [Double] = []
     @ObservedObject var motionManager: HeadphoneMotionManager
     @State private var progress = 0.0
     private let totalTime: Double = 5.0

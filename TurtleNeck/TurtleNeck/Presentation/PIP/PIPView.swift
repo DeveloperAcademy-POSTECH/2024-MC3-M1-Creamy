@@ -42,8 +42,5 @@ struct PIPView: View {
         .onAppear{
             motionManager.startUpdates()
         }
-//        .onDisappear {
-//            motionManager.stopUpdates()
-//        }
     }
 }

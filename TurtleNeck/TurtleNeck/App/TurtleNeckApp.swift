@@ -141,7 +141,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 extension AppDelegate: NSWindowDelegate {
     func windowWillClose(_ notification: Notification) {
-        // 팝오버를 다시 열기
         showPopover()
     }
 }

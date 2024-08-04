@@ -33,9 +33,6 @@ struct MainView: View {
         .onAppear {
             motionManager.startUpdates()
         }
-//        .onDisappear {
-//            motionManager.stopUpdates()
-//        }
     }
     
     private var segmentView: some View {

@@ -8,6 +8,12 @@
 import Foundation
 import CoreMotion
 
+enum PostureState {
+    case good   // 나쁜자세 -> 좋은자세
+    case worse  // 좋은 자세 -> 나쁜 자세
+    case bad    // 나쁜 자세가 계속 지속됨
+}
+
 class HeadphoneMotionManager: ObservableObject {
     @Published var isHeadPhoneAuthorized = false
     var isTracking = false
@@ -15,12 +21,15 @@ class HeadphoneMotionManager: ObservableObject {
     @Published var roll: Double = 0.0
     @Published var yaw: Double = 0.0
     
-    //TODO: 나중에 자세 평균을 여기 넣으면 되겠다!
-    private var initialPitch: Double = 0.0
-    private var initialRoll: Double = 0.0
-    private var initialYaw: Double = 0.0
-    
     private let cmHeadPhoneManager = CMHeadphoneMotionManager()
+    
+    //TODO: SwiftData에서 goodPosture,Range 가져오기
+    var goodPosture: Double? = 0.0
+    var goodPostureRange: Double = 0.1
+    
+    @Published var currentState: PostureState?
+    private var lastBadPostureTime: Date?
+    private var postureCheckTimer: Timer?
     
     init() {
         updateAuthorization()
@@ -52,9 +61,9 @@ class HeadphoneMotionManager: ObservableObject {
             }
             
             DispatchQueue.main.async {
-                self.pitch = motion.attitude.pitch - self.initialPitch
-                self.roll = motion.attitude.roll - self.initialRoll
-                self.yaw = motion.attitude.yaw - self.initialYaw
+                self.pitch = motion.attitude.pitch
+                self.roll = motion.attitude.roll
+                self.yaw = motion.attitude.yaw
             }
         }
     }
@@ -87,14 +96,61 @@ class HeadphoneMotionManager: ObservableObject {
         print("isHeadPhoneAuthorized: \(isHeadPhoneAuthorized)")
     }
     
-    /// 현재 자세를 기준으로 intitialPosition을 측정하는 함수
-    func calibrate() {
-        initialPitch = pitch
-        initialRoll = roll
-        initialYaw = yaw
-    }
-    
     deinit {
         stopUpdates()
+    }
+}
+
+//MARK: - 실시간 자세 상태 업데이트
+extension HeadphoneMotionManager {
+    /// 현재 좋은 자세인지 판단하는 함수
+    private func isWithinGoodPosture() -> Bool {
+        guard let goodPosture = goodPosture else {
+            print("goodPosture값이 없어요")
+            return false
+        }
+        
+        let difference = abs(pitch - goodPosture)
+        return difference <= goodPostureRange
+    }
+    
+    /// 자세 상태를 업데이트하는 함수
+    func updatePostureState() {
+        let isGoodPosture = isWithinGoodPosture()
+
+        if isGoodPosture {
+            if currentState != .good {
+                currentState = .good
+                print("자세가 좋아졌어요")
+            }
+        // 자세가 안좋아졌을 경우 .worse 설정
+        } else {
+            if currentState == .good || currentState == nil {
+                currentState = .worse
+                lastBadPostureTime = Date()
+                print("자세가 안좋아졌어요")
+                
+            //나쁜자세를 10분이상 유지했을 때 .bad 설정 (test위해 임의로 10초로 설정해뒀습니다)
+            } else if let lastBadPostureTime = lastBadPostureTime,
+                      Date().timeIntervalSince(lastBadPostureTime) >= 10 {
+                currentState = .bad
+                print("안좋은 자세를 10분간 유지했어요")
+                
+                // 상태를 .bad로 설정한 후 즉시(0.01초 뒤) .worse로 돌아가기
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                    self.currentState = .worse
+                    print("상태가 다시 .worse로 변경됐어요")
+                }
+                
+                // lastBadPostureTime 초기화해서 다시 interval 체크
+                self.lastBadPostureTime = Date()
+            }
+        }
+    }
+    
+    private func startPostureCheckTimer() {
+        postureCheckTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+            self?.updatePostureState()
+        }
     }
 }

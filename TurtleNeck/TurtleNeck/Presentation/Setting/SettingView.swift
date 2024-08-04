@@ -8,11 +8,17 @@
 import SwiftUI
 
 struct SettingView: View {
+    @Binding var settingWindow: NSWindow?
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .leading) {
+            Text("설정")
+            Text("알림 관련")
+        }
+        .padding()
+        .frame(width: 560, height: 712)
+        .onDisappear{
+            settingWindow = nil
+        }
     }
-}
-
-#Preview {
-    SettingView()
 }

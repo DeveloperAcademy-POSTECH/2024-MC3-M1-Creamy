@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F5FEFBB2C5C761400E00081 /* TurtleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5FEFBA2C5C761400E00081 /* TurtleView.swift */; };
+		4F5FEFBD2C5C762000E00081 /* TopMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5FEFBC2C5C762000E00081 /* TopMenuView.swift */; };
 		4F8160242C5536120030E5D6 /* RealTimePostureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8160232C5536120030E5D6 /* RealTimePostureView.swift */; };
 		4F8160262C5536380030E5D6 /* WeekPostureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8160252C5536380030E5D6 /* WeekPostureView.swift */; };
 		4F81605F2C57EBE30030E5D6 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F81605E2C57EBE30030E5D6 /* ColorExtension.swift */; };
@@ -20,6 +22,8 @@
 		4F8160702C57EC1B0030E5D6 /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4F8160672C57EC1B0030E5D6 /* Pretendard-ExtraBold.otf */; };
 		4F8160712C57EC1B0030E5D6 /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4F8160682C57EC1B0030E5D6 /* Pretendard-ExtraLight.otf */; };
 		4F8160732C57EC5B0030E5D6 /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8160722C57EC5B0030E5D6 /* FontExtension.swift */; };
+		4F89F8E32C5A261700A9953D /* StatisticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F89F8E22C5A261700A9953D /* StatisticView.swift */; };
+		4F89F8E52C5A290F00A9953D /* DayPostureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F89F8E42C5A290F00A9953D /* DayPostureView.swift */; };
 		512DD15A2C538B410033985C /* TurtleNeckApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512DD1592C538B410033985C /* TurtleNeckApp.swift */; };
 		512DD15C2C538B410033985C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512DD15B2C538B410033985C /* ContentView.swift */; };
 		512DD15E2C538B430033985C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 512DD15D2C538B430033985C /* Assets.xcassets */; };
@@ -36,8 +40,8 @@
 		51EB27582C5C7F2500CEE9FB /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EB27572C5C7F2500CEE9FB /* NotificationManager.swift */; };
 		BD17242D2C592FF200C80B4B /* HoverableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD17242C2C592FF200C80B4B /* HoverableButton.swift */; };
 		BD2713122C539C12000820F6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2713112C539C12000820F6 /* User.swift */; };
-		BD500FBA2C5BDFED00F0D257 /* HeadphoneMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD500FB92C5BDFED00F0D257 /* HeadphoneMotionManager.swift */; };
 		BD2713142C539C34000820F6 /* NotiStatistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2713132C539C34000820F6 /* NotiStatistic.swift */; };
+		BD500FBA2C5BDFED00F0D257 /* HeadphoneMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD500FB92C5BDFED00F0D257 /* HeadphoneMotionManager.swift */; };
 		BD76C5DB2C5678E6004993EC /* CheckDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76C5DA2C5678E6004993EC /* CheckDeviceView.swift */; };
 		BD76C5DD2C56790F004993EC /* MotionPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76C5DC2C56790F004993EC /* MotionPermissionView.swift */; };
 		BD76C5DF2C567952004993EC /* MeasureReadyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76C5DE2C567952004993EC /* MeasureReadyView.swift */; };
@@ -49,6 +53,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4F5FEFBA2C5C761400E00081 /* TurtleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurtleView.swift; sourceTree = "<group>"; };
+		4F5FEFBC2C5C762000E00081 /* TopMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMenuView.swift; sourceTree = "<group>"; };
 		4F8160232C5536120030E5D6 /* RealTimePostureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealTimePostureView.swift; sourceTree = "<group>"; };
 		4F8160252C5536380030E5D6 /* WeekPostureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekPostureView.swift; sourceTree = "<group>"; };
 		4F81605E2C57EBE30030E5D6 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
@@ -63,6 +69,8 @@
 		4F8160682C57EC1B0030E5D6 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
 		4F8160722C57EC5B0030E5D6 /* FontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
 		4F8160742C57EC840030E5D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		4F89F8E22C5A261700A9953D /* StatisticView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticView.swift; sourceTree = "<group>"; };
+		4F89F8E42C5A290F00A9953D /* DayPostureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayPostureView.swift; sourceTree = "<group>"; };
 		512DD1562C538B410033985C /* TurtleNeck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TurtleNeck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		512DD1592C538B410033985C /* TurtleNeckApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurtleNeckApp.swift; sourceTree = "<group>"; };
 		512DD15B2C538B410033985C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -81,8 +89,8 @@
 		51EB27572C5C7F2500CEE9FB /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		BD17242C2C592FF200C80B4B /* HoverableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoverableButton.swift; sourceTree = "<group>"; };
 		BD2713112C539C12000820F6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		BD500FB92C5BDFED00F0D257 /* HeadphoneMotionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadphoneMotionManager.swift; sourceTree = "<group>"; };
 		BD2713132C539C34000820F6 /* NotiStatistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiStatistic.swift; sourceTree = "<group>"; };
+		BD500FB92C5BDFED00F0D257 /* HeadphoneMotionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadphoneMotionManager.swift; sourceTree = "<group>"; };
 		BD76C5DA2C5678E6004993EC /* CheckDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckDeviceView.swift; sourceTree = "<group>"; };
 		BD76C5DC2C56790F004993EC /* MotionPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionPermissionView.swift; sourceTree = "<group>"; };
 		BD76C5DE2C567952004993EC /* MeasureReadyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureReadyView.swift; sourceTree = "<group>"; };
@@ -104,6 +112,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F5FEFB92C5C75F900E00081 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				4F5FEFBA2C5C761400E00081 /* TurtleView.swift */,
+				4F5FEFBC2C5C762000E00081 /* TopMenuView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		4F8160592C57EB800030E5D6 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -135,6 +152,24 @@
 				4F8160722C57EC5B0030E5D6 /* FontExtension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		4F89F8E02C5A25EA00A9953D /* Statistic */ = {
+			isa = PBXGroup;
+			children = (
+				4F89F8E22C5A261700A9953D /* StatisticView.swift */,
+				4F8160252C5536380030E5D6 /* WeekPostureView.swift */,
+				4F89F8E42C5A290F00A9953D /* DayPostureView.swift */,
+			);
+			path = Statistic;
+			sourceTree = "<group>";
+		};
+		4F89F8E12C5A260600A9953D /* RealTime */ = {
+			isa = PBXGroup;
+			children = (
+				4F8160232C5536120030E5D6 /* RealTimePostureView.swift */,
+			);
+			path = RealTime;
 			sourceTree = "<group>";
 		};
 		512DD14D2C538B410033985C = {
@@ -274,8 +309,9 @@
 			isa = PBXGroup;
 			children = (
 				512DD17F2C5392A60033985C /* MainView.swift */,
-				4F8160232C5536120030E5D6 /* RealTimePostureView.swift */,
-				4F8160252C5536380030E5D6 /* WeekPostureView.swift */,
+				4F5FEFB92C5C75F900E00081 /* Components */,
+				4F89F8E12C5A260600A9953D /* RealTime */,
+				4F89F8E02C5A25EA00A9953D /* Statistic */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -413,7 +449,12 @@
 				BD17242D2C592FF200C80B4B /* HoverableButton.swift in Sources */,
 				512DD1842C5392CC0033985C /* SettingView.swift in Sources */,
 				4F8160732C57EC5B0030E5D6 /* FontExtension.swift in Sources */,
+				4F5FEFBD2C5C762000E00081 /* TopMenuView.swift in Sources */,
 				512DD1802C5392A60033985C /* MainView.swift in Sources */,
+				4F89F8E52C5A290F00A9953D /* DayPostureView.swift in Sources */,
+				4F89F8E32C5A261700A9953D /* StatisticView.swift in Sources */,
+				4F5FEFBB2C5C761400E00081 /* TurtleView.swift in Sources */,
+				BD2713142C539C34000820F6 /* NotiStatistic.swift in Sources */,
 				BD76C5DF2C567952004993EC /* MeasureReadyView.swift in Sources */,
 				BD2713142C539C34000820F6 /* NotiStatistic.swift in Sources */,
 				512DD15C2C538B410033985C /* ContentView.swift in Sources */,
@@ -569,7 +610,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TurtleNeck/Preview Content\"";
-				DEVELOPMENT_TEAM = PK4L7H6D6F;
+				DEVELOPMENT_TEAM = U6CCD5BT22;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -598,7 +639,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TurtleNeck/Preview Content\"";
-				DEVELOPMENT_TEAM = PK4L7H6D6F;
+				DEVELOPMENT_TEAM = U6CCD5BT22;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

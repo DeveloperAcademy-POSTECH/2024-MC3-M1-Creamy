@@ -19,6 +19,7 @@ extension Color {
     
     static let buttonHoverBG = Color(hex: "EDF2DB")
     
+    static let chart = Color(hex: "97B66D")
 }
 
 extension Color {

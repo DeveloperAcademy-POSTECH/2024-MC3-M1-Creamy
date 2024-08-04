@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     
+    @StateObject private var motionManager = HeadphoneMotionManager()
     @State var isRealTime: Bool = true
     @State var isMute: Bool = false
 
@@ -28,6 +29,9 @@ struct MainView: View {
         .padding(.horizontal,12)
         .background(.white)
         .frame(width: 348,height: 232)
+        .onAppear {
+            motionManager.startUpdates()
+        }
     }
     
     private var segmentView: some View {
@@ -79,7 +83,7 @@ extension MainView {
     @ViewBuilder
     private func showView(isRealTime: Bool) -> some View {
         if isRealTime {
-            RealTimePostureView()
+            RealTimePostureView(motionManager: motionManager)
         }
         
         else {

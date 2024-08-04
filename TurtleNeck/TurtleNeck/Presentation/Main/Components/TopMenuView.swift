@@ -12,46 +12,39 @@ struct TopMenuView: View {
     @State private var alwaysOnTopWindow: NSWindow?
     @State private var settingWindow: NSWindow?
     
-    @State private var isAlwaysOnTopWindowOpen: Bool = false
-    @State private var isSettingWindowOpen: Bool = false
-    
     var body: some View {
-        
-        Button(action: {
-            isMute.toggle()
-        }){
-            Image(systemName: isMute ? "speaker" : "speaker.slash")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 16,height: 16)
-                .foregroundColor(.primary)
-        }.buttonStyle(.plain)
-        
-        Button(action: {
-            if !isAlwaysOnTopWindowOpen {
-//                openAlwaysOnTopWindow()
+        HStack {
+            Button(action: {
+                isMute.toggle()
+            }){
+                Image(systemName: isMute ? "speaker" : "speaker.slash")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 16,height: 16)
+                    .foregroundColor(.primary)
+            }.buttonStyle(.plain)
+            
+            Button(action: {
+                //            openAlwaysOnTopWindow()
+            }){
+                Image(systemName:"macwindow.on.rectangle")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 17,height: 17)
+                    .foregroundColor(.primary)
+            }.buttonStyle(.plain)
+            
+            Button(action: {
+                //            openEmptyWindow()
+            }) {
+                Image(systemName: "gear")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 16,height: 16)
+                    .foregroundColor(.primary)
             }
-        }){
-            Image(systemName:"macwindow.on.rectangle")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 17,height: 17)
-                .foregroundColor(.primary)
-        }.buttonStyle(.plain)
-        
-        Button(action: {
-            if !isSettingWindowOpen {
-//                openEmptyWindow()
-            }
-        }) {
-            Image(systemName: "gear")
-                .resizable()
-                .scaledToFill()
-                .frame(width: 16,height: 16)
-                .foregroundColor(.primary)
+            .buttonStyle(.plain)
         }
-        .buttonStyle(.plain)
-        .disabled(isSettingWindowOpen) // 창이 열려 있으면 비활성화
     }
 }
 
@@ -112,16 +105,3 @@ struct TopMenuView: View {
 //        }
 //    }
 //}
-
-// NSWindowDelegate를 사용하여 창이 닫힐 때 상태 업데이트
-class WindowDelegate: NSObject, NSWindowDelegate {
-    var onClose: () -> Void
-    
-    init(onClose: @escaping () -> Void) {
-        self.onClose = onClose
-    }
-    
-    func windowWillClose(_ notification: Notification) {
-        onClose()
-    }
-}

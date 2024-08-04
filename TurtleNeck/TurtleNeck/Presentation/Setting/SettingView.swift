@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SettingView: View {
-    @Binding var settingWindow: NSWindow?
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -17,8 +16,5 @@ struct SettingView: View {
         }
         .padding()
         .frame(width: 560, height: 712)
-        .onDisappear{
-            settingWindow = nil
-        }
     }
 }

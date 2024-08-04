@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct MainView: View {
+    @Environment(\.appDelegate) var appDelegate: AppDelegate?
     
     @StateObject private var motionManager = HeadphoneMotionManager()
     @State var isRealTime: Bool = true
-    @State var isMute: Bool = false
 
     var body: some View {
         VStack(spacing: 0){
@@ -20,7 +20,8 @@ struct MainView: View {
                 
                 segmentView.padding(EdgeInsets(top: 4, leading: 0, bottom: 0, trailing: 16))
                 
-                TopMenuView()
+                TopMenuView(motionManager: motionManager).environment(\.appDelegate, appDelegate)
+
             }
             .padding(.top, 12)
             
@@ -32,6 +33,9 @@ struct MainView: View {
         .onAppear {
             motionManager.startUpdates()
         }
+//        .onDisappear {
+//            motionManager.stopUpdates()
+//        }
     }
     
     private var segmentView: some View {

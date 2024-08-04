@@ -28,36 +28,131 @@ struct TurtleNeckApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(\.appDelegate, appDelegate)
                 .frame(width: 560, height: 560)
                 .background(.white)
         }
         .windowStyle(.hiddenTitleBar)
         .windowToolbarStyle(.expanded)
         .windowResizability(.contentSize)
-        
-       MenuBarExtra {
-            MainView().frame(width: 348,height: 232)
-        } label: {
-            let image: NSImage = {
-                let ratio = $0.size.height / $0.size.width
-                $0.size.height = 30
-                $0.size.width = 30 / ratio
-                return $0
-            }(NSImage(named: "withMax")!)
-            
-            Image(nsImage: image)
-            
-        }
-        .menuBarExtraStyle(.window)
     }
 }
 
 
 class AppDelegate: NSObject, NSApplicationDelegate {
+    var statusItem: NSStatusItem!
+    var popover: NSPopover!
+    var newWindowController: NSWindowController?
+    
     func applicationDidFinishLaunching(_ notification: Notification) {
+        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+        
         /// 강제 라이트모드 설정
         if let appearance = NSAppearance(named: .aqua) {
             NSApp.appearance = appearance
         }
+        
+        //MenuBar에 들어갈 아이콘
+        if let button = statusItem.button {
+            let image: NSImage = {
+                let img = NSImage(named: "withMax")!
+                let ratio = img.size.height / img.size.width
+                img.size.height = 30
+                img.size.width = 30 / ratio
+                return img
+            }()
+            
+            button.image = image
+            button.action = #selector(togglePopover(_:))
+        }
+        
+        //popover 생성
+        popover = NSPopover()
+        popover.setValue(true, forKeyPath: "shouldHideAnchor")
+        popover.contentSize = NSSize(width: 348, height: 232)
+        popover.behavior = .transient
+        
+        //popover의 Default는 MainView
+        let mainView = MainView().environment(\.appDelegate, self)
+        popover.contentViewController = NSHostingController(rootView: mainView)
+    }
+
+    @objc func togglePopover(_ sender: Any?) {
+        if popover.isShown {
+            popover.performClose(sender)
+        } else {
+            showPopover()
+        }
+    }
+    
+    func showPopover() {
+        if let button = statusItem.button {
+            popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
+        }
+    }
+    
+    func openAlwaysOnTopView(isMute: Binding<Bool>, motionManager: HeadphoneMotionManager){
+        let newWindow = NSWindow(contentRect: NSMakeRect(100, 100, 286, 160),
+                                 styleMask: [.titled, .closable, .resizable],
+                                 backing: .buffered,
+                                 defer: false)
+        
+        newWindow.titlebarAppearsTransparent = true
+        newWindow.titleVisibility = .hidden
+        newWindow.backgroundColor = .white
+        
+        newWindow.center()
+        newWindow.level = .floating
+        newWindow.isMovableByWindowBackground = true
+        newWindow.setFrameAutosaveName("AlwaysOnTopWindow")
+        
+        newWindow.contentView = NSHostingView(rootView:  PIPView(isMute: isMute, motionManager: motionManager))
+        
+        newWindow.delegate = self
+        
+        newWindowController = NSWindowController(window: newWindow)
+        newWindowController?.showWindow(self)
+
+    }
+    
+    func openSettingView() {
+        let newWindow = NSWindow(contentRect: NSMakeRect(100, 100, 560, 684),
+                                 styleMask: [.titled, .closable, .resizable],
+                                 backing: .buffered,
+                                 defer: false)
+        
+        newWindow.title = "TurtleNeck"
+        newWindow.backgroundColor = .white
+        
+        newWindow.center()
+        newWindow.level = .normal
+        newWindow.isMovableByWindowBackground = true
+        newWindow.setFrameAutosaveName("SettingWindow")
+        
+        newWindow.contentView = NSHostingView(rootView: SettingView())
+        
+        newWindow.delegate = self
+        
+        newWindowController = NSWindowController(window: newWindow)
+        newWindowController?.showWindow(self)
+    }
+    
+}
+
+extension AppDelegate: NSWindowDelegate {
+    func windowWillClose(_ notification: Notification) {
+        // 팝오버를 다시 열기
+        showPopover()
+    }
+}
+
+private struct AppDelegateKey: EnvironmentKey {
+    static let defaultValue: AppDelegate? = nil
+}
+
+extension EnvironmentValues {
+    var appDelegate: AppDelegate? {
+        get { self[AppDelegateKey.self] }
+        set { self[AppDelegateKey.self] = newValue }
     }
 }

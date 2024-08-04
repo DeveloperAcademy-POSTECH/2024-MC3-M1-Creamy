@@ -75,8 +75,7 @@ struct MeasuringView: View {
     @State private var progress = 0.0
     private let totalTime: Double = 5.0
     @State private var timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
-    
-    
+  
     @Query var user: [User]
     
     var body: some View {
@@ -126,6 +125,7 @@ struct MeasuringView: View {
                     } else {
                         print("agerage값 넣기 실패")
                     }
+
                     Router.shared.navigate(to: .measureFinish)
                 }
             }

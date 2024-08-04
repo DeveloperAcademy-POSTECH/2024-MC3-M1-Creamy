@@ -8,57 +8,71 @@
 import SwiftUI
 
 struct MainView: View {
+    
     @State var isRealTime: Bool = true
     @State var isMute: Bool = false
-    
+
     var body: some View {
-        VStack{
-            HStack(alignment: .center){
+        VStack(spacing: 0){
+            HStack(alignment: .center, spacing: 10){
                 Spacer()
-                Button(action: {
-                    isMute.toggle()
-                }){
-                    Image(systemName: isMute ? "speaker" : "speaker.slash")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 14, height: 14)
-                        .foregroundColor(.black)
-                }
-                Button(action: {
-                    
-                }){
-                    Image(systemName: "gear")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 14,height: 14)
-                        .foregroundColor(.black)
-                }
+                
+                segmentView.padding(EdgeInsets(top: 4, leading: 0, bottom: 0, trailing: 16))
+                
+                TopMenuView()
             }
             .padding(.top, 12)
             
-            HStack(spacing: 13){
+            showView(isRealTime: isRealTime)
+        }
+        .padding(.horizontal,12)
+        .background(.white)
+        .frame(width: 348,height: 232)
+    }
+    
+    private var segmentView: some View {
+        ZStack{
+            RoundedRectangle(cornerRadius: 8)
+                .fill(Color.white)
+                .frame(width: 140, height: 22)
+                .shadow(radius: 1)
+        
+            HStack(alignment: .center, spacing: 0) {
                 Button(action: {
                     isRealTime = true
-                }){
-                    Text("실시간").font(.system(size: 14,weight: isRealTime ? .bold : .regular)).foregroundColor(isRealTime ? .black : .gray)
-                }
-                Button(action:{
-                    isRealTime = false
-                }){
-                    Text("통계").font(.system(size: 14,weight: isRealTime ? .regular : .bold)).foregroundColor(isRealTime ? .gray : .black)
-                }
-            }
-            .padding(.top, 7)
-            
-            showView(isRealTime: isRealTime)
-            
-            Spacer()
-        }
-        .padding(.horizontal,16)
-        .frame(width: 344,height: 240)
-        .background(.white)
+                }) {
+                    ZStack {
 
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(isRealTime ?  Color.iconHoverBG : .white)
+
+                        Text("실시간")
+                            .font(.pretendardRegular13)
+                            .foregroundColor(isRealTime ? .primary : .chevron)
+                    }
+                    .frame(width: 69.5, height: 22)
+                }
+                .buttonStyle(PlainButtonStyle())
+                
+                Button(action: {
+                    isRealTime = false
+                }) {
+                    ZStack {
+
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(isRealTime ? .white : Color.iconHoverBG)
+
+                        Text("통계")
+                            .font(.pretendardRegular13)
+                            .foregroundColor(isRealTime ? .chevron : .primary)
+                    }
+                    .frame(width: 69.5, height: 22)
+                }
+                .buttonStyle(PlainButtonStyle())
+            }
+        }
     }
+
 }
 
 extension MainView {
@@ -67,8 +81,9 @@ extension MainView {
         if isRealTime {
             RealTimePostureView()
         }
+        
         else {
-            WeekPostureView()
+            StatisticView()
         }
     }
 }

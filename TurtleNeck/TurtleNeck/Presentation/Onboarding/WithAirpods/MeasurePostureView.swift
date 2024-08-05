@@ -75,7 +75,8 @@ struct MeasuringView: View {
     @State private var progress = 0.0
     private let totalTime: Double = 6
     @State private var timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
-  
+    @State private var hasExecutedElseBlock = false
+    
     @Query var user: [User]
     
     var body: some View {
@@ -109,25 +110,29 @@ struct MeasuringView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     if progress < 1.0 {
                         progress += 1.0 / (totalTime / 0.1)
-                        print(progress)
+//                        print(progress)
                         pitchValues.append(motionManager.pitch)
-                        print("측정값: \(pitchValues)")
+//                        print("측정값: \(pitchValues)")
                     } else {
-                        timer.upstream.connect().cancel()
-                        motionManager.stopUpdates()
-                        
-                        let averagePitch = calculateAveragePitch()
-                        
-                        print("5초 동안의 평균 pitch 값: \(averagePitch)")
-                        
-                        //구한 평균값을 goodPosture에 넣어주기
-                        if let user = user.last {
-                            user.goodPosture = averagePitch
-                        } else {
-                            print("agerage값 넣기 실패")
+                        if !hasExecutedElseBlock {
+                            hasExecutedElseBlock = true // 코드 실행 플래그 설정
+                            
+                            timer.upstream.connect().cancel()
+                            motionManager.stopUpdates()
+                            
+                            let averagePitch = calculateAveragePitch()
+                            
+                            print("5초 동안의 평균 pitch 값: \(averagePitch)")
+                            
+                            // 구한 평균값을 goodPosture에 넣어주기
+                            if let user = user.last {
+                                user.goodPosture = averagePitch
+                            } else {
+                                print("average 값 넣기 실패")
+                            }
+                            
+                            Router.shared.navigate(to: .measureFinish)
                         }
-                        
-                        Router.shared.navigate(to: .measureFinish)
                     }
                 }
             }
@@ -153,7 +158,7 @@ struct MeasuringView: View {
     private func calculateAveragePitch() -> Double {
         let total = pitchValues.reduce(0, +)
         let average = total / Double(pitchValues.count)
-        print("총 pitch의 수: \(pitchValues.count)")
+//        print("총 pitch의 수: \(pitchValues.count)")
         return average
     }
 }

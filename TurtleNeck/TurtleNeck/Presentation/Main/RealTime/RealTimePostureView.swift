@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RealTimePostureView: View {
+    @ObservedObject var motionManager: HeadphoneMotionManager
     
     var body: some View {
         VStack(spacing:0){
@@ -17,15 +18,11 @@ struct RealTimePostureView: View {
             }
             .padding(.top, 32)
             
-            TurtleView()
+            TurtleView(motionManager: motionManager)
                 .offset(x: -16, y: 32)
         }
         
         Spacer()
     }
-}
-
-#Preview {
-    RealTimePostureView()
 }
 

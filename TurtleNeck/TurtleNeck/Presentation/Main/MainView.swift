@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct MainView: View {
+    @Environment(\.appDelegate) var appDelegate: AppDelegate?
     
+    @StateObject private var motionManager = HeadphoneMotionManager()
     @State var isRealTime: Bool = true
     @State var isMute: Bool = false
 
@@ -19,7 +21,10 @@ struct MainView: View {
                 
                 segmentView.padding(EdgeInsets(top: 4, leading: 0, bottom: 0, trailing: 16))
                 
-                TopMenuView()
+                TopMenuView(action: {
+                    appDelegate?.openAlwaysOnTopView(isMute: $isMute, motionManager: motionManager)
+                }, isMute: $isMute, motionManager: motionManager)
+
             }
             .padding(.top, 12)
             
@@ -28,6 +33,9 @@ struct MainView: View {
         .padding(.horizontal,12)
         .background(.white)
         .frame(width: 348,height: 232)
+        .onAppear {
+            motionManager.startUpdates()
+        }
     }
     
     private var segmentView: some View {
@@ -79,7 +87,7 @@ extension MainView {
     @ViewBuilder
     private func showView(isRealTime: Bool) -> some View {
         if isRealTime {
-            RealTimePostureView()
+            RealTimePostureView(motionManager: motionManager)
         }
         
         else {

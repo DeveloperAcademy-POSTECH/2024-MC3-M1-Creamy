@@ -24,6 +24,7 @@
 		4F8160732C57EC5B0030E5D6 /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8160722C57EC5B0030E5D6 /* FontExtension.swift */; };
 		4F89F8E32C5A261700A9953D /* StatisticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F89F8E22C5A261700A9953D /* StatisticView.swift */; };
 		4F89F8E52C5A290F00A9953D /* DayPostureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F89F8E42C5A290F00A9953D /* DayPostureView.swift */; };
+		4FF6E4942C5FC5F2002B08A6 /* PIPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF6E4932C5FC5F2002B08A6 /* PIPView.swift */; };
 		512DD15A2C538B410033985C /* TurtleNeckApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512DD1592C538B410033985C /* TurtleNeckApp.swift */; };
 		512DD15C2C538B410033985C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512DD15B2C538B410033985C /* ContentView.swift */; };
 		512DD15E2C538B430033985C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 512DD15D2C538B430033985C /* Assets.xcassets */; };
@@ -72,6 +73,7 @@
 		4F8160742C57EC840030E5D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		4F89F8E22C5A261700A9953D /* StatisticView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticView.swift; sourceTree = "<group>"; };
 		4F89F8E42C5A290F00A9953D /* DayPostureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayPostureView.swift; sourceTree = "<group>"; };
+		4FF6E4932C5FC5F2002B08A6 /* PIPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIPView.swift; sourceTree = "<group>"; };
 		512DD1562C538B410033985C /* TurtleNeck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TurtleNeck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		512DD1592C538B410033985C /* TurtleNeckApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurtleNeckApp.swift; sourceTree = "<group>"; };
 		512DD15B2C538B410033985C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -174,6 +176,14 @@
 			path = RealTime;
 			sourceTree = "<group>";
 		};
+		4FF6E4922C5FC5CD002B08A6 /* PIP */ = {
+			isa = PBXGroup;
+			children = (
+				4FF6E4932C5FC5F2002B08A6 /* PIPView.swift */,
+			);
+			path = PIP;
+			sourceTree = "<group>";
+		};
 		512DD14D2C538B410033985C = {
 			isa = PBXGroup;
 			children = (
@@ -247,6 +257,7 @@
 			isa = PBXGroup;
 			children = (
 				BD17242F2C5A245000C80B4B /* Components */,
+				4FF6E4922C5FC5CD002B08A6 /* PIP */,
 				512DD17D2C5392680033985C /* Main */,
 				512DD17E2C53926F0033985C /* Onboarding */,
 				512DD17C2C5392530033985C /* Setting */,
@@ -477,6 +488,7 @@
 				4F8160262C5536380030E5D6 /* WeekPostureView.swift in Sources */,
 				512DD15A2C538B410033985C /* TurtleNeckApp.swift in Sources */,
 				51EB27582C5C7F2500CEE9FB /* NotificationManager.swift in Sources */,
+				4FF6E4942C5FC5F2002B08A6 /* PIPView.swift in Sources */,
 				512DD17B2C5391660033985C /* DummyHelper.swift in Sources */,
 				BD76C5EA2C567C6F004993EC /* MeasureErrorView.swift in Sources */,
 				BD2713122C539C12000820F6 /* User.swift in Sources */,

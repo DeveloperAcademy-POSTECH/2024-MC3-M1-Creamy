@@ -20,6 +20,13 @@ extension Color {
     static let buttonHoverBG = Color(hex: "EDF2DB")
     
     static let chart = Color(hex: "97B66D")
+    
+    static let listColor = Color(hex:"FBFBFB")
+    
+    static let borderLine = Color(hex: "E5E5E5")
+    
+    static let gray01 = Color(hex: "7E7E7E")
+    
 }
 
 extension Color {

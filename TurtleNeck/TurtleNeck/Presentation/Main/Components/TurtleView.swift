@@ -8,14 +8,19 @@
 import SwiftUI
 
 struct TurtleView: View {
+    @ObservedObject var motionManager : HeadphoneMotionManager
+    
     var body: some View {
         ZStack(alignment: .center) {
             Color.white
+            let defaultOffset = clampedPitchValue(motionManager.pitch)
             
             Image("Neck+cloth")
                 .resizable()
                 .frame(width: 30.33, height: 77.16)
-                .offset(x: 56 , y: -9 )
+                .rotationEffect(.degrees(defaultOffset * (180 / .pi)))
+                .offset(x: 56 + defaultOffset * 5, y: -9 - defaultOffset * 5)
+
 
             
             Image("Body")
@@ -28,13 +33,16 @@ struct TurtleView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 64.21, height: 58.99)
-                .offset(x: 43 , y: -36)
+                .rotationEffect(defaultOffset > 0 ? .degrees(defaultOffset * (180 / .pi) * 0.8) : .degrees(0))
+                .offset(x: 43 + defaultOffset * 35, y: -36 - defaultOffset * 10)
             
         }
         .frame(width: 188,height: 114)
     }
 }
 
-#Preview {
-    TurtleView()
+extension TurtleView {
+    private func clampedPitchValue(_ pitch: CGFloat) -> CGFloat {
+        return min(max(pitch, -0.73), 0.44)
+    }
 }

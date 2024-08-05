@@ -12,6 +12,7 @@ struct MainView: View {
     
     @StateObject private var motionManager = HeadphoneMotionManager()
     @State var isRealTime: Bool = true
+    @State var isMute: Bool = false
 
     var body: some View {
         VStack(spacing: 0){
@@ -20,7 +21,9 @@ struct MainView: View {
                 
                 segmentView.padding(EdgeInsets(top: 4, leading: 0, bottom: 0, trailing: 16))
                 
-                TopMenuView(motionManager: motionManager).environment(\.appDelegate, appDelegate)
+                TopMenuView(action: {
+                    appDelegate?.openAlwaysOnTopView(isMute: $isMute, motionManager: motionManager)
+                }, isMute: $isMute, motionManager: motionManager)
 
             }
             .padding(.top, 12)

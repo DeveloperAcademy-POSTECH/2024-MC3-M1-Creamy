@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PIPView: View {
     @Environment(\.appDelegate) var appDelegate: AppDelegate?
+    @Environment(\.presentationMode) var presentationMode
     
     @Binding var isMute: Bool
     @ObservedObject var motionManager: HeadphoneMotionManager
@@ -23,24 +24,10 @@ struct PIPView: View {
         .padding(.horizontal,12)
         .toolbar() {
             Spacer()
-            HStack(spacing: 10){
-                Spacer()
-                
-                Button(action: {
-                    isMute.toggle()
-                }){
-                    Image(systemName: isMute ? "speaker" : "speaker.slash")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 16,height: 16)
-                        .foregroundColor(.primary)
-                }.buttonStyle(.plain)
-            }
-            .padding(.trailing, 12)
-            
-        }
-        .onAppear{
-            motionManager.startUpdates()
+            TopMenuView(action: {
+                presentationMode.wrappedValue.dismiss()
+                appDelegate?.showPopover()
+            }, isMute: $isMute, motionManager: motionManager)
         }
     }
 }

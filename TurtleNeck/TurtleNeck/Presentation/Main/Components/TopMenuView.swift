@@ -10,31 +10,30 @@ import SwiftUI
 struct TopMenuView: View {
     @Environment(\.appDelegate) var appDelegate: AppDelegate?
     
-    @State var isMute: Bool = false
-    
+    let action: () -> Void
+    @Binding var isMute: Bool
     @ObservedObject var motionManager: HeadphoneMotionManager
     
     var body: some View {
         HStack {
             Button(action: {
                 isMute.toggle()
-            }){
+            }) {
                 Image(systemName: isMute ? "speaker" : "speaker.slash")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 16,height: 16)
+                    .frame(width: 16, height: 16)
                     .foregroundColor(.primary)
             }.buttonStyle(.plain)
-            
-            Button(action: {
-                appDelegate?.openAlwaysOnTopView(isMute: $isMute, motionManager: motionManager)
-            }){
-                Image(systemName:"macwindow.on.rectangle")
+
+            Button(action: action) {
+                Image(systemName: "macwindow.on.rectangle")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 17,height: 17)
+                    .frame(width: 17, height: 17)
                     .foregroundColor(.primary)
-            }.buttonStyle(.plain)
+            }
+            .buttonStyle(.plain)
             
             Button(action: {
                 appDelegate?.openSettingView()
@@ -42,7 +41,7 @@ struct TopMenuView: View {
                 Image(systemName: "gear")
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 16,height: 16)
+                    .frame(width: 16, height: 16)
                     .foregroundColor(.primary)
             }
             .buttonStyle(.plain)

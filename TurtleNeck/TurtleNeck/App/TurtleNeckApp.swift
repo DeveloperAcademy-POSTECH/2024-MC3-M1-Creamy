@@ -13,17 +13,17 @@ import SwiftData
 struct TurtleNeckApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
-    var modelContainer: ModelContainer = {
-        let schema = Schema([User.self, NotiStatistic.self])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-        
-        do {
-            return try ModelContainer(for: schema,
-                                      configurations: [modelConfiguration])
-        } catch {
-            fatalError("modelContainer가 생성되지 않았습니다: \(error)")
-        }
-    }()
+//    var modelContainer: ModelContainer = {
+//        let schema = Schema([User.self, NotiStatistic.self])
+//        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+//        
+//        do {
+//            return try ModelContainer(for: schema,
+//                                      configurations: [modelConfiguration])
+//        } catch {
+//            fatalError("modelContainer가 생성되지 않았습니다: \(error)")
+//        }
+//    }()
     
     var body: some Scene {
         WindowGroup {
@@ -43,8 +43,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItem: NSStatusItem!
     var popover: NSPopover!
     var newWindowController: NSWindowController?
+    var isMenuBarIconVisible = false
     
     func applicationDidFinishLaunching(_ notification: Notification) {
+        
+        /// 강제 라이트모드 설정
+        if let appearance = NSAppearance(named: .aqua) {
+            NSApp.appearance = appearance
+        }
+        
+        popover = NSPopover()
+        popover.setValue(true, forKeyPath: "shouldHideAnchor")
+        popover.contentSize = NSSize(width: 348, height: 232)
+        popover.behavior = .transient
+        
+        let mainView = MainView().environment(\.appDelegate, self)
+        popover.contentViewController = NSHostingController(rootView: mainView)
+    }
+    
+    func createMenuBarIcon() {
+        guard !isMenuBarIconVisible else { return }
+        
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         
         /// 강제 라이트모드 설정
@@ -52,7 +71,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             NSApp.appearance = appearance
         }
         
-        //MenuBar에 들어갈 아이콘
         if let button = statusItem.button {
             let image: NSImage = {
                 let img = NSImage(named: "withMax")!
@@ -66,15 +84,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             button.action = #selector(togglePopover(_:))
         }
         
-        //popover 생성
-        popover = NSPopover()
-        popover.setValue(true, forKeyPath: "shouldHideAnchor")
-        popover.contentSize = NSSize(width: 348, height: 232)
-        popover.behavior = .transient
-        
-        //popover의 Default는 MainView
-        let mainView = MainView().environment(\.appDelegate, self)
-        popover.contentViewController = NSHostingController(rootView: mainView)
+        isMenuBarIconVisible = true
     }
 
     @objc func togglePopover(_ sender: Any?) {
@@ -84,7 +94,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             showPopover()
         }
     }
-    
+
     func showPopover() {
         if let button = statusItem.button {
             popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
@@ -106,9 +116,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         newWindow.isMovableByWindowBackground = true
         newWindow.setFrameAutosaveName("AlwaysOnTopWindow")
         
-        newWindow.contentView = NSHostingView(rootView:  PIPView(isMute: isMute, motionManager: motionManager))
-        
-        newWindow.delegate = self
+        newWindow.contentView = NSHostingView(rootView: PIPView(isMute: isMute, motionManager: motionManager).environment(\.appDelegate, self))
         
         newWindowController = NSWindowController(window: newWindow)
         newWindowController?.showWindow(self)
@@ -136,11 +144,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         newWindowController = NSWindowController(window: newWindow)
         newWindowController?.showWindow(self)
     }
-    
 }
 
 extension AppDelegate: NSWindowDelegate {
     func windowWillClose(_ notification: Notification) {
+        // 팝오버를 다시 열기
         showPopover()
     }
 }

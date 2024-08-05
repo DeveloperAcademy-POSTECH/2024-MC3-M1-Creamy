@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct WithoutAirpodsView: View {
+    @Environment(\.appDelegate) var appDelegate: AppDelegate?
+    @Environment(\.presentationMode) var presentationMode
     @State private var isAppStartHover = false
     
     var body: some View {
@@ -29,7 +31,13 @@ struct WithoutAirpodsView: View {
             Spacer()
             
             HoverableButton(action: {
+                appDelegate?.createMenuBarIcon()
                 
+                NSApplication.shared.keyWindow?.close()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    appDelegate?.showPopover()
+                }
             }, label: "시작하기")
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

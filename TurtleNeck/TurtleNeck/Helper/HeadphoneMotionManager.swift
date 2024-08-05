@@ -10,8 +10,8 @@ import CoreMotion
 
 enum PostureState {
     case good   // 나쁜자세 -> 좋은자세
-    case worse  // 좋은 자세 -> 나쁜 자세
-    case bad    // 나쁜 자세가 계속 지속됨
+    case bad  // 좋은 자세 -> 나쁜 자세
+    case worse    // 나쁜 자세가 계속 지속됨
 }
 
 class HeadphoneMotionManager: ObservableObject {
@@ -123,22 +123,22 @@ extension HeadphoneMotionManager {
                 currentState = .good
                 print("자세가 좋아졌어요")
             }
-        // 자세가 안좋아졌을 경우 .worse 설정
+        // 자세가 안좋아졌을 경우 .bad 설정
         } else {
             if currentState == .good || currentState == nil {
-                currentState = .worse
+                currentState = .bad
                 lastBadPostureTime = Date()
                 print("자세가 안좋아졌어요")
                 
-            //나쁜자세를 10분이상 유지했을 때 .bad 설정 (test위해 임의로 10초로 설정해뒀습니다)
+            //나쁜자세를 10분이상 유지했을 때 .worse 설정 (test위해 임의로 10초로 설정해뒀습니다)
             } else if let lastBadPostureTime = lastBadPostureTime,
                       Date().timeIntervalSince(lastBadPostureTime) >= 10 {
-                currentState = .bad
+                currentState = .worse
                 print("안좋은 자세를 10분간 유지했어요")
                 
-                // 상태를 .bad로 설정한 후 즉시(0.01초 뒤) .worse로 돌아가기
+                // 상태를 .worse로 설정한 후 즉시(0.01초 뒤) .bad로 돌아가기
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-                    self.currentState = .worse
+                    self.currentState = .bad
                     print("상태가 다시 .worse로 변경됐어요")
                 }
                 

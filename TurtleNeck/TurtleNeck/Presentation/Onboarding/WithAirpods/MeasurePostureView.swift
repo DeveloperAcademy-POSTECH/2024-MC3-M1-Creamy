@@ -73,7 +73,7 @@ struct MeasuringView: View {
     @State private var pitchValues: [Double] = []
     @ObservedObject var motionManager: HeadphoneMotionManager
     @State private var progress = 0.0
-    private let totalTime: Double = 5.0
+    private let totalTime: Double = 6
     @State private var timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
   
     @Query var user: [User]
@@ -106,27 +106,29 @@ struct MeasuringView: View {
             .padding(.top, 30)
             // 타이머가 0.1초마다 바뀔 때의 동작 설정
             .onReceive(timer) { _ in
-                if progress < 1.0 {
-                    progress += 1.0 / (totalTime / 0.1)
-                    print(progress)
-                    pitchValues.append(motionManager.pitch)
-                    print("측정값: \(pitchValues)")
-                } else {
-                    timer.upstream.connect().cancel()
-                    motionManager.stopUpdates()
-                    
-                    let averagePitch = calculateAveragePitch()
-                    
-                    print("5초 동안의 평균 pitch 값: \(averagePitch)")
-                    
-                    //구한 평균값을 goodPosture에 넣어주기
-                    if let user = user.last {
-                        user.goodPosture = averagePitch
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    if progress < 1.0 {
+                        progress += 1.0 / (totalTime / 0.1)
+                        print(progress)
+                        pitchValues.append(motionManager.pitch)
+                        print("측정값: \(pitchValues)")
                     } else {
-                        print("agerage값 넣기 실패")
+                        timer.upstream.connect().cancel()
+                        motionManager.stopUpdates()
+                        
+                        let averagePitch = calculateAveragePitch()
+                        
+                        print("5초 동안의 평균 pitch 값: \(averagePitch)")
+                        
+                        //구한 평균값을 goodPosture에 넣어주기
+                        if let user = user.last {
+                            user.goodPosture = averagePitch
+                        } else {
+                            print("agerage값 넣기 실패")
+                        }
+                        
+                        Router.shared.navigate(to: .measureFinish)
                     }
-
-                    Router.shared.navigate(to: .measureFinish)
                 }
             }
             

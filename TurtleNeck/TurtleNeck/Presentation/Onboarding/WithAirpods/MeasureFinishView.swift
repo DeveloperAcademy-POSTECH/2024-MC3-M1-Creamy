@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct MeasureFinishView: View {
+    @Environment(\.appDelegate) var appDelegate: AppDelegate?
+    @Environment(\.presentationMode) var presentationMode
+    
     var body: some View {
         VStack(spacing: 16){
             Rectangle()
@@ -31,7 +34,13 @@ struct MeasureFinishView: View {
             VStack(spacing: 16){
                 HoverableButton(
                     action: {
-                       
+                        appDelegate?.createMenuBarIcon()
+                        
+                        NSApplication.shared.keyWindow?.close()
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            appDelegate?.showPopover()
+                        }
                     },
                     label: "시작하기"
                 )

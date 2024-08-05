@@ -29,6 +29,7 @@ struct TurtleNeckApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.appDelegate, appDelegate)
+                .modelContainer(modelContainer)
                 .frame(width: 560, height: 560)
                 .background(.white)
         }

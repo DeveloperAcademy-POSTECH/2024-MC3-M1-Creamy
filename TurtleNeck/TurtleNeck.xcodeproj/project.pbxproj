@@ -51,6 +51,7 @@
 		BD76C5E82C567B1E004993EC /* MeasureFinishView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76C5E72C567B1E004993EC /* MeasureFinishView.swift */; };
 		BD76C5EA2C567C6F004993EC /* MeasureErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76C5E92C567C6F004993EC /* MeasureErrorView.swift */; };
 		BD76C5EE2C56AE83004993EC /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76C5ED2C56AE83004993EC /* Router.swift */; };
+		BDDBFF912C5E237A0031F56C /* HeadphoneDetectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDBFF902C5E237A0031F56C /* HeadphoneDetectManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -101,6 +102,7 @@
 		BD76C5E72C567B1E004993EC /* MeasureFinishView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureFinishView.swift; sourceTree = "<group>"; };
 		BD76C5E92C567C6F004993EC /* MeasureErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureErrorView.swift; sourceTree = "<group>"; };
 		BD76C5ED2C56AE83004993EC /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		BDDBFF902C5E237A0031F56C /* HeadphoneDetectManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadphoneDetectManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +230,7 @@
 				512DD17A2C5391660033985C /* DummyHelper.swift */,
 				BD76C5ED2C56AE83004993EC /* Router.swift */,
 				BD500FB92C5BDFED00F0D257 /* HeadphoneMotionManager.swift */,
+				BDDBFF902C5E237A0031F56C /* HeadphoneDetectManager.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -462,6 +465,7 @@
 				4F8160732C57EC5B0030E5D6 /* FontExtension.swift in Sources */,
 				4F5FEFBD2C5C762000E00081 /* TopMenuView.swift in Sources */,
 				512DD1802C5392A60033985C /* MainView.swift in Sources */,
+				BDDBFF912C5E237A0031F56C /* HeadphoneDetectManager.swift in Sources */,
 				4F89F8E52C5A290F00A9953D /* DayPostureView.swift in Sources */,
 				4F89F8E32C5A261700A9953D /* StatisticView.swift in Sources */,
 				4F5FEFBB2C5C761400E00081 /* TurtleView.swift in Sources */,

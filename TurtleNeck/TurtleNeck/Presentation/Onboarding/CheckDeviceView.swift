@@ -10,6 +10,8 @@ import SwiftUI
 struct CheckDeviceView: View {    
     @State private var isWithAirpodsHover = false
     
+    @Environment(\.modelContext) var modelContext
+    
     private var image: String {
         isWithAirpodsHover ? "withMax" : "withoutAirpods"
     }
@@ -41,6 +43,11 @@ struct CheckDeviceView: View {
                     HoverableButton(
                         action: {
                             Router.shared.navigate(to: .motionPermission)
+                            
+                            //모션 허용 시, default 유저 정보 생성
+                            let user = User(isFirst: false)
+                            
+                            modelContext.insert(user)
                         },
                         label: "에어팟으로 자세 측정하기"
                     )
@@ -54,6 +61,11 @@ struct CheckDeviceView: View {
                 HoverableButton(
                     action: {
                         Router.shared.navigate(to: .withoutAirpods)
+                        
+                        //모션 비허용 시, default 유저 정보 생성
+                        let user = User(isFirst: false)
+                        
+                        modelContext.insert(user)
                     },
                     label: "에어팟 없이 알림만 받기"
                 )

@@ -6,16 +6,16 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct MeasurePostureView: View {
     @State private var isCountdownComplete = false
-    @State private var pitchValues: [Double] = []
     @StateObject private var motionManager = HeadphoneMotionManager()
     
     var body: some View {
         VStack {
             if isCountdownComplete {
-                MeasuringView(pitchValues: $pitchValues, motionManager: motionManager)
+                MeasuringView(motionManager: motionManager)
                     .onAppear {
                         motionManager.startUpdates()
                     }
@@ -70,11 +70,13 @@ struct MeasureCountDownView: View {
 
 //MARK: - 자세 측정 중 뷰
 struct MeasuringView: View {
-    @Binding var pitchValues: [Double]
+    @State private var pitchValues: [Double] = []
     @ObservedObject var motionManager: HeadphoneMotionManager
     @State private var progress = 0.0
     private let totalTime: Double = 5.0
     @State private var timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
+  
+    @Query var user: [User]
     
     var body: some View {
         VStack(spacing: 16){
@@ -108,10 +110,22 @@ struct MeasuringView: View {
                     progress += 1.0 / (totalTime / 0.1)
                     print(progress)
                     pitchValues.append(motionManager.pitch)
+                    print("측정값: \(pitchValues)")
                 } else {
                     timer.upstream.connect().cancel()
                     motionManager.stopUpdates()
-                    print("5초 동안의 평균 pitch 값: \(calculateAveragePitch())")
+                    
+                    let averagePitch = calculateAveragePitch()
+                    
+                    print("5초 동안의 평균 pitch 값: \(averagePitch)")
+                    
+                    //구한 평균값을 goodPosture에 넣어주기
+                    if let user = user.last {
+                        user.goodPosture = averagePitch
+                    } else {
+                        print("agerage값 넣기 실패")
+                    }
+
                     Router.shared.navigate(to: .measureFinish)
                 }
             }

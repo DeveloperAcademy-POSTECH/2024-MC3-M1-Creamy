@@ -28,6 +28,7 @@ struct TurtleNeckApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .modelContainer(modelContainer)
                 .frame(width: 560, height: 560)
                 .background(.white)
         }

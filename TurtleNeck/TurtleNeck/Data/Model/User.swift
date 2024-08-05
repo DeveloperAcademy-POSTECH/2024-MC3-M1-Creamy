@@ -11,17 +11,13 @@ import SwiftData
 @Model
 class User {
     var isFirst: Bool
-    var goodPosture: Double
-    var goodPostureRange : Double
-    var disturbMode : Bool
-    var notiCycle: Int
+    var goodPosture: Double? = nil
+    var goodPostureRange : Double = 0.1
+    var disturbMode : Bool = false
+    var notiCycle: Int = 300
     @Relationship(deleteRule: .cascade) var notiStatistics: [NotiStatistic]?
     
-    init(isFirst: Bool, goodPosture: Double, goodPostureRange: Double, disturbMode: Bool, notiCycle: Int) {
+    init(isFirst: Bool) {
         self.isFirst = isFirst
-        self.goodPosture = goodPosture
-        self.goodPostureRange = goodPostureRange
-        self.disturbMode = disturbMode
-        self.notiCycle = notiCycle
     }
 }

@@ -33,6 +33,7 @@ class HeadphoneMotionManager: ObservableObject {
     
     init() {
         updateAuthorization()
+        startPostureCheckTimer()
     }
     
     /// 헤드폰 모션 추적 시작

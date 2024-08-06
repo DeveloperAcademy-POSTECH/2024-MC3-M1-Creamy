@@ -15,11 +15,10 @@ struct MainView: View {
     @StateObject private var motionManager = HeadphoneMotionManager()
     @State var isRealTime: Bool = true
     @State var isMute: Bool = false
-    
     @State private var lastCheckedDate = Date()
     
     @Query var statistic: [NotiStatistic]
-    
+
     var body: some View {
         VStack(spacing: 0){
             HStack(alignment: .center, spacing: 10){
@@ -153,7 +152,7 @@ extension MainView {
         }
         
         else {
-            StatisticView()
+            StatisticView(motionManager: motionManager)
         }
     }
 }

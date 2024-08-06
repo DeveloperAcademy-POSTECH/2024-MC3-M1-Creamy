@@ -65,6 +65,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         let mainView = MainView()
             .environment(\.appDelegate, self)
             .modelContainer(modelContainer)
+      
         popover.contentViewController = NSHostingController(rootView: mainView)
     }
     

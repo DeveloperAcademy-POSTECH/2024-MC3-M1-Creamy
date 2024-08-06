@@ -9,21 +9,21 @@ import Foundation
 import SwiftUI
 import SwiftData
 
+var modelContainer: ModelContainer = {
+    let schema = Schema([User.self, NotiStatistic.self])
+    let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+    
+    do {
+        return try ModelContainer(for: schema,
+                                  configurations: [modelConfiguration])
+    } catch {
+        fatalError("modelContainer가 생성되지 않았습니다: \(error)")
+    }
+}()
+
 @main
 struct TurtleNeckApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    
-    var modelContainer: ModelContainer = {
-        let schema = Schema([User.self, NotiStatistic.self])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-        
-        do {
-            return try ModelContainer(for: schema,
-                                      configurations: [modelConfiguration])
-        } catch {
-            fatalError("modelContainer가 생성되지 않았습니다: \(error)")
-        }
-    }()
     
     var body: some Scene {
         WindowGroup {
@@ -61,7 +61,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         popover.contentSize = NSSize(width: 348, height: 232)
         popover.behavior = .transient
         
-        let mainView = MainView().environment(\.appDelegate, self)
+        let mainView = MainView().environment(\.appDelegate, self).modelContainer(modelContainer)
         popover.contentViewController = NSHostingController(rootView: mainView)
     }
     

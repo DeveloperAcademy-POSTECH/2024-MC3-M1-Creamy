@@ -27,9 +27,12 @@ class HeadphoneMotionManager: ObservableObject {
     var goodPosture: Double? = 0.0
     var goodPostureRange: Double = 0.1
     
+    @Published var isConnected: Bool = false
     @Published var currentState: PostureState?
     private var lastBadPostureTime: Date?
     private var postureCheckTimer: Timer?
+    
+    private var motionTimer: Timer? //에어팟을 빼고 있는 시간을 나타냅니다. 즉, 모션 데이터의 수집이 안된 시간
     
     init() {
         updateAuthorization()
@@ -65,9 +68,13 @@ class HeadphoneMotionManager: ObservableObject {
                 self.pitch = motion.attitude.pitch
                 self.roll = motion.attitude.roll
                 self.yaw = motion.attitude.yaw
+                self.isConnected = true // 에어팟 착용 상태로 업데이트
+                self.resetMotionTimer() // 모션 데이터를 받아오는 동안에 2초 동안 모션 데이터가 없으면 착용하지 않은 상태로 업데이트
             }
         }
+        startMotionTimer() // 최초에 한번 실행하는 에어팟을 꼈는지 체크하는 함수 호출
     }
+    
     
     /// 헤드폰 모션 추적 중지
     func stopUpdates() {
@@ -82,6 +89,24 @@ class HeadphoneMotionManager: ObservableObject {
         roll = 0
         yaw = 0
         cmHeadPhoneManager.stopDeviceMotionUpdates()
+        motionTimer?.invalidate()
+    }
+    
+    /// 에어팟을 끼고 있는지를 체크
+    func startMotionTimer() {
+        motionTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] _ in
+            guard let self = self else { return }
+            if self.isConnected {
+                self.isConnected = false // 2초 동안 모션 데이터가 없으면 착용하지 않은 상태로 업데이트
+            }
+        }
+    }
+    
+    //에어팟을 끼고 있다면 타이머를 재실행
+    private func resetMotionTimer() {
+        motionTimer?.invalidate() // 기존 타이머 중지
+        isConnected = true // 에어팟 착용 상태 유지
+        startMotionTimer() // 타이머 재시작
     }
     
     /// 권한 설정 상태를 업데이트 해주는 함수

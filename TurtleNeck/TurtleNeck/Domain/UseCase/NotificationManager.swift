@@ -38,7 +38,7 @@ class NotificationManager {
     }
     
     // 알림 권한 요청하기
-    private func requestNotiPermission() {
+    func requestNotiPermission() {
         
         notiCenter.requestAuthorization(options: [.alert, .badge, .sound]) { isGranted, error in
             if (isGranted) && (error == nil) {

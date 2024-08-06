@@ -45,6 +45,9 @@ struct NotiPermissionView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.top, 132)
         .padding(.bottom, 61)
+        .onAppear{
+            NotificationManager().requestNotiPermission()
+        }
     }
 }
 

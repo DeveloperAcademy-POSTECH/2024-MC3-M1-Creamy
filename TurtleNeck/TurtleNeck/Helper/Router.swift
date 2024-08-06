@@ -59,8 +59,10 @@ extension View {
             MeasurePostureView()
         case .measureFinish:
             MeasureFinishView()
+                .navigationBarBackButtonHidden()
         case .measureError:
             MeasureErrorView()
+                .navigationBarBackButtonHidden()
         case .withoutAirpods:
             WithoutAirpodsView()
         }

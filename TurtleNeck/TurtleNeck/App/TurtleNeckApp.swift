@@ -37,9 +37,6 @@ struct TurtleNeckApp: App {
         .windowStyle(.hiddenTitleBar)
         .windowToolbarStyle(.expanded)
         .windowResizability(.contentSize)
-//        Settings {
-//            EmptyView()
-//        }
     }
 }
 

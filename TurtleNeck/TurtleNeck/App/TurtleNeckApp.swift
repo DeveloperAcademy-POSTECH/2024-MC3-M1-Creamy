@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import SwiftData
+import UserNotifications
 
 @main
 struct TurtleNeckApp: App {
@@ -43,14 +44,14 @@ struct TurtleNeckApp: App {
 }
 
 
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDelegate {
     var statusItem: NSStatusItem!
     var popover: NSPopover!
     var newWindowController: NSWindowController?
     var isMenuBarIconVisible = false
     
     func applicationDidFinishLaunching(_ notification: Notification) {
-        
+        UNUserNotificationCenter.current().delegate = self
         /// 강제 라이트모드 설정
         if let appearance = NSAppearance(named: .aqua) {
             NSApp.appearance = appearance
@@ -63,6 +64,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         let mainView = MainView().environment(\.appDelegate, self)
         popover.contentViewController = NSHostingController(rootView: mainView)
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.badge, .banner, .sound])
     }
     
     func createMenuBarIcon() {

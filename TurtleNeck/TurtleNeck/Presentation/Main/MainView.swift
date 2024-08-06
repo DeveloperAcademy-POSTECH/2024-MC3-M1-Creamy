@@ -48,6 +48,31 @@ struct MainView: View {
         .onChange(of: lastCheckedDate) { _, _ in
             checkDateChange()
         }
+        .onChange(of: motionManager.currentState) { _, _ in
+            if let currentState = motionManager.currentState {
+                switch currentState {
+                case .good:
+                    // 설정된 노티 삭제 후 재설정(.good => 1초 후)
+                    NotificationManager().removeTimeNoti()
+                    NotificationManager().settingTimeNoti(state: .good)
+                
+                case .bad:
+                    if let notiStatistic = statistic.last {
+                        notiStatistic.notiCount = notiStatistic.notiCount + 1
+                    }
+                    
+                    // 노티 설정(.bad => 5초 후)
+                    NotificationManager().settingTimeNoti(state: .bad)
+
+                case .worse:
+                    // 노티 설정(.worse => 1초 후)
+                    if let notiStatistic = statistic.last {
+                        notiStatistic.notiCount = notiStatistic.notiCount + 1
+                    }
+                    NotificationManager().settingTimeNoti(state: .worse)
+                }
+            }
+        }
     }
     
     private var segmentView: some View {

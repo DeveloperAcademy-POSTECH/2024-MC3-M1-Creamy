@@ -123,10 +123,6 @@ extension HeadphoneMotionManager {
             if currentState != .good {
                 currentState = .good
                 print("자세가 좋아졌어요")
-                
-                // 설정된 노티 삭제 후 재설정(.good => 1초 후)
-                NotificationManager().removeTimeNoti()
-                NotificationManager().settingTimeNoti(state: .good)
             }
         // 자세가 안좋아졌을 경우 .bad 설정
         } else {
@@ -135,17 +131,11 @@ extension HeadphoneMotionManager {
                 lastBadPostureTime = Date()
                 print("자세가 안좋아졌어요")
                 
-                // 노티 설정(.bad => 5초 후)
-                NotificationManager().settingTimeNoti(state: .bad)
-                
             //나쁜자세를 10분이상 유지했을 때 .worse 설정 (test위해 임의로 10초로 설정해뒀습니다)
             } else if let lastBadPostureTime = lastBadPostureTime,
                       Date().timeIntervalSince(lastBadPostureTime) >= 10 {
                 currentState = .worse
                 print("안좋은 자세를 10분간 유지했어요")
-                
-                // 노티 설정(.worse => 1초 후)
-                NotificationManager().settingTimeNoti(state: .worse)
                 
                 // 상태를 .worse로 설정한 후 즉시(0.01초 뒤) .bad로 돌아가기
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {

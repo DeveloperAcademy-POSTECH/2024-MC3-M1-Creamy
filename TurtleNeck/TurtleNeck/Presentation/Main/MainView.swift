@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct MainView: View {
     @Environment(\.appDelegate) var appDelegate: AppDelegate?
@@ -13,6 +14,8 @@ struct MainView: View {
     @StateObject private var motionManager = HeadphoneMotionManager()
     @State var isRealTime: Bool = true
     @State var isMute: Bool = false
+    
+    @Query private var todayStat: [NotiStatistic]
 
     var body: some View {
         VStack(spacing: 0){
@@ -91,7 +94,7 @@ extension MainView {
         }
         
         else {
-            StatisticView()
+            StatisticView(motionManager: motionManager)
         }
     }
 }

@@ -37,6 +37,9 @@
 		512DD1802C5392A60033985C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512DD17F2C5392A60033985C /* MainView.swift */; };
 		512DD1822C5392BF0033985C /* NotiPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512DD1812C5392BF0033985C /* NotiPermissionView.swift */; };
 		512DD1842C5392CC0033985C /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512DD1832C5392CC0033985C /* SettingView.swift */; };
+		51300EC32C62A880000A4EF5 /* CharacterNotiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51300EC22C62A880000A4EF5 /* CharacterNotiManager.swift */; };
+		51300EC62C62AC5E000A4EF5 /* CharacterNotiViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51300EC52C62AC5E000A4EF5 /* CharacterNotiViewModel.swift */; };
+		51300EC82C62ACA4000A4EF5 /* CharacterNotiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51300EC72C62ACA4000A4EF5 /* CharacterNotiView.swift */; };
 		51C09D042C5E42A8003307F2 /* NotificationContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C09D032C5E42A8003307F2 /* NotificationContent.swift */; };
 		51EB27582C5C7F2500CEE9FB /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EB27572C5C7F2500CEE9FB /* NotificationManager.swift */; };
 		BD17242D2C592FF200C80B4B /* HoverableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD17242C2C592FF200C80B4B /* HoverableButton.swift */; };
@@ -88,6 +91,9 @@
 		512DD17F2C5392A60033985C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		512DD1812C5392BF0033985C /* NotiPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiPermissionView.swift; sourceTree = "<group>"; };
 		512DD1832C5392CC0033985C /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		51300EC22C62A880000A4EF5 /* CharacterNotiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterNotiManager.swift; sourceTree = "<group>"; };
+		51300EC52C62AC5E000A4EF5 /* CharacterNotiViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterNotiViewModel.swift; sourceTree = "<group>"; };
+		51300EC72C62ACA4000A4EF5 /* CharacterNotiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterNotiView.swift; sourceTree = "<group>"; };
 		51C09D032C5E42A8003307F2 /* NotificationContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationContent.swift; sourceTree = "<group>"; };
 		51EB27572C5C7F2500CEE9FB /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		BD17242C2C592FF200C80B4B /* HoverableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoverableButton.swift; sourceTree = "<group>"; };
@@ -256,6 +262,7 @@
 		512DD16B2C538E580033985C /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				51300EC42C62AC1C000A4EF5 /* CharacterNoti */,
 				BD17242F2C5A245000C80B4B /* Components */,
 				4FF6E4922C5FC5CD002B08A6 /* PIP */,
 				512DD17D2C5392680033985C /* Main */,
@@ -298,6 +305,7 @@
 			children = (
 				51EB27572C5C7F2500CEE9FB /* NotificationManager.swift */,
 				512DD1762C53907F0033985C /* DummyUseCase.swift */,
+				51300EC22C62A880000A4EF5 /* CharacterNotiManager.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -339,6 +347,15 @@
 				BD76C5E42C567A66004993EC /* WithoutAirpods */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		51300EC42C62AC1C000A4EF5 /* CharacterNoti */ = {
+			isa = PBXGroup;
+			children = (
+				51300EC52C62AC5E000A4EF5 /* CharacterNotiViewModel.swift */,
+				51300EC72C62ACA4000A4EF5 /* CharacterNotiView.swift */,
+			);
+			path = CharacterNoti;
 			sourceTree = "<group>";
 		};
 		BD17242F2C5A245000C80B4B /* Components */ = {
@@ -463,6 +480,7 @@
 				BD17242D2C592FF200C80B4B /* HoverableButton.swift in Sources */,
 				512DD1842C5392CC0033985C /* SettingView.swift in Sources */,
 				4F8160732C57EC5B0030E5D6 /* FontExtension.swift in Sources */,
+				51300EC32C62A880000A4EF5 /* CharacterNotiManager.swift in Sources */,
 				4F5FEFBD2C5C762000E00081 /* TopMenuView.swift in Sources */,
 				512DD1802C5392A60033985C /* MainView.swift in Sources */,
 				BDDBFF912C5E237A0031F56C /* HeadphoneDetectManager.swift in Sources */,
@@ -487,7 +505,9 @@
 				4F8160242C5536120030E5D6 /* RealTimePostureView.swift in Sources */,
 				4F8160262C5536380030E5D6 /* WeekPostureView.swift in Sources */,
 				512DD15A2C538B410033985C /* TurtleNeckApp.swift in Sources */,
+				51300EC62C62AC5E000A4EF5 /* CharacterNotiViewModel.swift in Sources */,
 				51EB27582C5C7F2500CEE9FB /* NotificationManager.swift in Sources */,
+				51300EC82C62ACA4000A4EF5 /* CharacterNotiView.swift in Sources */,
 				4FF6E4942C5FC5F2002B08A6 /* PIPView.swift in Sources */,
 				512DD17B2C5391660033985C /* DummyHelper.swift in Sources */,
 				BD76C5EA2C567C6F004993EC /* MeasureErrorView.swift in Sources */,

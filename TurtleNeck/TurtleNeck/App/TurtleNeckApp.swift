@@ -62,7 +62,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         popover.contentSize = NSSize(width: 348, height: 232)
         popover.behavior = .transient
         
-        let mainView = MainView().environment(\.appDelegate, self).modelContainer(modelContainer)
+        let mainView = MainView()
+            .environment(\.appDelegate, self)
+            .modelContainer(modelContainer)
+      
         popover.contentViewController = NSHostingController(rootView: mainView)
     }
     

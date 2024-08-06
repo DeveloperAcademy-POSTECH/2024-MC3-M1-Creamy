@@ -15,7 +15,6 @@ class User {
     var goodPostureRange : Double = 0.1
     var disturbMode : Bool = false
     var notiCycle: Int = 300
-    @Relationship(deleteRule: .cascade) var notiStatistics: [NotiStatistic]?
     
     init(isFirst: Bool) {
         self.isFirst = isFirst

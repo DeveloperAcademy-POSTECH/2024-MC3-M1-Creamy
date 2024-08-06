@@ -11,13 +11,11 @@ import SwiftData
 @Model
 class NotiStatistic {
     @Attribute(.unique) var id = UUID()
-    var date: Date
-    var time: Int
-    var count: Int
+    var date: Date = Date()
+    var time: Int = 0
+    var notiCount: Int = 0
     
-    init(date: Date, time: Int, count: Int) {
+    init(date: Date) {
         self.date = date
-        self.time = time
-        self.count = count
     }
 }

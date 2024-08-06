@@ -10,6 +10,7 @@ import SwiftUI
 struct WithoutAirpodsView: View {
     @Environment(\.appDelegate) var appDelegate: AppDelegate?
     @Environment(\.presentationMode) var presentationMode
+    @Environment(\.modelContext) var modelContext
     @State private var isAppStartHover = false
     
     var body: some View {
@@ -32,6 +33,10 @@ struct WithoutAirpodsView: View {
             
             HoverableButton(action: {
                 appDelegate?.createMenuBarIcon()
+                
+                // default NotiStatistic 정보 생성
+                let notiStatistic = NotiStatistic(date: Date())
+                modelContext.insert(notiStatistic)
                 
                 NSApplication.shared.keyWindow?.close()
                 

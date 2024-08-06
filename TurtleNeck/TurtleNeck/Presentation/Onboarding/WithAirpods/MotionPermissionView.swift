@@ -13,11 +13,8 @@ struct MotionPermissionView: View {
     
     var body: some View {
         VStack(spacing: 16){
-            Rectangle()
-                .frame(width: 190, height: 168)
-                .cornerRadius(8)
-                .foregroundColor(.gray)
-                .padding(.bottom, 8)
+            Image("motionPermissionWindow")
+                .padding(.bottom, 24)
             
             Text("접근 권한을 허용해주세요.")
                 .font(.title3)
@@ -41,7 +38,7 @@ struct MotionPermissionView: View {
             motionManager.stopUpdates()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .padding(.top, 117)
+        .padding(.top, 80)
         .padding(.bottom, 61)
     }
 }

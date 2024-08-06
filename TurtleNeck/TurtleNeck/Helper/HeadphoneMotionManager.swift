@@ -36,7 +36,7 @@ class HeadphoneMotionManager: ObservableObject {
     
     init() {
         updateAuthorization()
-        startPostureCheckTimer()
+//        startPostureCheckTimer()
     }
     
     /// 헤드폰 모션 추적 시작
@@ -71,6 +71,9 @@ class HeadphoneMotionManager: ObservableObject {
                 self.isConnected = true // 에어팟 착용 상태로 업데이트
                 self.resetMotionTimer() // 모션 데이터를 받아오는 동안에 2초 동안 모션 데이터가 없으면 착용하지 않은 상태로 업데이트
             }
+            
+            updatePostureState() // 모션 데이터를 받아오는 동안에 실시간으로 자세 상태 파악
+            
         }
         startMotionTimer() // 최초에 한번 실행하는 에어팟을 꼈는지 체크하는 함수 호출
     }
@@ -94,10 +97,10 @@ class HeadphoneMotionManager: ObservableObject {
     
     /// 에어팟을 끼고 있는지를 체크
     func startMotionTimer() {
-        motionTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] _ in
+        motionTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
             guard let self = self else { return }
             if self.isConnected {
-                self.isConnected = false // 2초 동안 모션 데이터가 없으면 착용하지 않은 상태로 업데이트
+                self.isConnected = false // 1초 동안 모션 데이터가 없으면 착용하지 않은 상태로 업데이트
             }
         }
     }
@@ -141,7 +144,7 @@ extension HeadphoneMotionManager {
     }
     
     /// 자세 상태를 업데이트하는 함수
-    func updatePostureState() {
+    private func updatePostureState() {
         let isGoodPosture = isWithinGoodPosture()
 
         if isGoodPosture {
@@ -174,9 +177,10 @@ extension HeadphoneMotionManager {
         }
     }
     
-    private func startPostureCheckTimer() {
-        postureCheckTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
-            self?.updatePostureState()
-        }
-    }
+//    private func startPostureCheckTimer() {
+//        postureCheckTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+//            self?.updatePostureState()
+//        }
+//        updatePostureState()
+//    }
 }

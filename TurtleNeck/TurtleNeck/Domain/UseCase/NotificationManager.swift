@@ -108,11 +108,11 @@ class NotificationManager {
         case .worse:
             return 1
         case .bad:
-            return 1
+            return 5
         case .good:
             return 1
         case .normal:
-            return 1
+            return 60
         }
     }
 }

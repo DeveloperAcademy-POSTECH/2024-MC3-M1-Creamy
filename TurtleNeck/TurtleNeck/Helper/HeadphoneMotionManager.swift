@@ -25,11 +25,11 @@ class HeadphoneMotionManager: ObservableObject {
     
     //TODO: SwiftData에서 goodPosture,Range 가져오기
     var goodPosture: Double? = 0.0
-    var goodPostureRange: Double = 0.2618
+    var goodPostureRange: Double = 0.2 //약 11.4도
     
     @Published var isConnected: Bool = false
     @Published var currentState: PostureState?
-    private var lastBadPostureTime: Date?
+    var lastBadPostureTime: Date?
     private var postureCheckTimer: Timer?
     
     private var motionTimer: Timer? //에어팟을 빼고 있는 시간을 나타냅니다. 즉, 모션 데이터의 수집이 안된 시간
@@ -158,9 +158,9 @@ extension HeadphoneMotionManager {
                 lastBadPostureTime = Date()
                 print("자세가 안좋아졌어요")
                 
-            //나쁜자세를 10분이상 유지했을 때 .worse 설정 (test위해 임의로 10초로 설정해뒀습니다)
+            //나쁜자세를 오래 유지했을 때 .worse 설정 (5분)
             } else if let lastBadPostureTime = lastBadPostureTime,
-                      Date().timeIntervalSince(lastBadPostureTime) >= 10 {
+                      Date().timeIntervalSince(lastBadPostureTime) >= 300 {
                 currentState = .worse
                 print("안좋은 자세를 10분간 유지했어요")
                 

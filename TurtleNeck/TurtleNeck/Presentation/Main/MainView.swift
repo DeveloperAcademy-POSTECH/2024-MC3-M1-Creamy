@@ -54,7 +54,12 @@ struct MainView: View {
             
             switch currentState {
             case .good:
-                // 설정된 노티 삭제 후 재설정(.good => 1초 후)
+                // bad 전환 5초 이내일 시
+                if let lastBadTime = motionManager.lastBadPostureTime, Date().timeIntervalSince(lastBadTime) < 5 {
+                    NotificationManager().removeTimeNoti()
+                    return
+                }
+                
                 NotificationManager().removeTimeNoti()
                 NotificationManager().settingTimeNoti(state: .good)
                 
@@ -72,6 +77,7 @@ struct MainView: View {
                     notiStatistic.notiCount = notiStatistic.notiCount + 1
                 }
                 NotificationManager().settingTimeNoti(state: .worse)
+                NotificationManager().removeTimeNoti()
             }
         }
         

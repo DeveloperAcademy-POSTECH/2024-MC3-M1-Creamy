@@ -13,6 +13,7 @@ class CharacterNotiManager: NSPanel {
     private var viewPosition : CGPoint
     private var viewSize : CGSize
     private let viewModel = CharacterNotiViewModel()
+    private var isPanelOpen : Bool = false
     
     init(position: NSRect, imgName: String) {
         self.viewPosition = CGPoint(x: position.origin.x, y: position.origin.y)
@@ -28,19 +29,20 @@ class CharacterNotiManager: NSPanel {
     
     // 캐릭터 알림 설정
     func setCharacterNoti() {
-        
-        self.orderFront(nil)
-        
-        NSAnimationContext.runAnimationGroup({ context in
-            let newFrame = NSRect(x: viewPosition.x, y: 0, width: viewSize.width, height: viewSize.height)
-            context.duration = 4
-            self.animator().setFrame(newFrame, display: true)
-        }, completionHandler: nil)
-        
+        if !(self.isPanelOpen){
+            self.orderFront(nil)
+            NSAnimationContext.runAnimationGroup({ context in
+                let newFrame = NSRect(x: viewPosition.x, y: 0, width: viewSize.width, height: viewSize.height)
+                context.duration = 4
+                self.animator().setFrame(newFrame, display: true)
+            }, completionHandler: {
+                self.isPanelOpen = true
+            })
+        }
     }
     
     // 캐릭터 알림 제거
-    func removeCharacterNoti() {
+    func removeCharacterNoti(isWithTouch: Bool = false) {
         
         NSAnimationContext.runAnimationGroup({ context in
             let newFrame = NSRect(x: viewPosition.x, y: -viewSize.height, width: viewSize.width, height: viewSize.height)
@@ -48,6 +50,7 @@ class CharacterNotiManager: NSPanel {
             self.animator().setFrame(newFrame, display: true)
         }, completionHandler: {
             self.orderOut(nil)
+            self.isPanelOpen = false
         })
     }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F5189182C633C7200E978F0 /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5189172C633C7200E978F0 /* LaunchScreenView.swift */; };
 		4F5FEFBB2C5C761400E00081 /* TurtleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5FEFBA2C5C761400E00081 /* TurtleView.swift */; };
 		4F5FEFBD2C5C762000E00081 /* TopMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5FEFBC2C5C762000E00081 /* TopMenuView.swift */; };
 		4F8160242C5536120030E5D6 /* RealTimePostureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8160232C5536120030E5D6 /* RealTimePostureView.swift */; };
@@ -57,6 +58,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4F5189172C633C7200E978F0 /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
 		4F5FEFBA2C5C761400E00081 /* TurtleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurtleView.swift; sourceTree = "<group>"; };
 		4F5FEFBC2C5C762000E00081 /* TopMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMenuView.swift; sourceTree = "<group>"; };
 		4F8160232C5536120030E5D6 /* RealTimePostureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealTimePostureView.swift; sourceTree = "<group>"; };
@@ -120,6 +122,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F5189162C633C5700E978F0 /* LaunchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				4F5189172C633C7200E978F0 /* LaunchScreenView.swift */,
+			);
+			path = LaunchScreen;
+			sourceTree = "<group>";
+		};
 		4F5FEFB92C5C75F900E00081 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -259,6 +269,7 @@
 		512DD16B2C538E580033985C /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				4F5189162C633C5700E978F0 /* LaunchScreen */,
 				51300EC42C62AC1C000A4EF5 /* CharacterNoti */,
 				BD17242F2C5A245000C80B4B /* Components */,
 				4FF6E4922C5FC5CD002B08A6 /* PIP */,
@@ -500,6 +511,7 @@
 				4F81605F2C57EBE30030E5D6 /* ColorExtension.swift in Sources */,
 				4F8160242C5536120030E5D6 /* RealTimePostureView.swift in Sources */,
 				4F8160262C5536380030E5D6 /* WeekPostureView.swift in Sources */,
+				4F5189182C633C7200E978F0 /* LaunchScreenView.swift in Sources */,
 				512DD15A2C538B410033985C /* TurtleNeckApp.swift in Sources */,
 				51300EC62C62AC5E000A4EF5 /* CharacterNotiViewModel.swift in Sources */,
 				51EB27582C5C7F2500CEE9FB /* NotificationManager.swift in Sources */,

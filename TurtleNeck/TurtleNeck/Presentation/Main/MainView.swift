@@ -20,6 +20,15 @@ struct MainView: View {
     @State private var isStarted: Bool = false
     
     @Query var statistic: [NotiStatistic]
+    
+    @State var characterNotiManager : CharacterNotiManager = {
+        let screenSize = NSScreen.main!.frame
+        let viewSize = CGSize(width: 150, height: 200)
+        let position = NSRect(x: screenSize.size.width - viewSize.width, y: -viewSize.height, width: viewSize.width, height: viewSize.height)
+
+        let imgName = "CharacterNoti"
+        return CharacterNotiManager(position: position, imgName: imgName)
+    }()
 
     var body: some View {
         VStack(spacing: 0){
@@ -59,9 +68,11 @@ struct MainView: View {
                     NotificationManager().removeTimeNoti()
                     return
                 }
-                
                 NotificationManager().removeTimeNoti()
                 NotificationManager().settingTimeNoti(state: .good)
+              
+               // 설정된 캐릭터 노티 삭제
+                characterNotiManager.removeCharacterNoti()
                 
             case .bad:
                 if let notiStatistic = statistic.last {
@@ -74,10 +85,13 @@ struct MainView: View {
             case .worse:
                 // 노티 설정(.worse => 1초 후)
                 if let notiStatistic = statistic.last {
-                    notiStatistic.notiCount = notiStatistic.notiCount + 1
+                    notiStatistic.notiCount = notiStatistic.notiCount + 1                    
                 }
                 NotificationManager().settingTimeNoti(state: .worse)
                 NotificationManager().removeTimeNoti()
+              
+              // 캐릭터 노티 설정
+                characterNotiManager.setCharacterNoti()
             }
         }
         

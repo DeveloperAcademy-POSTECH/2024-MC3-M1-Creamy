@@ -93,7 +93,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         
         if let button = statusItem.button {
             let image: NSImage = {
-                let img = NSImage(named: "withMax")!
+                let img = NSImage(named: "menubarIcon")!
                 let ratio = img.size.height / img.size.width
                 img.size.height = 30
                 img.size.width = 30 / ratio

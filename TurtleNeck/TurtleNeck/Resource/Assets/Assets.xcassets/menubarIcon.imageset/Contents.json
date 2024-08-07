@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "withoutAirpods.png",
+      "filename" : "menubarIcon.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "withoutAirpods@2x.png",
+      "filename" : "menubarIcon@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "withoutAirpods@3x.png",
+      "filename" : "menubarIcon@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

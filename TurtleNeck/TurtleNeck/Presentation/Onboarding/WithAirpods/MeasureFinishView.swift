@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MeasureFinishView: View {
+    @AppStorage("isFirst") var isFirst: Bool = true
     @Environment(\.appDelegate) var appDelegate: AppDelegate?
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.modelContext) var modelContext
@@ -44,7 +45,7 @@ struct MeasureFinishView: View {
                             appDelegate?.showPopover()
                         }
                         
-                        UserDefaults.standard.set(false, forKey: "isFirst")
+                        isFirst = false
                     },
                     label: "시작하기"
                 )

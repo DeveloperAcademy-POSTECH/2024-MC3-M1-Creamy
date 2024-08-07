@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct WithoutAirpodsView: View {
+    @AppStorage("isFirst") var isFirst: Bool = true
     @Environment(\.appDelegate) var appDelegate: AppDelegate?
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.modelContext) var modelContext
@@ -43,6 +44,9 @@ struct WithoutAirpodsView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     appDelegate?.showPopover()
                 }
+                
+                isFirst = false
+                
             }, label: "시작하기")
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

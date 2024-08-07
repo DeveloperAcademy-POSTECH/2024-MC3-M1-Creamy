@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct SettingView: View {
+    @AppStorage("isFirst") var isFirst: Bool = false
     @Environment(\.appDelegate) var appDelegate: AppDelegate?
     @Environment(\.modelContext) private var modelContext
     @Query private var statistics: [NotiStatistic]
@@ -16,11 +17,7 @@ struct SettingView: View {
     @State private var notiWindow: Bool = true
     @State private var notiSound: Bool = true
     @State private var postureMeasure: Bool = true
-//    @State private var selectedOption: String = "Option 1"
-//    @State private var showPicker: Bool = false
-//    @State private var selected = 1
     @State private var speed = 50.0
-//    @State private var isEditing = false
 
     var body: some View {
 
@@ -160,7 +157,8 @@ struct SettingView: View {
                         }
                         Spacer()
                         Button(action: {
-                            UserDefaults.standard.set(true, forKey: "isFirst")
+                            UserDefaults.standard.removeObject(forKey: "isFirst")
+                            
                         }){
                             Text("자세 설정하러 가기").font(.pretendardRegular13).foregroundColor(.black)
                         }

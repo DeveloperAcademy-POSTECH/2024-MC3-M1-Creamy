@@ -15,11 +15,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack(path: $router.navPath) {
             VStack{
-                if isFirst{
-                    NotiPermissionView()
-                } else{
-                    NotiPermissionView()
-                }
+                NotiPermissionView()
             }
             .navigationDestination(for: Destination.self) { destination in
                 destinationPath(destination: destination)

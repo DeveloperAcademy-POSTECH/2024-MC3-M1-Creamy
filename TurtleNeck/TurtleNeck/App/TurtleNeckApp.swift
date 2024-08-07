@@ -10,7 +10,6 @@ import SwiftUI
 import SwiftData
 import UserNotifications
 
-var isFirstLaunch: Bool = UserDefaults.standard.bool(forKey: "isFirst")
 var modelContainer: ModelContainer = {
     let schema = Schema([User.self, NotiStatistic.self])
     let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
@@ -26,21 +25,24 @@ var modelContainer: ModelContainer = {
 @main
 struct TurtleNeckApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @AppStorage("isFirst") var isFirst: Bool = true
     
     var body: some Scene {
         WindowGroup {
-            if isFirstLaunch {
+            if isFirst == true {
                 ContentView()
                     .environment(\.appDelegate, appDelegate)
                     .modelContainer(modelContainer)
                     .frame(width: 560, height: 560)
-                    .background(.white)  // User가 처음이면 ContentView를 띄운다.
-            } else {
-                SettingView()
-                    .environment(\.appDelegate, appDelegate)
-                    .modelContainer(modelContainer)
                     .background(.white)
             }
+//            else{
+//                LaunchScreenView()
+//                    .environment(\.appDelegate, appDelegate)
+//                    .modelContainer(modelContainer)
+//                    .background(.white)
+//            }
+            EmptyView()
         }
         .windowStyle(.hiddenTitleBar)
         .windowToolbarStyle(.expanded)
@@ -54,6 +56,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     var popover: NSPopover!
     var newWindowController: NSWindowController?
     var isMenuBarIconVisible = false
+    @AppStorage("isFirst") var isFirst: Bool = true
     
     func applicationDidFinishLaunching(_ notification: Notification) {
         UNUserNotificationCenter.current().delegate = self
@@ -66,8 +69,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         popover.contentSize = NSSize(width: 348, height: 232)
         popover.behavior = .transient
         
-        if !isFirstLaunch {
-            createMenuBarIcon()
+        if !isFirst {
+            openLaunchScreenView()
         }
         
         let mainView = MainView()
@@ -121,6 +124,35 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         }
     }
     
+    func openLaunchScreenView(){
+        let contentView = LaunchScreenView()
+        let newWindow = NSWindow(contentRect: NSMakeRect(0, 0, 560, 560),
+                                 styleMask: [.borderless], // 제목 바 없는 스타일
+                                 backing: .buffered,
+                                 defer: false)
+        
+        newWindow.isReleasedWhenClosed = false
+        newWindow.center()
+        newWindow.level = .floating
+        newWindow.setFrameAutosaveName("LaunchScreenWindow")
+        
+        newWindow.contentView = NSHostingView(rootView: LaunchScreenView().environment(\.appDelegate, self))
+        
+        
+        newWindowController = NSWindowController(window: newWindow)
+        newWindowController?.showWindow(self)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.createMenuBarIcon()
+            newWindow.close()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+                self.showPopover()
+            }
+        }
+                       
+    }
+    
     func openAlwaysOnTopView(isMute: Binding<Bool>, motionManager: HeadphoneMotionManager){
         let newWindow = NSWindow(contentRect: NSMakeRect(100, 100, 286, 160),
                                  styleMask: [.titled, .closable, .resizable],
@@ -140,6 +172,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         
         newWindowController = NSWindowController(window: newWindow)
         newWindowController?.showWindow(self)
+        
+        
 
     }
     

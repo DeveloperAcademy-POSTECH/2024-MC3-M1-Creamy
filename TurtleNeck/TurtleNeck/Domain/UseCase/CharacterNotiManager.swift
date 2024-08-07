@@ -42,7 +42,7 @@ class CharacterNotiManager: NSPanel {
     }
     
     // 캐릭터 알림 제거
-    func removeCharacterNoti(isWithTouch: Bool = false) {
+    func removeCharacterNoti() {
         
         NSAnimationContext.runAnimationGroup({ context in
             let newFrame = NSRect(x: viewPosition.x, y: -viewSize.height, width: viewSize.width, height: viewSize.height)

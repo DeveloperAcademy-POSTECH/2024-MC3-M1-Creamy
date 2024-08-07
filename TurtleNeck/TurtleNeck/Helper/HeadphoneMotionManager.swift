@@ -25,7 +25,7 @@ class HeadphoneMotionManager: ObservableObject {
     
     //TODO: SwiftData에서 goodPosture,Range 가져오기
     var goodPosture: Double? = 0.0
-    var goodPostureRange: Double = 0.2 //약 11.4도
+    var goodPostureRange: Double = 0.13 //약 7.5도
     
     @Published var isConnected: Bool = false
     @Published var currentState: PostureState?

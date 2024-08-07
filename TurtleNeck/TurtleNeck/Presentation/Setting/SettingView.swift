@@ -53,8 +53,8 @@ struct SettingView: View {
                     }
                     Spacer()
                     Button(action: {
-                        deleteAllData()
-                        print("눌렀음")
+//                        deleteAllData()
+//                        print("눌렀음")
                     }){
                         Text("설정 열기").font(.pretendardRegular13).foregroundColor(.black)
                     }
@@ -157,8 +157,7 @@ struct SettingView: View {
                         }
                         Spacer()
                         Button(action: {
-                            UserDefaults.standard.removeObject(forKey: "isFirst")
-                            
+//                            UserDefaults.standard.removeObject(forKey: "isFirst")         
                         }){
                             Text("자세 설정하러 가기").font(.pretendardRegular13).foregroundColor(.black)
                         }

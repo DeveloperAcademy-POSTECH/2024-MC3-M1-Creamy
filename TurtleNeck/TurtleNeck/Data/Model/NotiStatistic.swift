@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-class NotiStatistic {
+class NotiStatistic: Identifiable {
     @Attribute(.unique) var id = UUID()
     var date: Date = Date()
     var time: Int = 0
@@ -17,5 +17,9 @@ class NotiStatistic {
     
     init(date: Date) {
         self.date = date
+    }
+    
+    func addWearingTime(_ additionalTime: Int) {
+            self.time += additionalTime
     }
 }

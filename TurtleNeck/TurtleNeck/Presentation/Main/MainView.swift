@@ -16,6 +16,7 @@ struct MainView: View {
     @State var isRealTime: Bool = true
     @State var isMute: Bool = false
     @State private var lastCheckedDate = Date()
+    @State private var wearingStartTime: Date?
     
     @Query var statistic: [NotiStatistic]
 
@@ -29,7 +30,7 @@ struct MainView: View {
                 TopMenuView(action: {
                     appDelegate?.openAlwaysOnTopView(isMute: $isMute, motionManager: motionManager)
                 }, isMute: $isMute, motionManager: motionManager)
-
+                
             }
             .padding(.top, 12)
             
@@ -40,13 +41,13 @@ struct MainView: View {
         .frame(width: 348,height: 232)
         .onAppear {
             motionManager.startUpdates()
-            checkDateChange()
-            
-            print(statistic.count)
+            //            checkDateChange()
+            //
+            //            print(statistic.count)
         }
-        .onChange(of: lastCheckedDate) { _, _ in
-            checkDateChange()
-        }
+        //        .onChange(of: lastCheckedDate) { _, _ in
+        //            checkDateChange()
+        //        }
         .onChange(of: motionManager.currentState) { _, _ in
             if let currentState = motionManager.currentState {
                 switch currentState {
@@ -54,7 +55,7 @@ struct MainView: View {
                     // 설정된 노티 삭제 후 재설정(.good => 1초 후)
                     NotificationManager().removeTimeNoti()
                     NotificationManager().settingTimeNoti(state: .good)
-                
+                    
                 case .bad:
                     if let notiStatistic = statistic.last {
                         notiStatistic.notiCount = notiStatistic.notiCount + 1
@@ -62,7 +63,7 @@ struct MainView: View {
                     
                     // 노티 설정(.bad => 5초 후)
                     NotificationManager().settingTimeNoti(state: .bad)
-
+                    
                 case .worse:
                     // 노티 설정(.worse => 1초 후)
                     if let notiStatistic = statistic.last {
@@ -70,6 +71,35 @@ struct MainView: View {
                     }
                     NotificationManager().settingTimeNoti(state: .worse)
                 }
+            }
+        }
+        
+        .onChange(of: motionManager.isConnected) { isConnected in
+            if isConnected {
+                wearingStartTime = Date()
+                checkAndAddTodayData() // isConnected가 true일 때 호출
+            }
+            else {
+                if let startTime = wearingStartTime {
+                    let endTime = Date()
+                    let wearingDuration = Int(endTime.timeIntervalSince(startTime))
+                    
+                    let today = Calendar.current.startOfDay(for: endTime)
+                    
+                    let existingStatistic = statistic.filter { $0.date == today }.first
+                    
+                    if let lastStatistic = statistic.last {
+                        lastStatistic.time += wearingDuration
+                    }
+                    
+                    do {
+                        try modelContext.save()
+                    } catch {
+                        print("저장 중 오류 발생: \(error)")
+                    }
+                }
+                
+                wearingStartTime = nil // 착용 시간 초기화
             }
         }
     }
@@ -116,6 +146,23 @@ struct MainView: View {
             }
         }
     }
+
+}
+
+extension MainView {
+    @ViewBuilder
+    private func showView(isRealTime: Bool) -> some View {
+        if isRealTime {
+            RealTimePostureView(motionManager: motionManager)
+        }
+        
+        else {
+            StatisticView(motionManager: motionManager)
+        }
+    }
+}
+
+extension MainView {
     
     private func checkDateChange() {
         let currentDate = Date()
@@ -142,20 +189,27 @@ struct MainView: View {
             }
         }
     }
-}
-
-extension MainView {
-    @ViewBuilder
-    private func showView(isRealTime: Bool) -> some View {
-        if isRealTime {
-            RealTimePostureView(motionManager: motionManager)
+    
+    private func checkAndAddTodayData() {
+        let today = Calendar.current.startOfDay(for: Date())
+        let todayDataExists = statistic.contains { Calendar.current.isDate($0.date, inSameDayAs: today) }
+        
+        if !todayDataExists {
+            // 오늘 데이터가 없으면 새 데이터 추가
+            let newTodayData = NotiStatistic(date: today)
+            modelContext.insert(newTodayData)
+            print("오늘에 해당하는 데이터가 추가되었습니다.")
         }
         
-        else {
-            StatisticView(motionManager: motionManager)
+        // 데이터 갯수가 7개를 초과할 경우 제일 오래된 데이터 삭제
+        if statistic.count > 7 {
+            guard let firstItem = statistic.first else { return } // 첫 번째 아이템 확인
+            modelContext.delete(firstItem) // 모델 컨텍스트에서 삭제
+            print("가장 오래된 데이터가 삭제되었습니다.")
         }
     }
 }
+
 
 #Preview {
     MainView()

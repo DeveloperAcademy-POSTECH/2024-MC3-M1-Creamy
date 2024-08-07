@@ -43,6 +43,8 @@ struct MeasureFinishView: View {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             appDelegate?.showPopover()
                         }
+                        
+                        UserDefaults.standard.set(false, forKey: "isFirst")
                     },
                     label: "시작하기"
                 )

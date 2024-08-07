@@ -10,10 +10,11 @@ import SwiftUI
 import SwiftData
 import UserNotifications
 
+var isFirstLaunch: Bool = UserDefaults.standard.bool(forKey: "isFirst")
 var modelContainer: ModelContainer = {
     let schema = Schema([User.self, NotiStatistic.self])
     let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-    
+     
     do {
         return try ModelContainer(for: schema,
                                   configurations: [modelConfiguration])
@@ -28,11 +29,18 @@ struct TurtleNeckApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.appDelegate, appDelegate)
-                .modelContainer(modelContainer)
-                .frame(width: 560, height: 560)
-                .background(.white)
+            if isFirstLaunch {
+                ContentView()
+                    .environment(\.appDelegate, appDelegate)
+                    .modelContainer(modelContainer)
+                    .frame(width: 560, height: 560)
+                    .background(.white)  // User가 처음이면 ContentView를 띄운다.
+            } else {
+                SettingView()
+                    .environment(\.appDelegate, appDelegate)
+                    .modelContainer(modelContainer)
+                    .background(.white)
+            }
         }
         .windowStyle(.hiddenTitleBar)
         .windowToolbarStyle(.expanded)
@@ -53,11 +61,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         if let appearance = NSAppearance(named: .aqua) {
             NSApp.appearance = appearance
         }
-        
         popover = NSPopover()
         popover.setValue(true, forKeyPath: "shouldHideAnchor")
         popover.contentSize = NSSize(width: 348, height: 232)
         popover.behavior = .transient
+        
+        if !isFirstLaunch {
+            createMenuBarIcon()
+        }
         
         let mainView = MainView()
             .environment(\.appDelegate, self)

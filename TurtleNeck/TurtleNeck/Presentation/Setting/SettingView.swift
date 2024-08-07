@@ -20,7 +20,7 @@ struct SettingView: View {
     @State private var speed = 50.0
 
     var body: some View {
-
+        //MARK: 개발자 모드가 들어가 있으므로 추후에 프레임 크기를 .frame(width: 560, height: 684)로 수정해야 합니다.
         VStack(alignment: .leading, spacing: 0){
             Text("설정")
                 .font(.pretendardMedium16).fontWeight(.bold)
@@ -33,7 +33,7 @@ struct SettingView: View {
             
             Spacer()
         }
-        .frame(width: 560, height: 684)
+        .frame(width: 560, height: 736)
     }
     
     private var notificationView: some View {
@@ -53,8 +53,6 @@ struct SettingView: View {
                     }
                     Spacer()
                     Button(action: {
-//                        deleteAllData()
-//                        print("눌렀음")
                     }){
                         Text("설정 열기").font(.pretendardRegular13).foregroundColor(.black)
                     }
@@ -157,7 +155,6 @@ struct SettingView: View {
                         }
                         Spacer()
                         Button(action: {
-//                            UserDefaults.standard.removeObject(forKey: "isFirst")         
                         }){
                             Text("자세 설정하러 가기").font(.pretendardRegular13).foregroundColor(.black)
                         }
@@ -198,6 +195,7 @@ struct SettingView: View {
         }
     }
     
+    //MARK: 개발자 모드가 들어가 있으므로 추후에 수정해야 합니다.
     private var postureReminderView: some View {
         Section {
             Text("자세 리마인더")
@@ -206,16 +204,37 @@ struct SettingView: View {
                 .padding(.top, 16)
             
             ZStack{
-                HStack{
-                    VStack(alignment: .leading, spacing: 0){
-                        Text("알림 주기").font(.pretendardRegular13).foregroundColor(.black)
-                        Text("에어팟이 없을 때 주기적으로 자세에 대한 알림을 보내드려요.").font(.pretendardRegular11).foregroundColor(.black).opacity(0.5).padding(.top, 2)
+                VStack{
+                    HStack{
+                        VStack(alignment: .leading, spacing: 0){
+                            Text("알림 주기").font(.pretendardRegular13).foregroundColor(.black).padding(.top, 10)
+                            Text("에어팟이 없을 때 주기적으로 자세에 대한 알림을 보내드려요.").font(.pretendardRegular11).foregroundColor(.black).opacity(0.5).padding(.top, 2)
+                        }
+                        Spacer()
                     }
+                    
+                    Rectangle().frame(height: 1).foregroundColor(Color.borderLine)
+                    
+                    HStack(alignment:.center){
+                        VStack(alignment: .leading, spacing: 0){
+                            Text("데이터 초기화(개발자 모드)").font(.pretendardRegular13).foregroundColor(.black).padding(.top,2)
+                        }
+                        Spacer()
+                        Button(action: {
+                            UserDefaults.standard.removeObject(forKey: "isFirst")
+                            deleteAllData()
+                            NSApplication.shared.terminate(nil)
+                        }){
+                            Text("초기화").font(.pretendardRegular13).foregroundColor(.black)
+                        }
+                    }
+                    
                     Spacer()
                 }
                 .padding(.horizontal, 10)
+                    
             }
-            .frame(width: 520, height: 52)
+            .frame(width: 520, height: 90)
             .background(Color.listColor)
             .cornerRadius(6)
             .overlay(

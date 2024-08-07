@@ -13,7 +13,7 @@ struct MotionPermissionView: View {
     
     var body: some View {
         VStack(spacing: 16){
-            Image("motionPermissionWindow")
+            Image("motionPermissionImg")
                 .padding(.bottom, 24)
             
             Text("접근 권한을 허용해주세요.")

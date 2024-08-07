@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "motionPermissionWindow.png",
+      "filename" : "motionPermissionImg.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "motionPermissionWindow@2x.png",
+      "filename" : "motionPermissionImg@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "motionPermissionWindow@3x.png",
+      "filename" : "motionPermissionImg@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

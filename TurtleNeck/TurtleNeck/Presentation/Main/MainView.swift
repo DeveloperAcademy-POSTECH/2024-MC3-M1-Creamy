@@ -66,6 +66,7 @@ struct MainView: View {
                 // bad 전환 5초 이내일 시
                 if let lastBadTime = motionManager.lastBadPostureTime, Date().timeIntervalSince(lastBadTime) < 5 {
                     NotificationManager().removeTimeNoti()
+                    characterNotiManager.removeCharacterNoti()
                     return
                 }
                 NotificationManager().removeTimeNoti()

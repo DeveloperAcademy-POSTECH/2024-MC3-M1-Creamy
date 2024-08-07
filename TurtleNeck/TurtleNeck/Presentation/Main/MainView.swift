@@ -17,6 +17,7 @@ struct MainView: View {
     @State var isMute: Bool = false
     @State private var lastCheckedDate = Date()
     @State private var wearingStartTime: Date?
+    @State private var isStarted: Bool = false
     
     @Query var statistic: [NotiStatistic]
     
@@ -50,42 +51,47 @@ struct MainView: View {
         .frame(width: 348,height: 232)
         .onAppear {
             motionManager.startUpdates()
-            //            checkDateChange()
-            //
-            //            print(statistic.count)
         }
-        //        .onChange(of: lastCheckedDate) { _, _ in
-        //            checkDateChange()
-        //        }
         .onChange(of: motionManager.currentState) { _, _ in
-            if let currentState = motionManager.currentState {
-                switch currentState {
-                case .good:
-                    // 설정된 노티 삭제 후 재설정(.good => 1초 후)
+            guard let currentState = motionManager.currentState else { return }
+            
+            // 처음 상태 변경시에는 알림을 무시하기 위해 isStarted 사용
+            if !isStarted {
+                isStarted = true
+                return
+            }
+            
+            switch currentState {
+            case .good:
+                // bad 전환 5초 이내일 시
+                if let lastBadTime = motionManager.lastBadPostureTime, Date().timeIntervalSince(lastBadTime) < 5 {
                     NotificationManager().removeTimeNoti()
-                    NotificationManager().settingTimeNoti(state: .good)
-                    
-                    // 설정된 캐릭터 노티 삭제
-                    characterNotiManager.removeCharacterNoti()
-                    
-                case .bad:
-                    if let notiStatistic = statistic.last {
-                        notiStatistic.notiCount = notiStatistic.notiCount + 1
-                    }
-                    
-                    // 노티 설정(.bad => 5초 후)
-                    NotificationManager().settingTimeNoti(state: .bad)
-                    
-                case .worse:
-                    // 노티 설정(.worse => 1초 후)
-                    if let notiStatistic = statistic.last {
-                        notiStatistic.notiCount = notiStatistic.notiCount + 1
-                    }
-                    NotificationManager().settingTimeNoti(state: .worse)
-                    
-                    // 캐릭터 노티 설정
-                    characterNotiManager.setCharacterNoti()
+                    return
                 }
+                NotificationManager().removeTimeNoti()
+                NotificationManager().settingTimeNoti(state: .good)
+              
+               // 설정된 캐릭터 노티 삭제
+                characterNotiManager.removeCharacterNoti()
+                
+            case .bad:
+                if let notiStatistic = statistic.last {
+                    notiStatistic.notiCount = notiStatistic.notiCount + 1
+                }
+                
+                // 노티 설정(.bad => 5초 후)
+                NotificationManager().settingTimeNoti(state: .bad)
+                
+            case .worse:
+                // 노티 설정(.worse => 1초 후)
+                if let notiStatistic = statistic.last {
+                    notiStatistic.notiCount = notiStatistic.notiCount + 1                    
+                }
+                NotificationManager().settingTimeNoti(state: .worse)
+                NotificationManager().removeTimeNoti()
+              
+              // 캐릭터 노티 설정
+                characterNotiManager.setCharacterNoti()
             }
         }
         

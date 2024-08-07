@@ -90,7 +90,7 @@ struct MeasuringView: View {
                         lineCap: .round
                     )
                     )
-                    .frame(width: 200, height: 200)
+                    .frame(width: 201, height: 201)
                     .overlay(
                         Circle()
                             .trim(from: 0, to: CGFloat(progress))
@@ -100,7 +100,7 @@ struct MeasuringView: View {
                             )
                             )
                             .rotationEffect(.degrees(-90))
-                            .frame(width: 190, height: 190)
+                            .frame(width: 191, height: 191)
                     )
                 
             }

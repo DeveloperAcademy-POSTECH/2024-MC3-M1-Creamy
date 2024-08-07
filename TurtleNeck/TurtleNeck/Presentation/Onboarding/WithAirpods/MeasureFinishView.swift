@@ -14,11 +14,8 @@ struct MeasureFinishView: View {
     
     var body: some View {
         VStack(spacing: 16){
-            Rectangle()
-                .frame(width: 190, height: 168)
-                .cornerRadius(8)
-                .foregroundColor(.gray)
-                .padding(.bottom, 8)
+            Image("fighting")
+                .padding(.bottom, 16)
             
             Text("측정이 끝났어요.")
                 .font(.title3)

@@ -10,11 +10,8 @@ import SwiftUI
 struct MeasureReadyView: View {
     var body: some View {
         VStack (spacing: 16){
-            Rectangle()
-                .frame(width: 190, height: 168)
-                .cornerRadius(8)
-                .foregroundColor(.gray)
-                .padding(.bottom, 8)
+            Image("Explanation")
+                .padding(.bottom, 16)
             
             Text("바른 자세로 앉아주세요.")
                 .font(.title3)
@@ -45,7 +42,7 @@ struct MeasureReadyView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .padding(.top, 117)
+        .padding(.top, 50)
         .padding(.bottom, 44)
     }
 }

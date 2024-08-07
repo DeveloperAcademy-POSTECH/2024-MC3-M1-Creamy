@@ -36,7 +36,6 @@ class HeadphoneMotionManager: ObservableObject {
     
     init() {
         updateAuthorization()
-//        startPostureCheckTimer()
     }
     
     /// 헤드폰 모션 추적 시작
@@ -176,11 +175,4 @@ extension HeadphoneMotionManager {
             }
         }
     }
-    
-//    private func startPostureCheckTimer() {
-//        postureCheckTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
-//            self?.updatePostureState()
-//        }
-//        updatePostureState()
-//    }
 }

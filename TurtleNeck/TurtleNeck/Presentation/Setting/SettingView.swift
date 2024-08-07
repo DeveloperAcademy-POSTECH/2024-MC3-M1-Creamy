@@ -6,18 +6,21 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SettingView: View {
     @Environment(\.appDelegate) var appDelegate: AppDelegate?
+    @Environment(\.modelContext) private var modelContext
+    @Query private var statistics: [NotiStatistic]
     
     @State private var notiWindow: Bool = true
     @State private var notiSound: Bool = true
     @State private var postureMeasure: Bool = true
-    @State private var selectedOption: String = "Option 1"
-    @State private var showPicker: Bool = false
-    @State private var selected = 1
+//    @State private var selectedOption: String = "Option 1"
+//    @State private var showPicker: Bool = false
+//    @State private var selected = 1
     @State private var speed = 50.0
-    @State private var isEditing = false
+//    @State private var isEditing = false
 
     var body: some View {
 
@@ -52,7 +55,10 @@ struct SettingView: View {
                             .padding(.top, 2)
                     }
                     Spacer()
-                    Button(action: {}){
+                    Button(action: {
+                        deleteAllData()
+                        print("눌렀음")
+                    }){
                         Text("설정 열기").font(.pretendardRegular13).foregroundColor(.black)
                     }
                 }
@@ -153,7 +159,9 @@ struct SettingView: View {
                             Text("자세 재설정").font(.pretendardRegular13).foregroundColor(.black).padding(.top,2)
                         }
                         Spacer()
-                        Button(action: {}){
+                        Button(action: {
+                            UserDefaults.standard.set(true, forKey: "isFirst")
+                        }){
                             Text("자세 설정하러 가기").font(.pretendardRegular13).foregroundColor(.black)
                         }
                     }
@@ -218,6 +226,22 @@ struct SettingView: View {
                     .stroke(Color.borderLine, lineWidth: 1)
             )
             .padding(.top, 8)
+        }
+    }
+}
+
+extension SettingView {
+    private func deleteAllData() {
+        // 모든 데이터 삭제
+        for statistic in statistics {
+            modelContext.delete(statistic)
+        }
+        
+        // 변경 사항 저장
+        do {
+            try modelContext.save()
+        } catch {
+            print("데이터 삭제 오류: \(error.localizedDescription)")
         }
     }
 }

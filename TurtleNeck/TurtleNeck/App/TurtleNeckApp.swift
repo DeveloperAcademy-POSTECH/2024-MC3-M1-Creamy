@@ -136,7 +136,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         newWindow.level = .floating
         newWindow.setFrameAutosaveName("LaunchScreenWindow")
         
-        newWindow.contentView = NSHostingView(rootView: LaunchScreenView().environment(\.appDelegate, self))
+        newWindow.contentView = NSHostingView(rootView: LaunchScreenView().environment(\.appDelegate, self).modelContainer(modelContainer))
         
         
         newWindowController = NSWindowController(window: newWindow)
@@ -168,7 +168,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         newWindow.isMovableByWindowBackground = true
         newWindow.setFrameAutosaveName("AlwaysOnTopWindow")
         
-        newWindow.contentView = NSHostingView(rootView: PIPView(isMute: isMute, motionManager: motionManager).environment(\.appDelegate, self))
+        newWindow.contentView = NSHostingView(rootView: PIPView(isMute: isMute, motionManager: motionManager).environment(\.appDelegate, self).modelContainer(modelContainer))
         
         newWindowController = NSWindowController(window: newWindow)
         newWindowController?.showWindow(self)
@@ -191,7 +191,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         newWindow.isMovableByWindowBackground = true
         newWindow.setFrameAutosaveName("SettingWindow")
         
-        newWindow.contentView = NSHostingView(rootView: SettingView())
+        newWindow.contentView = NSHostingView(rootView: SettingView().environment(\.appDelegate, self).modelContainer(modelContainer))
         
         newWindow.delegate = self
         

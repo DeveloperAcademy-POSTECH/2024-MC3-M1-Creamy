@@ -52,7 +52,7 @@ struct MainView: View {
         .onAppear {
             motionManager.startUpdates()
         }
-        .onChange(of: motionManager.currentState) { _, _ in
+        .onChange(of: motionManager.currentState) { oldState, newState in
             guard let currentState = motionManager.currentState else { return }
             
             // 처음 상태 변경시에는 알림을 무시하기 위해 isStarted 사용
@@ -63,35 +63,39 @@ struct MainView: View {
             
             switch currentState {
             case .good:
-                // bad 전환 5초 이내일 시
-                if let lastBadTime = motionManager.lastBadPostureTime, Date().timeIntervalSince(lastBadTime) < 5 {
-                    NotificationManager().removeTimeNoti()
-                    characterNotiManager.removeCharacterNoti()
-                    return
-                }
+                
+                // 등록된 로컬 노티 제거
                 NotificationManager().removeTimeNoti()
-                NotificationManager().settingTimeNoti(state: .good)
-              
-               // 설정된 캐릭터 노티 삭제
+                // 캐릭터 노티 제거
                 characterNotiManager.removeCharacterNoti()
                 
+                // bad 상태 5초 이상 유지 후 good 상태로 전환일 때
+                if let lastBadTime = motionManager.lastBadPostureTime, Date().timeIntervalSince(lastBadTime) >= 5 {
+
+                    // good 로컬 노티 등록
+                    NotificationManager().settingTimeNoti(state: .good)
+                }
+                
             case .bad:
+                if oldState == .good {
+                    NotificationManager().settingTimeNoti(state: .bad)
+                }
+                else if oldState == .worse {
+                    
+                }
+                
                 if let notiStatistic = statistic.last {
                     notiStatistic.notiCount = notiStatistic.notiCount + 1
                 }
                 
-                // 노티 설정(.bad => 5초 후)
-                NotificationManager().settingTimeNoti(state: .bad)
-                
             case .worse:
-                // 노티 설정(.worse => 1초 후)
                 if let notiStatistic = statistic.last {
                     notiStatistic.notiCount = notiStatistic.notiCount + 1                    
                 }
-                NotificationManager().settingTimeNoti(state: .worse)
+                
+                // 등록된 로컬 노티 제거
                 NotificationManager().removeTimeNoti()
-              
-              // 캐릭터 노티 설정
+                // 캐릭터 노티 설정
                 characterNotiManager.setCharacterNoti()
             }
         }

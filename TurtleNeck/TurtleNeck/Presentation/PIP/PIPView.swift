@@ -25,7 +25,7 @@ struct PIPView: View {
                 NSApplication.shared.keyWindow?.close()
                 appDelegate?.showPopover()
             }, isMute: $isMute, motionManager: motionManager)
-            .offset(x: 110, y: -77)
+            .offset(x: 100, y: -77)
         }
         .frame(width: 286,height: 130)
         .padding(.horizontal,12)

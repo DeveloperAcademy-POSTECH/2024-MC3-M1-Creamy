@@ -652,7 +652,7 @@
 				CODE_SIGN_ENTITLEMENTS = TurtleNeck/TurtleNeck.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 202408073;
+				CURRENT_PROJECT_VERSION = 20240808;
 				DEVELOPMENT_ASSET_PATHS = "\"TurtleNeck/Preview Content\"";
 				DEVELOPMENT_TEAM = U6CCD5BT22;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -661,12 +661,12 @@
 				INFOPLIST_FILE = TurtleNeck/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMotionUsageDescription = "자세를 측정하기 위해 에어팟의\\n모션데이터에 접근이 필요해요.";
+				INFOPLIST_KEY_NSMotionUsageDescription = "자세를 측정하기 위해 에어팟의 모션데이터에 접근이 필요해요.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Doran.TurtleNeck;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -682,7 +682,7 @@
 				CODE_SIGN_ENTITLEMENTS = TurtleNeck/TurtleNeck.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 202408073;
+				CURRENT_PROJECT_VERSION = 20240808;
 				DEVELOPMENT_ASSET_PATHS = "\"TurtleNeck/Preview Content\"";
 				DEVELOPMENT_TEAM = U6CCD5BT22;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -691,12 +691,12 @@
 				INFOPLIST_FILE = TurtleNeck/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMotionUsageDescription = "자세를 측정하기 위해 에어팟의\\n모션데이터에 접근이 필요해요.";
+				INFOPLIST_KEY_NSMotionUsageDescription = "자세를 측정하기 위해 에어팟의 모션데이터에 접근이 필요해요.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Doran.TurtleNeck;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

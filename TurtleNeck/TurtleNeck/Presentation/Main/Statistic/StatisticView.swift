@@ -76,11 +76,11 @@ extension StatisticView {
     private func showView(isToday: Bool) -> some View {
         if isToday {
            DayPostureView()
-                .transition(.move(edge: .trailing))
+                .transition(.move(edge: .leading))
         }
         else {
             WeekPostureView()
-                .transition(.move(edge: .leading))
+                .transition(.move(edge: .trailing))
         }
     }
 }

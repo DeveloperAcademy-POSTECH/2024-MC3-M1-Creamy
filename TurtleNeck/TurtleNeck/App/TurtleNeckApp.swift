@@ -10,7 +10,7 @@ import SwiftUI
 import SwiftData
 import UserNotifications
 
-var modelContainer: ModelContainer = {
+private var modelContainer: ModelContainer = {
     let schema = Schema([User.self, NotiStatistic.self])
     let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
      
@@ -36,12 +36,6 @@ struct TurtleNeckApp: App {
                     .frame(width: 560, height: 560)
                     .background(.white)
             }
-//            else{
-//                LaunchScreenView()
-//                    .environment(\.appDelegate, appDelegate)
-//                    .modelContainer(modelContainer)
-//                    .background(.white)
-//            }
             EmptyView()
         }
         .windowStyle(.hiddenTitleBar)
@@ -52,10 +46,13 @@ struct TurtleNeckApp: App {
 
 
 class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDelegate {
-    var statusItem: NSStatusItem!
-    var popover: NSPopover!
-    var newWindowController: NSWindowController?
-    var isMenuBarIconVisible = false
+    private var launchWindowController: NSWindowController?
+    private var settingWindowController: NSWindowController?
+    private var alwaysOnTopWindowController: NSWindowController?
+    private var statusItem: NSStatusItem!
+    private var popover: NSPopover!
+    private var isMenuBarIconVisible = false
+    
     @AppStorage("isFirst") var isFirst: Bool = true
     
     func applicationDidFinishLaunching(_ notification: Notification) {
@@ -76,7 +73,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         let mainView = MainView()
             .environment(\.appDelegate, self)
             .modelContainer(modelContainer)
-      
+        
         popover.contentViewController = NSHostingController(rootView: mainView)
     }
     
@@ -109,7 +106,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         
         isMenuBarIconVisible = true
     }
-
+    
     @objc func togglePopover(_ sender: Any?) {
         if popover.isShown {
             popover.performClose(sender)
@@ -117,7 +114,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
             showPopover()
         }
     }
-
+    
     func showPopover() {
         if let button = statusItem.button {
             popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
@@ -125,22 +122,44 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     }
     
     func openLaunchScreenView(){
-        let contentView = LaunchScreenView()
         let newWindow = NSWindow(contentRect: NSMakeRect(0, 0, 560, 560),
                                  styleMask: [.borderless], // 제목 바 없는 스타일
                                  backing: .buffered,
                                  defer: false)
+        
+        newWindow.backgroundColor = .clear
+        
+        let visualEffectView = NSVisualEffectView()
+        visualEffectView.translatesAutoresizingMaskIntoConstraints = false
+        visualEffectView.wantsLayer = true
+        visualEffectView.layer?.cornerRadius = 10.0
+
+        
+        let hostingView = NSHostingView(rootView: LaunchScreenView().environment(\.appDelegate, self).modelContainer(modelContainer))
+        hostingView.frame = visualEffectView.bounds
+        hostingView.autoresizingMask = [.width, .height]
+        ///
+        visualEffectView.addSubview(hostingView)
+        
+        newWindow.contentView = visualEffectView
         
         newWindow.isReleasedWhenClosed = false
         newWindow.center()
         newWindow.level = .floating
         newWindow.setFrameAutosaveName("LaunchScreenWindow")
         
-        newWindow.contentView = NSHostingView(rootView: LaunchScreenView().environment(\.appDelegate, self))
+        guard let constraints =  newWindow.contentView else {
+          return
+        }
+
+        visualEffectView.leadingAnchor.constraint(equalTo: constraints.leadingAnchor).isActive = true
+        visualEffectView.trailingAnchor.constraint(equalTo: constraints.trailingAnchor).isActive = true
+        visualEffectView.topAnchor.constraint(equalTo: constraints.topAnchor).isActive = true
+        visualEffectView.bottomAnchor.constraint(equalTo: constraints.bottomAnchor).isActive = true
         
         
-        newWindowController = NSWindowController(window: newWindow)
-        newWindowController?.showWindow(self)
+        launchWindowController = NSWindowController(window: newWindow)
+        launchWindowController?.showWindow(self)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             self.createMenuBarIcon()
@@ -150,31 +169,46 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
                 self.showPopover()
             }
         }
-                       
     }
     
-    func openAlwaysOnTopView(isMute: Binding<Bool>, motionManager: HeadphoneMotionManager){
+    func openAlwaysOnTopView(isMute: Binding<Bool>, motionManager: HeadphoneMotionManager) {
         let newWindow = NSWindow(contentRect: NSMakeRect(100, 100, 286, 160),
-                                 styleMask: [.titled, .closable, .resizable],
+                                 styleMask: [.titled, .closable, .fullSizeContentView],
                                  backing: .buffered,
                                  defer: false)
         
         newWindow.titlebarAppearsTransparent = true
         newWindow.titleVisibility = .hidden
-        newWindow.backgroundColor = .white
+        
+        // NSVisualEffectView 생성 및 설정
+        let visualEffectView = NSVisualEffectView(frame: newWindow.contentRect(forFrameRect: newWindow.frame))
+        visualEffectView.autoresizingMask = [.width, .height]
+        visualEffectView.blendingMode = .behindWindow
+        visualEffectView.state = .active
+        visualEffectView.material = .light
+        
+        // NSHostingView 생성
+        let hostingView = NSHostingView(rootView: PIPView(isMute: isMute, motionManager: motionManager).environment(\.appDelegate, self).modelContainer(modelContainer))
+        hostingView.frame = visualEffectView.bounds
+        hostingView.autoresizingMask = [.width, .height]
+        
+        // visualEffectView에 hostingView 추가
+        visualEffectView.addSubview(hostingView)
+        
+        newWindow.contentView = visualEffectView
         
         newWindow.center()
         newWindow.level = .floating
         newWindow.isMovableByWindowBackground = true
         newWindow.setFrameAutosaveName("AlwaysOnTopWindow")
         
-        newWindow.contentView = NSHostingView(rootView: PIPView(isMute: isMute, motionManager: motionManager).environment(\.appDelegate, self))
-        
-        newWindowController = NSWindowController(window: newWindow)
-        newWindowController?.showWindow(self)
-        
-        
-
+        if alwaysOnTopWindowController == nil {
+            alwaysOnTopWindowController = NSWindowController(window: newWindow)
+            alwaysOnTopWindowController?.showWindow(self)
+        }
+        else{
+            alwaysOnTopWindowController?.window?.makeKeyAndOrderFront(nil)
+        }
     }
     
     func openSettingView() {
@@ -191,12 +225,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         newWindow.isMovableByWindowBackground = true
         newWindow.setFrameAutosaveName("SettingWindow")
         
-        newWindow.contentView = NSHostingView(rootView: SettingView())
+        newWindow.contentView = NSHostingView(rootView: SettingView().environment(\.appDelegate, self).modelContainer(modelContainer))
         
         newWindow.delegate = self
-        
-        newWindowController = NSWindowController(window: newWindow)
-        newWindowController?.showWindow(self)
+        if settingWindowController == nil {
+            settingWindowController = NSWindowController(window: newWindow)
+            settingWindowController?.showWindow(self)
+        }
+        else{
+            settingWindowController?.window?.makeKeyAndOrderFront(nil)
+        }
     }
 }
 

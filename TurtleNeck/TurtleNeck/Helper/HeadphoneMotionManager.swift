@@ -77,7 +77,6 @@ class HeadphoneMotionManager: ObservableObject {
         startMotionTimer() // 최초에 한번 실행하는 에어팟을 꼈는지 체크하는 함수 호출
     }
     
-    
     /// 헤드폰 모션 추적 중지
     func stopUpdates() {
         print("헤드폰 모션 추적을 중지합니다.")
@@ -94,8 +93,28 @@ class HeadphoneMotionManager: ObservableObject {
         motionTimer?.invalidate()
     }
     
+    /// 권한 설정 상태를 업데이트 해주는 함수
+    private func updateAuthorization() {
+        switch CMHeadphoneMotionManager.authorizationStatus() {
+        case .authorized:
+            isHeadPhoneAuthorized = true
+        case .denied, .notDetermined, .restricted:
+            isHeadPhoneAuthorized = false
+        @unknown default:
+            isHeadPhoneAuthorized = false
+        }
+        print("isHeadPhoneAuthorized: \(isHeadPhoneAuthorized)")
+    }
+    
+//    deinit {
+//        stopUpdates()
+//    }
+}
+
+//MARK: - 실시간 에어팟 착용 여부 인식
+extension HeadphoneMotionManager {
     /// 에어팟을 끼고 있는지를 체크
-    func startMotionTimer() {
+    private func startMotionTimer() {
         motionTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
             guard let self = self else { return }
             if self.isConnected {
@@ -111,22 +130,6 @@ class HeadphoneMotionManager: ObservableObject {
         startMotionTimer() // 타이머 재시작
     }
     
-    /// 권한 설정 상태를 업데이트 해주는 함수
-    private func updateAuthorization() {
-        switch CMHeadphoneMotionManager.authorizationStatus() {
-        case .authorized:
-            isHeadPhoneAuthorized = true
-        case .denied, .notDetermined, .restricted:
-            isHeadPhoneAuthorized = false
-        @unknown default:
-            isHeadPhoneAuthorized = false
-        }
-        print("isHeadPhoneAuthorized: \(isHeadPhoneAuthorized)")
-    }
-    
-    deinit {
-        stopUpdates()
-    }
 }
 
 //MARK: - 실시간 자세 상태 업데이트

@@ -36,12 +36,6 @@ struct TurtleNeckApp: App {
                     .frame(width: 560, height: 560)
                     .background(.white)
             }
-//            else{
-//                LaunchScreenView()
-//                    .environment(\.appDelegate, appDelegate)
-//                    .modelContainer(modelContainer)
-//                    .background(.white)
-//            }
             EmptyView()
         }
         .windowStyle(.hiddenTitleBar)

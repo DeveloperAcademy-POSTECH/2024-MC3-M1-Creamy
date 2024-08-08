@@ -23,7 +23,7 @@ struct WeekPostureView: View {
                 .foregroundColor(.black)
             
             HStack(alignment: .bottom) {
-                ForEach(statistics) { data in // data는 NotiStatistic 타입
+                ForEach(filteredStatistics) { data in // data는 NotiStatistic 타입
                     let height = getHeightStatistic(day: data) // data를 NotiStatistic으로 전달
                     VStack(spacing: 2) {
                         if data.notiCount == 0 {
@@ -59,9 +59,12 @@ struct WeekPostureView: View {
             .padding(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
         }
     }
+    
+    
 }
 
 extension WeekPostureView {
+    
     private func getMaxCount(from statistics: [NotiStatistic]) -> Int? {
         return statistics
             .filter { $0.time > 0 }
@@ -87,5 +90,14 @@ extension WeekPostureView {
         let formatter = DateFormatter()
         formatter.dateFormat = "MM/dd"
         return formatter.string(from: date)
+    }
+}
+
+extension WeekPostureView {
+    //View에 보여주는 통계중에 오늘의 데이터를 제외
+    private var filteredStatistics: [NotiStatistic] {
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        return statistics.filter { calendar.startOfDay(for: $0.date) < today }
     }
 }

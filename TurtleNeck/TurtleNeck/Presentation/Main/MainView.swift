@@ -223,8 +223,8 @@ extension MainView {
             print("오늘에 해당하는 데이터가 추가되었습니다.")
         }
         
-        // 데이터 갯수가 7개를 초과할 경우 제일 오래된 데이터 삭제
-        if statistic.count > 7 {
+        // 데이터 갯수가 8개를 초과할 경우 제일 오래된 데이터 삭제
+        if statistic.count > 8 {
             guard let firstItem = statistic.first else { return } // 첫 번째 아이템 확인
             modelContext.delete(firstItem) // 모델 컨텍스트에서 삭제
             print("가장 오래된 데이터가 삭제되었습니다.")

@@ -12,7 +12,8 @@ struct TurtleView: View {
     
     var body: some View {
         ZStack(alignment: .center) {
-            Color.white
+//            Color.white
+            Color.clear
             let defaultOffset = clampedPitchValue(motionManager.pitch)
             
             Image("Neck+cloth")

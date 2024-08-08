@@ -70,7 +70,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         let mainView = MainView()
             .environment(\.appDelegate, self)
             .modelContainer(modelContainer)
-      
+        
         popover.contentViewController = NSHostingController(rootView: mainView)
     }
     
@@ -103,7 +103,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         
         isMenuBarIconVisible = true
     }
-
+    
     @objc func togglePopover(_ sender: Any?) {
         if popover.isShown {
             popover.performClose(sender)
@@ -111,7 +111,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
             showPopover()
         }
     }
-
+    
     func showPopover() {
         if let button = statusItem.button {
             popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
@@ -144,31 +144,42 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
                 self.showPopover()
             }
         }
-                       
+        
     }
     
-    func openAlwaysOnTopView(isMute: Binding<Bool>, motionManager: HeadphoneMotionManager){
+    func openAlwaysOnTopView(isMute: Binding<Bool>, motionManager: HeadphoneMotionManager) {
         let newWindow = NSWindow(contentRect: NSMakeRect(100, 100, 286, 160),
-                                 styleMask: [.titled, .closable, .resizable],
+                                 styleMask: [.titled, .closable, .resizable, .fullSizeContentView],
                                  backing: .buffered,
                                  defer: false)
         
         newWindow.titlebarAppearsTransparent = true
         newWindow.titleVisibility = .hidden
-        newWindow.backgroundColor = .white
+        
+        // NSVisualEffectView 생성 및 설정
+        let visualEffectView = NSVisualEffectView(frame: newWindow.contentRect(forFrameRect: newWindow.frame))
+        visualEffectView.autoresizingMask = [.width, .height]
+        visualEffectView.blendingMode = .behindWindow
+        visualEffectView.state = .active
+        visualEffectView.material = .light
+        
+        // NSHostingView 생성
+        let hostingView = NSHostingView(rootView: PIPView(isMute: isMute, motionManager: motionManager).environment(\.appDelegate, self).modelContainer(modelContainer))
+        hostingView.frame = visualEffectView.bounds
+        hostingView.autoresizingMask = [.width, .height]
+        
+        // visualEffectView에 hostingView 추가
+        visualEffectView.addSubview(hostingView)
+        
+        newWindow.contentView = visualEffectView
         
         newWindow.center()
         newWindow.level = .floating
         newWindow.isMovableByWindowBackground = true
         newWindow.setFrameAutosaveName("AlwaysOnTopWindow")
         
-        newWindow.contentView = NSHostingView(rootView: PIPView(isMute: isMute, motionManager: motionManager).environment(\.appDelegate, self).modelContainer(modelContainer))
-        
         newWindowController = NSWindowController(window: newWindow)
         newWindowController?.showWindow(self)
-        
-        
-
     }
     
     func openSettingView() {

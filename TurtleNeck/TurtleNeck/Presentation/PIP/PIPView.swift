@@ -15,19 +15,19 @@ struct PIPView: View {
     @ObservedObject var motionManager: HeadphoneMotionManager
     
     var body: some View {
-        NavigationStack{
+        
+        ZStack{
             TurtleView(motionManager: motionManager)
                 .offset(x: -16, y: 12)
                 .padding(.top, 16)
+            
+            TopMenuView(action: {
+                NSApplication.shared.keyWindow?.close()
+                appDelegate?.showPopover()
+            }, isMute: $isMute, motionManager: motionManager)
+            .offset(x: 110, y: -77)
         }
         .frame(width: 286,height: 130)
         .padding(.horizontal,12)
-        .toolbar() {
-            Spacer()
-            TopMenuView(action: {
-                presentationMode.wrappedValue.dismiss()
-                appDelegate?.showPopover()
-            }, isMute: $isMute, motionManager: motionManager)
-        }
     }
 }

@@ -19,7 +19,7 @@ class CharacterNotiManager: NSPanel {
         self.viewPosition = CGPoint(x: position.origin.x, y: position.origin.y)
         self.viewSize = CGSize(width: position.width, height: position.height)
         
-        super.init(contentRect: NSRect(x: viewPosition.x, y: -viewSize.height, width: viewSize.width, height: viewSize.height), styleMask: [.fullSizeContentView, .nonactivatingPanel], backing: .buffered, defer: false)
+        super.init(contentRect: NSRect(x: viewPosition.x + viewSize.width, y: 0, width: viewSize.width, height: viewSize.height), styleMask: [.fullSizeContentView, .nonactivatingPanel], backing: .buffered, defer: false)
         
         backgroundColor = .clear
         isFloatingPanel = true
@@ -33,7 +33,7 @@ class CharacterNotiManager: NSPanel {
             self.orderFront(nil)
             NSAnimationContext.runAnimationGroup({ context in
                 let newFrame = NSRect(x: viewPosition.x, y: 0, width: viewSize.width, height: viewSize.height)
-                context.duration = 4
+                context.duration = 2
                 self.animator().setFrame(newFrame, display: true)
             }, completionHandler: {
                 self.isPanelOpen = true
@@ -45,7 +45,7 @@ class CharacterNotiManager: NSPanel {
     func removeCharacterNoti() {
         
         NSAnimationContext.runAnimationGroup({ context in
-            let newFrame = NSRect(x: viewPosition.x, y: -viewSize.height, width: viewSize.width, height: viewSize.height)
+            let newFrame = NSRect(x: viewPosition.x + viewSize.width, y: 0, width: viewSize.width, height: viewSize.height)
             context.duration = 2
             self.animator().setFrame(newFrame, display: true)
         }, completionHandler: {

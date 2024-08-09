@@ -8,49 +8,49 @@
 import AppKit
 import SwiftUI
 
-class CharacterNotiManager: NSPanel {
+class CharacterNotiManager: NSPanel, ObservableObject {
     
-    private var viewPosition : CGPoint
-    private var viewSize : CGSize
-    private let viewModel = CharacterNotiViewModel()
-    private var isPanelOpen : Bool = false
+    @Published var isAppearing: Bool = false
     
-    init(position: NSRect, imgName: String) {
-        self.viewPosition = CGPoint(x: position.origin.x, y: position.origin.y)
-        self.viewSize = CGSize(width: position.width, height: position.height)
+    private var contentSize : CGSize = CGSize(width: 100, height: 180)
+    private var contentPosition : CGPoint
+    
+    init() {
         
-        super.init(contentRect: NSRect(x: viewPosition.x + viewSize.width, y: 0, width: viewSize.width, height: viewSize.height), styleMask: [.fullSizeContentView, .nonactivatingPanel], backing: .buffered, defer: false)
+        self.contentPosition = CGPoint(x: NSScreen.main!.frame.size.width - self.contentSize.width, y: -self.contentSize.height)
+        
+        super.init(contentRect: NSRect(x: contentPosition.x + contentSize.width, y: 0, width: contentSize.width, height: contentSize.height), styleMask: [.fullSizeContentView, .nonactivatingPanel], backing: .buffered, defer: false)
         
         backgroundColor = .clear
         isFloatingPanel = true
-        viewModel.panel = self
-        contentView = NSHostingView(rootView: CharacterNotiView(viewModel: viewModel, viewSize: viewSize, imgName: imgName))
+        hasShadow = false
+        level = .floating
+        isReleasedWhenClosed = true
+        collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
     }
     
     // 캐릭터 알림 설정
     func setCharacterNoti() {
-        if !(self.isPanelOpen){
-            self.orderFront(nil)
-            NSAnimationContext.runAnimationGroup({ context in
-                let newFrame = NSRect(x: viewPosition.x, y: 0, width: viewSize.width, height: viewSize.height)
-                context.duration = 2
-                self.animator().setFrame(newFrame, display: true)
-            }, completionHandler: {
-                self.isPanelOpen = true
-            })
-        }
+        self.isAppearing = true
+        self.contentView = NSHostingView(rootView: CharacterNotiView(viewSize: contentSize, characterNotiManager: self))
+        self.orderFront(nil)
+        NSAnimationContext.runAnimationGroup({ context in
+            let newFrame = NSRect(x: contentPosition.x, y: 0, width: contentSize.width, height: contentSize.height)
+            context.duration = 2
+            self.animator().setFrame(newFrame, display: true)
+        }, completionHandler: {})
     }
     
     // 캐릭터 알림 제거
     func removeCharacterNoti() {
-        
+        self.isAppearing = false
         NSAnimationContext.runAnimationGroup({ context in
-            let newFrame = NSRect(x: viewPosition.x + viewSize.width, y: 0, width: viewSize.width, height: viewSize.height)
+            let newFrame = NSRect(x: contentPosition.x + contentSize.width, y: 0, width: contentSize.width, height: contentSize.height)
             context.duration = 2
             self.animator().setFrame(newFrame, display: true)
         }, completionHandler: {
             self.orderOut(nil)
-            self.isPanelOpen = false
+            self.contentView = nil
         })
     }
 }

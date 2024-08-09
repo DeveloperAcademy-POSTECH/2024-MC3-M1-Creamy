@@ -21,14 +21,7 @@ struct MainView: View {
     
     @Query var statistic: [NotiStatistic]
     
-    @State var characterNotiManager : CharacterNotiManager = {
-        let screenSize = NSScreen.main!.frame
-        let viewSize = CGSize(width: 150, height: 200)
-        let position = NSRect(x: screenSize.size.width - viewSize.width, y: -viewSize.height, width: viewSize.width, height: viewSize.height)
-
-        let imgName = "CharacterNoti"
-        return CharacterNotiManager(position: position, imgName: imgName)
-    }()
+    @StateObject var characterNotiManager : CharacterNotiManager = CharacterNotiManager()
 
     var body: some View {
         VStack(spacing: 0){

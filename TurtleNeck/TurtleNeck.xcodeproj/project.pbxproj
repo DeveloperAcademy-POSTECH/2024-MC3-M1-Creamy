@@ -39,7 +39,6 @@
 		512DD1822C5392BF0033985C /* NotiPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512DD1812C5392BF0033985C /* NotiPermissionView.swift */; };
 		512DD1842C5392CC0033985C /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512DD1832C5392CC0033985C /* SettingView.swift */; };
 		51300EC32C62A880000A4EF5 /* CharacterNotiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51300EC22C62A880000A4EF5 /* CharacterNotiManager.swift */; };
-		51300EC62C62AC5E000A4EF5 /* CharacterNotiViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51300EC52C62AC5E000A4EF5 /* CharacterNotiViewModel.swift */; };
 		51300EC82C62ACA4000A4EF5 /* CharacterNotiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51300EC72C62ACA4000A4EF5 /* CharacterNotiView.swift */; };
 		51C09D042C5E42A8003307F2 /* NotificationContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C09D032C5E42A8003307F2 /* NotificationContent.swift */; };
 		51EB27582C5C7F2500CEE9FB /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EB27572C5C7F2500CEE9FB /* NotificationManager.swift */; };
@@ -93,7 +92,6 @@
 		512DD1812C5392BF0033985C /* NotiPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiPermissionView.swift; sourceTree = "<group>"; };
 		512DD1832C5392CC0033985C /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		51300EC22C62A880000A4EF5 /* CharacterNotiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterNotiManager.swift; sourceTree = "<group>"; };
-		51300EC52C62AC5E000A4EF5 /* CharacterNotiViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterNotiViewModel.swift; sourceTree = "<group>"; };
 		51300EC72C62ACA4000A4EF5 /* CharacterNotiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterNotiView.swift; sourceTree = "<group>"; };
 		51C09D032C5E42A8003307F2 /* NotificationContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationContent.swift; sourceTree = "<group>"; };
 		51EB27572C5C7F2500CEE9FB /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
@@ -360,7 +358,6 @@
 		51300EC42C62AC1C000A4EF5 /* CharacterNoti */ = {
 			isa = PBXGroup;
 			children = (
-				51300EC52C62AC5E000A4EF5 /* CharacterNotiViewModel.swift */,
 				51300EC72C62ACA4000A4EF5 /* CharacterNotiView.swift */,
 			);
 			path = CharacterNoti;
@@ -513,7 +510,6 @@
 				4F8160262C5536380030E5D6 /* WeekPostureView.swift in Sources */,
 				4F5189182C633C7200E978F0 /* LaunchScreenView.swift in Sources */,
 				512DD15A2C538B410033985C /* TurtleNeckApp.swift in Sources */,
-				51300EC62C62AC5E000A4EF5 /* CharacterNotiViewModel.swift in Sources */,
 				51EB27582C5C7F2500CEE9FB /* NotificationManager.swift in Sources */,
 				51300EC82C62ACA4000A4EF5 /* CharacterNotiView.swift in Sources */,
 				4FF6E4942C5FC5F2002B08A6 /* PIPView.swift in Sources */,

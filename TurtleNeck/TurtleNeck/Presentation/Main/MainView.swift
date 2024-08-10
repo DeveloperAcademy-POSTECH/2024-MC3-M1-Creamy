@@ -21,7 +21,7 @@ struct MainView: View {
     
     @Query var statistic: [NotiStatistic]
     
-    @StateObject var characterNotiManager : CharacterNotiManager = CharacterNotiManager()
+    var characterNotiManager : CharacterNotiManager = CharacterNotiManager()
 
     var body: some View {
         VStack(spacing: 0){

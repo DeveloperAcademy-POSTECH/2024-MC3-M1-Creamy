@@ -21,6 +21,8 @@ struct MainView: View {
     
     @Query var statistic: [NotiStatistic]
     
+    let userManager = UserManager()
+    
     var characterNotiManager : CharacterNotiManager = CharacterNotiManager()
 
     var body: some View {
@@ -44,6 +46,9 @@ struct MainView: View {
         .frame(width: 348,height: 232)
         .onAppear {
             motionManager.startUpdates()
+            if let user = userManager.loadUser() { // UseDefault가 잘 들어갔는지 확인
+                print(user)
+            }
         }
         .onChange(of: motionManager.currentState) { oldState, newState in
             guard let currentState = motionManager.currentState else { return }

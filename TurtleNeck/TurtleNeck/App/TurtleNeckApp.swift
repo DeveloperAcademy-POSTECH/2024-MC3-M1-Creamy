@@ -26,10 +26,18 @@ private var modelContainer: ModelContainer = {
 struct TurtleNeckApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @AppStorage("isFirst") var isFirst: Bool = true
+    var user = UserManager().loadUser() ??  User(isFirst: true)
     
     var body: some Scene {
         WindowGroup {
-            if isFirst == true {
+//            if isFirst == true {
+//                ContentView()
+//                    .environment(\.appDelegate, appDelegate)
+//                    .modelContainer(modelContainer)
+//                    .frame(width: 560, height: 560)
+//                    .background(.white)
+//            }
+            if user.isFirst == true {
                 ContentView()
                     .environment(\.appDelegate, appDelegate)
                     .modelContainer(modelContainer)
@@ -52,6 +60,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     private var statusItem: NSStatusItem!
     private var popover: NSPopover!
     private var isMenuBarIconVisible = false
+    private var user = UserManager().loadUser() ??  User(isFirst: true)
     
     @AppStorage("isFirst") var isFirst: Bool = true
     
@@ -66,7 +75,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         popover.contentSize = NSSize(width: 348, height: 232)
         popover.behavior = .transient
         
-        if !isFirst {
+//        if !isFirst {
+//            openLaunchScreenView()
+//        }
+        
+        if !user.isFirst {
             openLaunchScreenView()
         }
         

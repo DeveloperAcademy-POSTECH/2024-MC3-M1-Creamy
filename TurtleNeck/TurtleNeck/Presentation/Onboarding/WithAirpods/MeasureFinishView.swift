@@ -12,6 +12,7 @@ struct MeasureFinishView: View {
     @Environment(\.appDelegate) var appDelegate: AppDelegate?
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.modelContext) var modelContext
+    let userManager = UserManager()
     
     var body: some View {
         VStack(spacing: 16){
@@ -45,7 +46,12 @@ struct MeasureFinishView: View {
                             appDelegate?.showPopover()
                         }
                         
-                        isFirst = false
+//                        isFirst = false
+                        
+                        if var user = userManager.loadUser() {
+                            user.isFirst = false
+                            userManager.saveUser(user)
+                        }
                     },
                     label: "시작하기"
                 )

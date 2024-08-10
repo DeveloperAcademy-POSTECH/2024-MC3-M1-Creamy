@@ -45,6 +45,7 @@
 		BD17242D2C592FF200C80B4B /* HoverableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD17242C2C592FF200C80B4B /* HoverableButton.swift */; };
 		BD2713122C539C12000820F6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2713112C539C12000820F6 /* User.swift */; };
 		BD2713142C539C34000820F6 /* NotiStatistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2713132C539C34000820F6 /* NotiStatistic.swift */; };
+		BD4020DC2C6708AE00FF5F60 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4020DB2C6708AE00FF5F60 /* UserManager.swift */; };
 		BD500FBA2C5BDFED00F0D257 /* HeadphoneMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD500FB92C5BDFED00F0D257 /* HeadphoneMotionManager.swift */; };
 		BD76C5DB2C5678E6004993EC /* CheckDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76C5DA2C5678E6004993EC /* CheckDeviceView.swift */; };
 		BD76C5DD2C56790F004993EC /* MotionPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76C5DC2C56790F004993EC /* MotionPermissionView.swift */; };
@@ -98,6 +99,7 @@
 		BD17242C2C592FF200C80B4B /* HoverableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoverableButton.swift; sourceTree = "<group>"; };
 		BD2713112C539C12000820F6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		BD2713132C539C34000820F6 /* NotiStatistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiStatistic.swift; sourceTree = "<group>"; };
+		BD4020DB2C6708AE00FF5F60 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		BD500FB92C5BDFED00F0D257 /* HeadphoneMotionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadphoneMotionManager.swift; sourceTree = "<group>"; };
 		BD76C5DA2C5678E6004993EC /* CheckDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckDeviceView.swift; sourceTree = "<group>"; };
 		BD76C5DC2C56790F004993EC /* MotionPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionPermissionView.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 				512DD17A2C5391660033985C /* DummyHelper.swift */,
 				BD76C5ED2C56AE83004993EC /* Router.swift */,
 				BD500FB92C5BDFED00F0D257 /* HeadphoneMotionManager.swift */,
+				BD4020DB2C6708AE00FF5F60 /* UserManager.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -482,6 +485,7 @@
 				BD76C5EE2C56AE83004993EC /* Router.swift in Sources */,
 				512DD1792C5390AF0033985C /* DummyServiceInterface.swift in Sources */,
 				BD500FBA2C5BDFED00F0D257 /* HeadphoneMotionManager.swift in Sources */,
+				BD4020DC2C6708AE00FF5F60 /* UserManager.swift in Sources */,
 				BD17242D2C592FF200C80B4B /* HoverableButton.swift in Sources */,
 				512DD1842C5392CC0033985C /* SettingView.swift in Sources */,
 				4F8160732C57EC5B0030E5D6 /* FontExtension.swift in Sources */,

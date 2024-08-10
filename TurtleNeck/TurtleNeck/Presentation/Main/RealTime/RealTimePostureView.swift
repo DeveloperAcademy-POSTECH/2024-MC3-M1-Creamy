@@ -10,7 +10,7 @@ import SwiftUI
 struct RealTimePostureView: View {
     @ObservedObject var motionManager: HeadphoneMotionManager
     @Binding var time: Int
-    var user: User = UserManager().loadUser() ?? User(isFirst: true)
+    let user: User = UserManager().loadUser() ?? User(isFirst: true)
     
     
     var body: some View {
@@ -44,7 +44,7 @@ struct RealTimePostureView: View {
                 .padding(.top, 12)
             }
             TurtleView(motionManager: motionManager)
-                .offset(x: -16, y: 38)
+                .offset(x: -16, y: 36)
         }
         
         Spacer()

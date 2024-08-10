@@ -14,6 +14,7 @@ class NotiStatistic: Identifiable {
     var date: Date = Date()
     var time: Int = 0
     var notiCount: Int = 0
+    var bestRecord: Int = 0
     
     init(date: Date) {
         self.date = date

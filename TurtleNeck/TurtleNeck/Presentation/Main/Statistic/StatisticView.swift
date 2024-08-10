@@ -10,17 +10,19 @@ import SwiftUI
 struct StatisticView: View {
     @State private var isToday: Bool = true
     @ObservedObject var motionManager: HeadphoneMotionManager
+    @Binding var time: Int
+    let user: User = UserManager().loadUser() ?? User(isFirst: true)
     
     var body: some View {
-        if(motionManager.isConnected){
-            connectedAirpodView.padding(.horizontal,8)
+        if(user.notificationMode == .posture){
+            posturePostureView.padding(.horizontal,8)
         }
         else{
-            disConnectedAirpodView
+            defaultModePostureView
         }
     }
     
-    private var connectedAirpodView: some View {
+    private var posturePostureView: some View {
         VStack{
             HStack {
                 Button(action: {
@@ -61,11 +63,13 @@ struct StatisticView: View {
         }
     }
     
-    private var disConnectedAirpodView: some View {
+    private var defaultModePostureView: some View {
         VStack{
-            Image("CryingNotAirpodTurtle").resizable().scaledToFit().frame(width: 100,height: 100).padding(.top,32)
-            Text("에어팟을 착용하지 않으면").font(.pretendardRegular12).foregroundColor(.black).padding(.top,8)
-            Text("계산이 불가능해요.").font(.pretendardRegular12).foregroundColor(.black)
+            Image("CryingNotAirpodTurtle").resizable().scaledToFit().frame(width: 100,height: 100).padding(.top,8)
+            Text("자세 알림을 선택했을 경우에만\n 사용할 수 있어요.").font(.pretendardRegular14).foregroundColor(.black)
+                .multilineTextAlignment(.center)
+                    .lineSpacing(4)
+                    .padding(.top, 22)
             Spacer()
         } .frame(width: 251).padding(.horizontal,14)
     }
@@ -75,7 +79,7 @@ extension StatisticView {
     @ViewBuilder
     private func showView(isToday: Bool) -> some View {
         if isToday {
-           DayPostureView()
+            DayPostureView(time: $time)
                 .transition(.move(edge: .leading))
         }
         else {

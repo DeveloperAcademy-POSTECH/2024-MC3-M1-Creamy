@@ -33,4 +33,12 @@ extension Font {
     // Thin
     static let pretendardThin12: Font = .custom("Pretendard-Thin", size: 12)
     
+    // headline
+    static let headline: Font = .system(size: 20, weight: .semibold)
+    
+    // body-emphasized
+    static let bodyEmphasized: Font = .system(size: 14, weight: .bold)
+    
+    // body-regular
+    static let bodyRegular: Font = .system(size: 14, weight: .regular)
 }

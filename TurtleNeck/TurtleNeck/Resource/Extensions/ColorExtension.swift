@@ -6,27 +6,30 @@
 //
 
 import SwiftUI
-//원하는 컬러 생성
+
 extension Color {
-    /// 기능에 대한 설명
-    static let subTextGray = Color(hex: "1A1A1A")
-    /// buttonText + icon에 사용
-    static let primary = Color(hex: "788A2C")
+     
+    static let mainText = Color(hex: "000000")
+    
+    static let subText = Color(hex: "1A1A1A")
+    
+    static let buttonText = Color(hex: "788A2C")
+    
+    static let buttonHover = Color(hex: "F8FBE9")
+    
+    static let chevronHover = Color(hex: "EDF2DB")
     
     static let chevron = Color(hex: "C0CA97")
     
-    static let iconHoverBG = Color(hex: "F8FBE9")
-    
-    static let buttonHoverBG = Color(hex: "EDF2DB")
-    
-    static let chart = Color(hex: "97B66D")
-    
-    static let listColor = Color(hex:"FBFBFB")
+    static let background = Color(hex: "FFFFFF")
     
     static let borderLine = Color(hex: "E5E5E5")
     
-    static let gray01 = Color(hex: "7E7E7E")
+    static let settingBG = Color(hex: "FBFBFB")
     
+    static let warning = Color(hex: "FBFBFB")
+    
+    static let captionText = Color(hex: "636363")
 }
 
 extension Color {

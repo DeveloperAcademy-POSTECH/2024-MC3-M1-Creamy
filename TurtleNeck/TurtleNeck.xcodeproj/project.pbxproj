@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F1D5FB52C67C51D00B2051A /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1D5FB42C67C51D00B2051A /* TimeFormatter.swift */; };
 		4F5189182C633C7200E978F0 /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5189172C633C7200E978F0 /* LaunchScreenView.swift */; };
 		4F5FEFBB2C5C761400E00081 /* TurtleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5FEFBA2C5C761400E00081 /* TurtleView.swift */; };
 		4F5FEFBD2C5C762000E00081 /* TopMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5FEFBC2C5C762000E00081 /* TopMenuView.swift */; };
@@ -58,6 +59,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4F1D5FB42C67C51D00B2051A /* TimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
 		4F5189172C633C7200E978F0 /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
 		4F5FEFBA2C5C761400E00081 /* TurtleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurtleView.swift; sourceTree = "<group>"; };
 		4F5FEFBC2C5C762000E00081 /* TopMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMenuView.swift; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 				BD76C5ED2C56AE83004993EC /* Router.swift */,
 				BD500FB92C5BDFED00F0D257 /* HeadphoneMotionManager.swift */,
 				BD4020DB2C6708AE00FF5F60 /* UserManager.swift */,
+				4F1D5FB42C67C51D00B2051A /* TimeFormatter.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -489,6 +492,7 @@
 				BD17242D2C592FF200C80B4B /* HoverableButton.swift in Sources */,
 				512DD1842C5392CC0033985C /* SettingView.swift in Sources */,
 				4F8160732C57EC5B0030E5D6 /* FontExtension.swift in Sources */,
+				4F1D5FB52C67C51D00B2051A /* TimeFormatter.swift in Sources */,
 				51300EC32C62A880000A4EF5 /* CharacterNotiManager.swift in Sources */,
 				4F5FEFBD2C5C762000E00081 /* TopMenuView.swift in Sources */,
 				512DD1802C5392A60033985C /* MainView.swift in Sources */,

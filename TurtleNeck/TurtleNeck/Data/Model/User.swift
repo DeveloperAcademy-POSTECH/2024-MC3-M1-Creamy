@@ -19,4 +19,5 @@ struct User: Codable {
     var disturbMode : Bool = false
     var notiCycle: Double = 10 //TODO: 10초 -> 10분으로 수정
     var notificationMode: NotificationMode?
+    var bestRecord: Int = 0 //오늘의 최고 기록
 }

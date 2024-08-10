@@ -18,6 +18,8 @@ struct MainView: View {
     @State private var lastCheckedDate = Date()
     @State private var wearingStartTime: Date?
     @State private var isStarted: Bool = false
+    @State private var timer: Timer? = nil
+    @State private var timerValue: Int = 0
     
     @Query var statistic: [NotiStatistic]
     
@@ -31,7 +33,7 @@ struct MainView: View {
                 Spacer()
                 
                 segmentView.padding(EdgeInsets(top: 4, leading: 0, bottom: 0, trailing: 16))
-                
+            
                 TopMenuView(action: {
                     appDelegate?.openAlwaysOnTopView(isMute: $isMute, motionManager: motionManager)
                 }, isMute: $isMute, motionManager: motionManager)
@@ -62,6 +64,11 @@ struct MainView: View {
             switch currentState {
             case .good:
                 
+                // 타이머 시작
+                if timer == nil {
+                    startTimer()
+                }
+                
                 // 등록된 로컬 노티 제거
                 NotificationManager().removeTimeNoti()
                 // 캐릭터 노티 제거
@@ -75,6 +82,8 @@ struct MainView: View {
                 }
                 
             case .bad:
+                resetTimer()
+                
                 if oldState == .good {
                     NotificationManager().settingTimeNoti(state: .bad)
                 }
@@ -97,13 +106,14 @@ struct MainView: View {
                 characterNotiManager.setCharacterNoti()
             }
         }
-        
         .onChange(of: motionManager.isConnected) { isConnected in
             if isConnected {
                 wearingStartTime = Date()
                 checkAndAddTodayData() // isConnected가 true일 때 호출
             }
             else {
+                resetTimer()
+
                 if let startTime = wearingStartTime {
                     let endTime = Date()
                     let wearingDuration = Int(endTime.timeIntervalSince(startTime))
@@ -160,7 +170,7 @@ struct MainView: View {
                         RoundedRectangle(cornerRadius: 8)
                             .fill(isRealTime ? .white : Color.iconHoverBG)
 
-                        Text("통계")
+                        Text("기록")
                             .font(.pretendardRegular13)
                             .foregroundColor(isRealTime ? .chevron : .primary)
                     }
@@ -177,7 +187,7 @@ extension MainView {
     @ViewBuilder
     private func showView(isRealTime: Bool) -> some View {
         if isRealTime {
-            RealTimePostureView(motionManager: motionManager)
+            RealTimePostureView(motionManager: motionManager, time: $timerValue)
         }
         
         else {
@@ -187,33 +197,6 @@ extension MainView {
 }
 
 extension MainView {
-    
-    private func checkDateChange() {
-        let currentDate = Date()
-        let calendar = Calendar.current
-        
-        // 마지막 체크한 날짜와 현재 날짜의 년, 월, 일이 다르면 날짜 변경 감지
-        if !calendar.isDate(lastCheckedDate, inSameDayAs: currentDate) {
-            addNotiStatistic(for: currentDate)
-        }
-        
-        lastCheckedDate = currentDate
-    }
-    
-    private func addNotiStatistic(for date: Date) {
-        // NotiStatistic의 새 항목 추가
-        let newStatistic = NotiStatistic(date: date)
-        modelContext.insert(newStatistic)
-        print("날짜 변경! statistic 추가됨")
-        
-        // statistic 배열의 길이가 7을 초과하면 첫 번째 요소 삭제
-        if statistic.count > 7 {
-            if let firstStatistic = statistic.first {
-                modelContext.delete(firstStatistic)
-            }
-        }
-    }
-    
     private func checkAndAddTodayData() {
         let today = Calendar.current.startOfDay(for: Date())
         let todayDataExists = statistic.contains { Calendar.current.isDate($0.date, inSameDayAs: today) }
@@ -230,6 +213,34 @@ extension MainView {
             guard let firstItem = statistic.first else { return } // 첫 번째 아이템 확인
             modelContext.delete(firstItem) // 모델 컨텍스트에서 삭제
             print("가장 오래된 데이터가 삭제되었습니다.")
+        }
+    }
+    
+    private func startTimer() {
+        timerValue = 0 // 타이머 값을 0으로 초기화
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+            timerValue += 1 // 매초 타이머 값 증가
+            print("타이머: \(timerValue)초") // 타이머 값 출력 (디버깅 용도)
+        }
+    }
+    
+    private func resetTimer() {
+        timer?.invalidate() // 타이머 중지
+        timer = nil // 타이머 변수 초기화
+        timerValue = 0 // 타이머 값 리셋
+    }
+    
+    private func formattedTime(from seconds: Int) -> String {
+        let hours = seconds / 3600
+        let minutes = (seconds % 3600) / 60
+        let secs = seconds % 60
+        
+        if hours > 0 {
+            return String(format: "%02d시간 %02d분 %02d초", hours, minutes, secs) // HH:mm:ss
+        } else if minutes > 0 {
+            return String(format: "%02d분 %02d초", minutes, secs) // mm:ss
+        } else {
+            return String(format: "%02d초", secs) // ss
         }
     }
 }

@@ -211,23 +211,23 @@ extension MainView {
         // 데이터 갯수가 8개를 초과할 경우 제일 오래된 데이터 삭제
         if statistic.count > 8 {
             guard let firstItem = statistic.first else { return } // 첫 번째 아이템 확인
-            modelContext.delete(firstItem) // 모델 컨텍스트에서 삭제
+            modelContext.delete(firstItem)
             print("가장 오래된 데이터가 삭제되었습니다.")
         }
     }
     
     private func startTimer() {
-        timerValue = 0 // 타이머 값을 0으로 초기화
+        timerValue = 0
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            timerValue += 1 // 매초 타이머 값 증가
-            print("타이머: \(timerValue)초") // 타이머 값 출력 (디버깅 용도)
+            timerValue += 1
+            print("타이머: \(timerValue)초")
         }
     }
     
     private func resetTimer() {
-        timer?.invalidate() // 타이머 중지
-        timer = nil // 타이머 변수 초기화
-        timerValue = 0 // 타이머 값 리셋
+        timer?.invalidate()
+        timer = nil
+        timerValue = 0
     }
     
     private func formattedTime(from seconds: Int) -> String {
@@ -236,11 +236,11 @@ extension MainView {
         let secs = seconds % 60
         
         if hours > 0 {
-            return String(format: "%02d시간 %02d분 %02d초", hours, minutes, secs) // HH:mm:ss
+            return String(format: "%02d시간 %02d분 %02d초", hours, minutes, secs)
         } else if minutes > 0 {
-            return String(format: "%02d분 %02d초", minutes, secs) // mm:ss
+            return String(format: "%02d분 %02d초", minutes, secs)
         } else {
-            return String(format: "%02d초", secs) // ss
+            return String(format: "%02d초", secs) 
         }
     }
 }

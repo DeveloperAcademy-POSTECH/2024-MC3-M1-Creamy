@@ -30,13 +30,6 @@ struct TurtleNeckApp: App {
     
     var body: some Scene {
         WindowGroup {
-//            if isFirst == true {
-//                ContentView()
-//                    .environment(\.appDelegate, appDelegate)
-//                    .modelContainer(modelContainer)
-//                    .frame(width: 560, height: 560)
-//                    .background(.white)
-//            }
             if user.isFirst == true {
                 ContentView()
                     .environment(\.appDelegate, appDelegate)
@@ -74,10 +67,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         popover.setValue(true, forKeyPath: "shouldHideAnchor")
         popover.contentSize = NSSize(width: 348, height: 232)
         popover.behavior = .transient
-        
-//        if !isFirst {
-//            openLaunchScreenView()
-//        }
         
         if !user.isFirst {
             openLaunchScreenView()

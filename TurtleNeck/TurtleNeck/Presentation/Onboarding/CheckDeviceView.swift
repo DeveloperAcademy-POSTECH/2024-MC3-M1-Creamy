@@ -42,7 +42,7 @@ struct CheckDeviceView: View {
                     
                     HoverableButton(
                         action: {
-                            setUserMode(selectedMode: .postureAlert)
+                            userManager.setUserMode(selectedMode: .posture, keyPath: \User.notificationMode)
                             
                             Router.shared.navigate(to: .motionPermission)
                         },
@@ -56,8 +56,8 @@ struct CheckDeviceView: View {
                 .padding(.bottom, -20)
                 
                 HoverableButton(
-                    action: {
-                        setUserMode(selectedMode: .defaultMode)
+                    action: {                   
+                        userManager.setUserMode(selectedMode: .default, keyPath: \User.notificationMode)
                         
                         Router.shared.navigate(to: .withoutAirpods)
                     },
@@ -68,16 +68,6 @@ struct CheckDeviceView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.top, 35)
         .padding(.bottom, 61)
-    }
-}
-
-extension CheckDeviceView {
-    //사용자가 선택한 모드를 저장
-    private func setUserMode(selectedMode: NotificationMode) {
-        if var user = userManager.loadUser() {
-            user.notificationMode = selectedMode
-            userManager.saveUser(user)
-        }
     }
 }
 

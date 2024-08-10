@@ -8,8 +8,8 @@
 import Foundation
 
 enum NotificationMode: String, Codable {
-    case postureAlert // 자세 알림 모드
-    case defaultMode // 기본 알림 모드
+    case posture // 자세 알림 모드
+    case `default` // 기본 알림 모드
 }
 
 struct User: Codable {
@@ -19,5 +19,4 @@ struct User: Codable {
     var disturbMode : Bool = false
     var notiCycle: Double = 10 //TODO: 10초 -> 10분으로 수정
     var notificationMode: NotificationMode?
-    var bestRecord: Int = 0 //오늘의 최고 기록
 }

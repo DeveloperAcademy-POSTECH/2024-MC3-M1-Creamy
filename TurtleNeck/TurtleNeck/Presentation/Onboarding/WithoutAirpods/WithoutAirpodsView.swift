@@ -46,10 +46,7 @@ struct WithoutAirpodsView: View {
                     appDelegate?.showPopover()
                 }
                 
-                if var user = userManager.loadUser() {
-                    user.isFirst = false
-                    userManager.saveUser(user)
-                }
+                userManager.setUserMode(selectedMode: false, keyPath: \User.isFirst)
                 
             }, label: "시작하기")
         }

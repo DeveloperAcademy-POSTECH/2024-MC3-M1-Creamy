@@ -9,16 +9,25 @@ import SwiftUI
 
 struct CharacterNotiView: View {
     
-    var viewModel: CharacterNotiViewModel
-    var viewSize: CGSize
-    var imgName: String
+    @ObservedObject var characterNotiManager: CharacterNotiManager
+    
+    private var viewSize: CGSize
+    private var imgName: String = "CharacterNoti"
+    
+    init(viewSize: CGSize, characterNotiManager: CharacterNotiManager) {
+        self.viewSize = viewSize
+        self.characterNotiManager = characterNotiManager
+    }
     
     var body: some View {
         Image(imgName)
             .resizable()
+            .scaledToFit()
             .frame(width: viewSize.width, height: viewSize.height)
+            .rotationEffect(.degrees(characterNotiManager.isAppearing ? -20 : 0))
+            .animation(.linear(duration: 1), value: characterNotiManager.isAppearing)
             .onTapGesture {
-                viewModel.disappearCharacter()
+                characterNotiManager.removeCharacterNoti()
             }
     }
 }

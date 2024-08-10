@@ -13,6 +13,7 @@ struct WithoutAirpodsView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.modelContext) var modelContext
     @State private var isAppStartHover = false
+    let userManager = UserManager()
     
     var body: some View {
         VStack(spacing: 16){
@@ -45,7 +46,7 @@ struct WithoutAirpodsView: View {
                     appDelegate?.showPopover()
                 }
                 
-                isFirst = false
+                userManager.setUserMode(selectedMode: false, keyPath: \User.isFirst)
                 
             }, label: "시작하기")
         }

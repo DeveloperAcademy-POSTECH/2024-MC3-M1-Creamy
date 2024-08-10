@@ -9,6 +9,8 @@ import SwiftUI
 
 struct CheckDeviceView: View {    
     @State private var isWithAirpodsHover = false
+    @State private var selectedMode: NotificationMode?
+    let userManager = UserManager()
     
     private var image: String {
         isWithAirpodsHover ? "withMax" : "withoutAirpods"
@@ -40,9 +42,11 @@ struct CheckDeviceView: View {
                     
                     HoverableButton(
                         action: {
+                            userManager.setUserMode(selectedMode: .posture, keyPath: \User.notificationMode)
+                            
                             Router.shared.navigate(to: .motionPermission)
                         },
-                        label: "에어팟으로 자세 측정하기"
+                        label: "자세 알림 모드"
                     )
                     .onHover { hovering in
                         isWithAirpodsHover = hovering
@@ -52,10 +56,12 @@ struct CheckDeviceView: View {
                 .padding(.bottom, -20)
                 
                 HoverableButton(
-                    action: {
+                    action: {                   
+                        userManager.setUserMode(selectedMode: .default, keyPath: \User.notificationMode)
+                        
                         Router.shared.navigate(to: .withoutAirpods)
                     },
-                    label: "에어팟 없이 알림만 받기"
+                    label: "기본 알림 모드"
                 )
             }
         }

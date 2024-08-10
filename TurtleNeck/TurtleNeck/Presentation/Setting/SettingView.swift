@@ -221,7 +221,7 @@ struct SettingView: View {
                         }
                         Spacer()
                         Button(action: {
-                            UserDefaults.standard.removeObject(forKey: "isFirst")
+                            UserManager().deleteUser()
                             deleteAllData()
                             NSApplication.shared.terminate(nil)
                         }){

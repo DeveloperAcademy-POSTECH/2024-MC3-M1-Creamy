@@ -123,10 +123,7 @@ struct MeasuringView: View {
                             
                             print("5초 동안의 평균 pitch 값: \(averagePitch)")
                             
-                            // 구한 평균값을 goodPosture에 넣어주기
-                            var user = userManager.loadUser() ?? User(isFirst: true)
-                            user.goodPosture = averagePitch
-                            userManager.saveUser(user)
+                            userManager.setUserMode(selectedMode: averagePitch, keyPath: \User.goodPosture)
                             
                             Router.shared.navigate(to: .measureFinish)
                         }

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct MeasurePostureView: View {
     @State private var isCountdownComplete = false
@@ -77,7 +76,7 @@ struct MeasuringView: View {
     @State private var timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
     @State private var hasExecutedElseBlock = false
     
-    @Query var user: [User]
+    let userManager = UserManager()
     
     var body: some View {
         VStack(spacing: 16){
@@ -125,11 +124,9 @@ struct MeasuringView: View {
                             print("5초 동안의 평균 pitch 값: \(averagePitch)")
                             
                             // 구한 평균값을 goodPosture에 넣어주기
-                            if let user = user.last {
-                                user.goodPosture = averagePitch
-                            } else {
-                                print("average 값 넣기 실패")
-                            }
+                            var user = userManager.loadUser() ?? User(isFirst: true)
+                            user.goodPosture = averagePitch
+                            userManager.saveUser(user)
                             
                             Router.shared.navigate(to: .measureFinish)
                         }

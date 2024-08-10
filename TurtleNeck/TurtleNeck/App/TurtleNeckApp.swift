@@ -11,7 +11,7 @@ import SwiftData
 import UserNotifications
 
 private var modelContainer: ModelContainer = {
-    let schema = Schema([User.self, NotiStatistic.self])
+    let schema = Schema([NotiStatistic.self])
     let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
      
     do {

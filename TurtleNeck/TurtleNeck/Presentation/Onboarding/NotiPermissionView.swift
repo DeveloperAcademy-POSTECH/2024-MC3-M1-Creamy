@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NotiPermissionView: View {
-    @Environment(\.modelContext) var modelContext
+    let userManager = UserManager()
     
     var body: some View {
         VStack(spacing: 0){
@@ -33,9 +33,9 @@ struct NotiPermissionView: View {
             HoverableButton(
                 action: {
                     //모션 허용 시, default 유저 정보 생성
-                    let user = User(isFirst: false)
+                    let user = User(isFirst: true)
                     
-                    modelContext.insert(user)
+                    userManager.saveUser(user)
                     
                     Router.shared.navigate(to: .checkDevice)
                 },

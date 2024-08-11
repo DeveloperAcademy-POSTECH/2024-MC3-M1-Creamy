@@ -16,7 +16,7 @@ struct CheckDeviceView: View {
         VStack(spacing: 12){
             
             Text("받고 싶은 알림을 선택해 주세요.")
-                .font(.crHeadline)
+                .font(.tnHeadline)
 
             Text("선택한 알림은 추후 설정에서 변경할 수 있어요")
                 .font(.callout)
@@ -49,9 +49,8 @@ struct CheckDeviceView: View {
                     }
                     .padding(.top, 20)
                     .padding(.bottom, 24)
-                    .padding(.horizontal, 29)
                     .frame(width: 230, height: 312)
-                    .background(isMeasuringBadHovered ? Color.buttonHoverBG : Color.clear)
+                    .background(isMeasuringBadHovered ? Color.buttonHover : Color.clear)
                     .cornerRadius(16)
                 }
                 .buttonStyle(.plain)
@@ -108,11 +107,3 @@ struct CheckDeviceView: View {
         .frame(width: 560, height: 560)
         .background(.white)
 }
-//
-//struct CheckDeviceView_Preview: PreviewProvider {
-//    static var previews: some View{
-//        CheckDeviceView()
-//            .frame(width: 560, height: 560)
-//            .background(.white)
-//    }
-//}

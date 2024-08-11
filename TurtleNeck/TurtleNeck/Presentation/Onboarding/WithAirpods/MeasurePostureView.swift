@@ -31,22 +31,21 @@ struct MeasureCountDownView: View {
     @Binding var isCountdownComplete: Bool
     
     var body: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 0) {
             Image("countDown_\(countdown)")
-            
-            Spacer()
+                .padding(.bottom, 85)
             
             Text("곧 측정이 시작돼요!")
-                .font(.title3)
-                .fontWeight(.semibold)
+                .font(.tnHeadline)
             
             Text("에어팟을 착용한 채로 바른 자세를 유지해 주세요.")
-                .font(.callout)
-                .foregroundColor(.subTextGray)
+                .font(.tnBodyRegular)
+                .foregroundColor(.subText)
+            
+            Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .padding(.top, 112)
-        .padding(.bottom, 162)
+        .padding(.top, 160)
         .onAppear {
             startCountdown()
         }
@@ -79,7 +78,7 @@ struct MeasuringView: View {
     let userManager = UserManager()
     
     var body: some View {
-        VStack(spacing: 16){
+        VStack(spacing: 0){
             ZStack {
                 Image("Img_Measuring")
                 //원모양 progress bar
@@ -103,15 +102,13 @@ struct MeasuringView: View {
                     )
                 
             }
-            .padding(.top, 30)
+            .padding(.bottom, 45)
             // 타이머가 0.1초마다 바뀔 때의 동작 설정
             .onReceive(timer) { _ in
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     if progress < 1.0 {
                         progress += 1.0 / (totalTime / 0.1)
-//                        print(progress)
                         pitchValues.append(motionManager.pitch)
-//                        print("측정값: \(pitchValues)")
                     } else {
                         if !hasExecutedElseBlock {
                             hasExecutedElseBlock = true // 코드 실행 플래그 설정
@@ -130,29 +127,27 @@ struct MeasuringView: View {
                     }
                 }
             }
-            
-            Spacer()
-            
+
             Text("측정 중이에요.")
-                .font(.title3)
-                .fontWeight(.semibold)
+                .font(.tnHeadline)
+                .padding(.bottom, 12)
             
             Text("자세를 측정하고 있어요.\n에어팟을 착용한 상태로 바른 자세를 유지해 주세요.")
                 .multilineTextAlignment(.center)
                 .lineSpacing(4)
-                .font(.callout)
-                .foregroundColor(.subTextGray)
+                .font(.tnBodyRegular)
+                .foregroundColor(.subText)
+            
+            Spacer()
         }
+        .padding(.top, 60)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .padding(.top, 30)
-        .padding(.bottom, 134)
     }
     
     ///pitch값의 평균을 구하는 함수
     private func calculateAveragePitch() -> Double {
         let total = pitchValues.reduce(0, +)
         let average = total / Double(pitchValues.count)
-//        print("총 pitch의 수: \(pitchValues.count)")
         return average
     }
 }

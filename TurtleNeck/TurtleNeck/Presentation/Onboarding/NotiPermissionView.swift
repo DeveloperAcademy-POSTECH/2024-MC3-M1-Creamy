@@ -14,21 +14,21 @@ struct NotiPermissionView: View {
         VStack(spacing: 0){
             VStack(spacing: 0){
                 Image("notificationImg")
-                    .padding(.bottom, 28)
+                    .padding(.bottom, 40)
                 
                 Text("알림 허용이 필요해요")
-                    .font(.title3)
-                    .fontWeight(.semibold)
-                    .padding(.bottom, 16)
+                    .font(.tnHeadline)
+                    .padding(.bottom, 12)
                 
                 Text("더 올바른 자세 유지를 도울 수 있도록\n알림 허용이 필요해요")
+                    .font(.tnBodyRegular)
                     .multilineTextAlignment(.center)
                     .lineSpacing(4)
-                    .font(.callout)
-                    .foregroundColor(.subTextGray)
+                    .foregroundColor(.subText)
             }
+            .padding(.bottom, 58)
             
-            Spacer()
+//            Spacer()
             
             HoverableButton(
                 action: {
@@ -42,8 +42,6 @@ struct NotiPermissionView: View {
             )
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .padding(.top, 132)
-        .padding(.bottom, 61)
         .onAppear{
             NotificationManager().requestNotiPermission()
         }

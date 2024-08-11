@@ -9,6 +9,7 @@ import SwiftUI
 
 extension Color {
      
+    /// 최신버전 컬러 시스템입니다
     static let mainText = Color(hex: "000000")
     
     static let subText = Color(hex: "1A1A1A")
@@ -27,7 +28,7 @@ extension Color {
     
     static let settingBG = Color(hex: "FBFBFB")
     
-    static let warning = Color(hex: "FBFBFB")
+    static let warning = Color(hex: "E74C4C")
     
     static let captionText = Color(hex: "636363")
 }

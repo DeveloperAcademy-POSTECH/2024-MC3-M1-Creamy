@@ -66,7 +66,7 @@ struct StatisticView: View {
     private var defaultModePostureView: some View {
         VStack{
             Image("CryingTurtle").resizable().scaledToFit().frame(width: 100,height: 100).padding(.top,8)
-            Text("자세 알림을 선택했을 경우에만\n 사용할 수 있어요.").font(.pretendardRegular14).foregroundColor(.black)
+            Text("자세 알림을 선택했을 경우에만\n 사용할 수 있어요.").font(.tnBodyRegular14).foregroundColor(.black)
                 .multilineTextAlignment(.center)
                     .lineSpacing(4)
                     .padding(.top, 22)

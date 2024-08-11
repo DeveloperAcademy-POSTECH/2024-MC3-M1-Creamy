@@ -10,38 +10,28 @@ import SwiftUI
 
 extension Font {
     // headline
-    static let tnHeadline: Font = .system(size: 20, weight: .semibold)
+    static let tnHeadline20: Font = .system(size: 20, weight: .semibold)
+    static let tnHeadline12: Font = .system(size: 12, weight: .semibold)
     
     // body-emphasized
-    static let tnBodyEmphasized: Font = .system(size: 14, weight: .bold)
+    static let tnBodyEmphasized14: Font = .system(size: 14, weight: .bold)
+    static let tnBodyEmphasized12: Font = .system(size: 12, weight: .bold)
+    static let tnBodyEmphasized10: Font = .system(size: 10, weight: .bold)
     
     // body-regular
-    static let tnBodyRegular: Font = .system(size: 14, weight: .regular)
+    static let tnBodyRegular14: Font = .system(size: 14, weight: .regular)
+    static let tnBodyRegular13: Font = .system(size: 13, weight: .regular)
+    static let tnBodyRegular12: Font = .system(size: 12, weight: .regular)
+    static let tnBodyRegular11: Font = .system(size: 11, weight: .regular)
+    static let tnBodyRegular10: Font = .system(size: 10, weight: .regular)
     
+    //body-medium
+    static let tnBodyMedium16: Font = .system(size: 16, weight: .medium)
+    static let tnBodyMedium12: Font = .system(size: 12, weight: .medium)
+    static let tnBodyMedium10: Font = .system(size: 10, weight: .medium)
+    static let tnBodyMedium8: Font = .system(size: 8, weight: .medium)
     
-    
-    /// Pretendard
-    // Bold
-    static let pretendardBold12: Font = .custom("Pretendard-Bold", size: 12)
-    static let pretendardBold10: Font = .custom("Pretendard-Bold", size: 10)
-    
-    // SemiBold
-    static let pretendardSemiBold20: Font = .custom("Pretendard-SemiBold", size: 20)
-    static let pretendardSemiBold12: Font = .custom("Pretendard-SemiBold", size: 12)
-    
-    // Medium
-    static let pretendardMedium16: Font = .custom("Pretendard-Medium", size: 16)
-    static let pretendardMedium12: Font = .custom("Pretendard-Medium", size: 12)
-    static let pretendardMedium10: Font = .custom("Pretendard-Medium", size: 10)
-    static let pretendardMedium8: Font = .custom("Pretendard-Medium", size: 8)
-    
-    // Regular
-    static let pretendardRegular14: Font = .custom("Pretendard-Regular", size: 14)
-    static let pretendardRegular13: Font = .custom("Pretendard-Regular", size: 13)
-    static let pretendardRegular12: Font = .custom("Pretendard-Regular", size: 12)
-    static let pretendardRegular11: Font = .custom("Pretendard-Regular", size: 11)
-    static let pretendardRegular10: Font = .custom("Pretendard-Regular", size: 10)
-    
-    // Thin
-    static let pretendardThin12: Font = .custom("Pretendard-Thin", size: 12)
+    //body-thin
+    static let tnBodyThin12: Font = .system(size: 12, weight: .thin)
+
 }

@@ -21,7 +21,7 @@ struct MeasureErrorView: View {
                 .multilineTextAlignment(.center)
                 .lineSpacing(4)
                 .font(.callout)
-                .foregroundColor(.subTextGray)
+                .foregroundColor(.subText)
                 
             Spacer()
             

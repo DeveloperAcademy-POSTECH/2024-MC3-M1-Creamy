@@ -36,10 +36,10 @@ struct MeasureCountDownView: View {
                 .padding(.bottom, 85)
             
             Text("곧 측정이 시작돼요!")
-                .font(.tnHeadline)
+                .font(.tnHeadline20)
             
             Text("에어팟을 착용한 채로 바른 자세를 유지해 주세요.")
-                .font(.tnBodyRegular)
+                .font(.tnBodyRegular14)
                 .foregroundColor(.subText)
             
             Spacer()
@@ -129,13 +129,13 @@ struct MeasuringView: View {
             }
 
             Text("측정 중이에요.")
-                .font(.tnHeadline)
+                .font(.tnHeadline20)
                 .padding(.bottom, 12)
             
             Text("자세를 측정하고 있어요.\n에어팟을 착용한 상태로 바른 자세를 유지해 주세요.")
                 .multilineTextAlignment(.center)
                 .lineSpacing(4)
-                .font(.tnBodyRegular)
+                .font(.tnBodyRegular14)
                 .foregroundColor(.subText)
             
             Spacer()

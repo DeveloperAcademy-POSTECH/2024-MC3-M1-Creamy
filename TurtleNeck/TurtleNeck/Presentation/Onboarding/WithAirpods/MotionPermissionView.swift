@@ -18,12 +18,12 @@ struct MotionPermissionView: View {
                 .padding(.bottom, 13)
             
             Text("접근 권한을 허용해주세요.")
-                .font(.tnHeadline)
+                .font(.tnHeadline20)
             
             Text("자세가 흐트러진 순간 정확하게\n알림을 드리기 위해 접근 권한 허용이 필요해요")
                 .multilineTextAlignment(.center)
                 .lineSpacing(4)
-                .font(.tnBodyRegular)
+                .font(.tnBodyRegular14)
                 .foregroundColor(.subText)
             
             Spacer()

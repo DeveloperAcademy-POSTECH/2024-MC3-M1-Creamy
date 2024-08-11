@@ -17,7 +17,7 @@ struct HoverableButton: View {
         Button(action: action) {
             Text(label)
                 .frame(width: 200, height: 33)
-                .font(.crBodyRegular)
+                .font(.tnBodyRegular14)
                 .foregroundColor(.buttonText)
                 .background(isHovered ? Color.buttonHover : Color.clear)
                 .cornerRadius(12)

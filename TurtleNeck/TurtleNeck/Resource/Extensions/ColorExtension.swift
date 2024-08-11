@@ -31,6 +31,10 @@ extension Color {
     static let warning = Color(hex: "E74C4C")
     
     static let captionText = Color(hex: "636363")
+    
+    static let chart = Color(hex: "97B66D")
+    
+    static let settingSub = Color(hex: "7E7E7E")
 }
 
 extension Color {

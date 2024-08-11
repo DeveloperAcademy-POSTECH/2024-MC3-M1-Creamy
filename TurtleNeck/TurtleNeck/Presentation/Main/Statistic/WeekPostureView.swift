@@ -13,14 +13,11 @@ struct WeekPostureView: View {
     @Query private var statistics: [NotiStatistic] // NotiStatistic 배열
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Text("지난 7일간")
-                .font(.pretendardBold10)
+        VStack(alignment: .center, spacing: 0) {
+            Text("지난 7일간의 최고 기록")
+                .font(.tnBodyEmphasized12)
                 .foregroundColor(.black)
-                .padding(.top, 17)
-            Text("시간당 평균적으로 받은 알림 횟수")
-                .font(.pretendardBold10)
-                .foregroundColor(.black)
+                .padding(.top, 18)
             
             HStack(alignment: .bottom) {
                 ForEach(filteredStatistics) { data in // data는 NotiStatistic 타입
@@ -28,12 +25,12 @@ struct WeekPostureView: View {
                     VStack(spacing: 2) {
                         if data.notiCount == 0 {
                             Text("no data")
-                                .font(.pretendardMedium8)
+                                .font(.tnBodyMedium8)
                                 .foregroundColor(.chevron)
                         } else {
                             let averageAlerts = Double(data.notiCount) * 3600 / Double(data.time)
                             Text(String(format: "%.1f", averageAlerts))
-                                .font(.pretendardMedium10)
+                                .font(.tnBodyMedium10)
                                 .foregroundColor(Color.chart)
                         }
                         Rectangle()
@@ -49,7 +46,7 @@ struct WeekPostureView: View {
                                 )
                             )
                         Text(formatDate(data.date))
-                            .font(.pretendardRegular10)
+                            .font(.tnBodyRegular10)
                             .foregroundColor(.black)
                             .frame(width: 29)
                     }

@@ -150,11 +150,11 @@ struct MainView: View {
                     ZStack {
 
                         RoundedRectangle(cornerRadius: 8)
-                            .fill(isRealTime ?  Color.iconHoverBG : .white)
+                            .fill(isRealTime ?  Color.buttonHover : .white)
 
                         Text("실시간")
-                            .font(.pretendardRegular13)
-                            .foregroundColor(isRealTime ? .primary : .chevron)
+                            .font(.tnBodyRegular13)
+                            .foregroundColor(isRealTime ? .buttonText : .chevron)
                     }
                     .frame(width: 69.5, height: 22)
                 }
@@ -166,11 +166,11 @@ struct MainView: View {
                     ZStack {
 
                         RoundedRectangle(cornerRadius: 8)
-                            .fill(isRealTime ? .white : Color.iconHoverBG)
+                            .fill(isRealTime ? .white : Color.buttonHover)
 
                         Text("기록")
-                            .font(.pretendardRegular13)
-                            .foregroundColor(isRealTime ? .chevron : .primary)
+                            .font(.tnBodyRegular13)
+                            .foregroundColor(isRealTime ? .chevron : .buttonText)
                     }
                     .frame(width: 69.5, height: 22)
                 }

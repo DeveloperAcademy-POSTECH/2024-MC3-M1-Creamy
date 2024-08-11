@@ -19,8 +19,8 @@ struct RealTimePostureView: View {
                 if motionManager.isConnected {
                     //자세 알림 모드 & 에어팟 o
                     VStack(spacing: 0){
-                        Text(formattedTime(from: time)).font(.pretendardSemiBold20).foregroundColor(.black)
-                        Text("바른 자세 유지 중!").font(.pretendardRegular14).foregroundColor(.black).padding(.top, 4)
+                        Text(formattedTime(from: time)).font(.tnHeadline20).foregroundColor(.black)
+                        Text("바른 자세 유지 중!").font(.tnBodyRegular14).foregroundColor(.black).padding(.top, 4)
                     }
                     .frame(height: 44)
                     .padding(.top, 14)
@@ -28,7 +28,7 @@ struct RealTimePostureView: View {
                 else {
                     //자세 알림 모드 & 에어팟 x
                     VStack{
-                        Text("에어팟을 착용해 주세요.").font(.pretendardRegular14).foregroundColor(.black)
+                        Text("에어팟을 착용해 주세요.").font(.tnBodyRegular14).foregroundColor(.black)
                     }
                     .frame(height: 37)
                     .padding(.top, 21)
@@ -37,7 +37,7 @@ struct RealTimePostureView: View {
             else {
                 //기본 알림 모드
                 VStack(spacing: 0){
-                    Text("중간중간 천장을 바라보는\n스트레칭을 해주세요.").font(.pretendardRegular14).foregroundColor(.black).multilineTextAlignment(.center)
+                    Text("중간중간 천장을 바라보는\n스트레칭을 해주세요.").font(.tnBodyRegular14).foregroundColor(.black).multilineTextAlignment(.center)
                         .lineSpacing(4)
                 }
                 .frame(height: 46)

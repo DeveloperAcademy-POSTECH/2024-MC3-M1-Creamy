@@ -20,13 +20,13 @@ struct MeasureFinishView: View {
                 .padding(.bottom, 26)
             
             Text("측정이 끝났어요.")
-                .font(.tnHeadline)
+                .font(.tnHeadline20)
                 .padding(.bottom, 12)
             
             Text("자세가 흐트러지면 알려드릴게요!\n알림 타입은 설정에서 바꿀 수 있어요.")
                 .multilineTextAlignment(.center)
                 .lineSpacing(4)
-                .font(.tnBodyRegular)
+                .font(.tnBodyRegular14)
                 .foregroundColor(.subText)
                 .padding(.bottom, 32)
             

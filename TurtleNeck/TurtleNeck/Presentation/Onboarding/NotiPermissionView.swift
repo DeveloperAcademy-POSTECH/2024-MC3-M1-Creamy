@@ -17,11 +17,11 @@ struct NotiPermissionView: View {
                     .padding(.bottom, 40)
                 
                 Text("알림 허용이 필요해요")
-                    .font(.tnHeadline)
+                    .font(.tnHeadline20)
                     .padding(.bottom, 12)
                 
                 Text("더 올바른 자세 유지를 도울 수 있도록\n알림 허용이 필요해요")
-                    .font(.tnBodyRegular)
+                    .font(.tnBodyRegular14)
                     .multilineTextAlignment(.center)
                     .lineSpacing(4)
                     .foregroundColor(.subText)

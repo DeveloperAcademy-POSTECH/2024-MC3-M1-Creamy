@@ -15,21 +15,20 @@ struct MeasureFinishView: View {
     let userManager = UserManager()
     
     var body: some View {
-        VStack(spacing: 16){
+        VStack(spacing: 0){
             Image("fighting")
-                .padding(.bottom, 16)
+                .padding(.bottom, 26)
             
             Text("측정이 끝났어요.")
-                .font(.title3)
-                .fontWeight(.semibold)
+                .font(.tnHeadline)
+                .padding(.bottom, 12)
             
-            Text("자세가 흐트러지면 알려드릴게요!\n에어팟 사용 관련 설정은 세팅에서 바꿀 수 있어요.")
+            Text("자세가 흐트러지면 알려드릴게요!\n알림 타입은 설정에서 바꿀 수 있어요.")
                 .multilineTextAlignment(.center)
                 .lineSpacing(4)
-                .font(.callout)
-                .foregroundColor(.subTextGray)
-            
-            Spacer()
+                .font(.tnBodyRegular)
+                .foregroundColor(.subText)
+                .padding(.bottom, 32)
             
             VStack(spacing: 16){
                 HoverableButton(
@@ -61,8 +60,6 @@ struct MeasureFinishView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .padding(.top, 86)
-        .padding(.bottom, 39)
     }
 }
 

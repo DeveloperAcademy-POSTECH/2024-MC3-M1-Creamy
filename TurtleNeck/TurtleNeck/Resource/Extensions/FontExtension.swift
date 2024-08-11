@@ -9,7 +9,18 @@ import Foundation
 import SwiftUI
 
 extension Font {
+    // headline
+    static let tnHeadline: Font = .system(size: 20, weight: .semibold)
     
+    // body-emphasized
+    static let tnBodyEmphasized: Font = .system(size: 14, weight: .bold)
+    
+    // body-regular
+    static let tnBodyRegular: Font = .system(size: 14, weight: .regular)
+    
+    
+    
+    /// Pretendard
     // Bold
     static let pretendardBold12: Font = .custom("Pretendard-Bold", size: 12)
     static let pretendardBold10: Font = .custom("Pretendard-Bold", size: 10)
@@ -33,5 +44,4 @@ extension Font {
     
     // Thin
     static let pretendardThin12: Font = .custom("Pretendard-Thin", size: 12)
-    
 }

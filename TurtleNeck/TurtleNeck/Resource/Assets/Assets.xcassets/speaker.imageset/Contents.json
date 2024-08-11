@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "cryingTurtle.png",
+      "filename" : "Notification=On, Status=Default.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "cryingTurtle@2x.png",
+      "filename" : "Notification=On, Status=Default@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "cryingTurtle@3x.png",
+      "filename" : "Notification=On, Status=Default@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

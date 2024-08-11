@@ -15,37 +15,23 @@ struct TopMenuView: View {
     @ObservedObject var motionManager: HeadphoneMotionManager
     
     var body: some View {
-        HStack(alignment: .center,spacing: 5) {
+        HStack(alignment: .center,spacing: 4) {
             Button(action: {
                 isMute.toggle()
             }) {
-                Image(systemName: isMute ? "speaker" : "speaker.slash")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 17, height: 17)
-                    .foregroundColor(.primary)
+                Image(isMute ? "speaker": "speaker.slash")
             }
             .buttonStyle(.plain)
-            .padding(.top, 1)
 
             Button(action: action) {
-                Image(systemName: "macwindow.on.rectangle")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 17, height: 17)
-                    .foregroundColor(.primary)
+                Image("macwindow.on.rectangle")
             }
             .buttonStyle(.plain)
-            .padding(.trailing, 3)
             
             Button(action: {
                 appDelegate?.openSettingView()
             }) {
-                Image(systemName: "gear")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 17, height: 17)
-                    .foregroundColor(.primary)
+                Image("gear")
             }
             .buttonStyle(.plain)
         }

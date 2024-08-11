@@ -120,8 +120,6 @@ struct MainView: View {
                     
                     let today = Calendar.current.startOfDay(for: endTime)
                     
-                    let existingStatistic = statistic.filter { $0.date == today }.first
-                    
                     if let lastStatistic = statistic.last {
                         lastStatistic.time += wearingDuration
                     }
@@ -191,7 +189,7 @@ extension MainView {
         }
         
         else {
-            StatisticView(motionManager: motionManager)
+            StatisticView(motionManager: motionManager,time: $timerValue)
         }
     }
 }
@@ -225,22 +223,19 @@ extension MainView {
     }
     
     private func resetTimer() {
+        checkBestRecord()
+        
         timer?.invalidate()
         timer = nil
         timerValue = 0
     }
     
-    private func formattedTime(from seconds: Int) -> String {
-        let hours = seconds / 3600
-        let minutes = (seconds % 3600) / 60
-        let secs = seconds % 60
-        
-        if hours > 0 {
-            return String(format: "%02d시간 %02d분 %02d초", hours, minutes, secs)
-        } else if minutes > 0 {
-            return String(format: "%02d분 %02d초", minutes, secs)
-        } else {
-            return String(format: "%02d초", secs) 
+    private func checkBestRecord() {
+        if let todayStatistic = statistic.last {
+            if timerValue > todayStatistic.bestRecord {
+                todayStatistic.bestRecord = timerValue // bestRecord 갱신
+                print("Best Record 갱신됨: \(todayStatistic.bestRecord)초")
+            }
         }
     }
 }

@@ -10,7 +10,7 @@ import SwiftUI
 struct RealTimePostureView: View {
     @ObservedObject var motionManager: HeadphoneMotionManager
     @Binding var time: Int
-    var user: User = UserManager().loadUser() ?? User(isFirst: true)
+    let user: User = UserManager().loadUser() ?? User(isFirst: true)
     
     
     var body: some View {
@@ -44,25 +44,9 @@ struct RealTimePostureView: View {
                 .padding(.top, 12)
             }
             TurtleView(motionManager: motionManager)
-                .offset(x: -16, y: 38)
+                .offset(x: -16, y: 36)
         }
         
         Spacer()
-    }
-}
-
-extension RealTimePostureView {
-    private func formattedTime(from seconds: Int) -> String {
-        let hours = seconds / 3600
-        let minutes = (seconds % 3600) / 60
-        let secs = seconds % 60
-        
-        if hours > 0 {
-            return String(format: "%02d시간 %02d분 %02d초", hours, minutes, secs) // HH:mm:ss
-        } else if minutes > 0 {
-            return String(format: "%02d분 %02d초", minutes, secs) // mm:ss
-        } else {
-            return String(format: "%02d초", secs) // ss
-        }
     }
 }

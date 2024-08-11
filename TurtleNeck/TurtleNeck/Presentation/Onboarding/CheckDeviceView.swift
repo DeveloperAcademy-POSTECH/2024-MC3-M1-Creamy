@@ -7,8 +7,9 @@
 
 import SwiftUI
 
-struct CheckDeviceView: View {    
-    @State private var isWithAirpodsHover = false
+struct CheckDeviceView: View {
+    let userManager = UserManager()
+    
     @State private var isMeasuringBadHovered = false
     @State private var isRegularTimeHovered = false
     
@@ -25,20 +26,22 @@ struct CheckDeviceView: View {
                         
             HStack(spacing: 16){
                 Button(action: {
-                    print("hi")
+                    userManager.setUserMode(selectedMode: .posture, keyPath: \User.notificationMode)
+                    
+                    Router.shared.navigate(to: .motionPermission)
                 }) {
                     VStack(spacing: 0){
                         Image("MeasuringBad")
                             .padding(.bottom, 18)
                         
                         Text("자세 측정 알림")
-                            .font(.crBodyEmphasized)
+                            .font(.tnBodyEmphasized)
                             .padding(.bottom, 10)
                         
                         Text("자세가 흐트러졌을 때\n실시간으로 알림을 보내드려요.")
                             .multilineTextAlignment(.center)
                             .lineSpacing(2)
-                            .font(.crBodyRegular)
+                            .font(.tnBodyRegular)
                             .padding(.bottom, 6)
                         
                         Text("에어팟 3세대, 에어팟 프로,\n맥스 모델이 필요해요")
@@ -63,27 +66,29 @@ struct CheckDeviceView: View {
                 )
                 
                 Button(action: {
-                    print("hi")
+                    userManager.setUserMode(selectedMode: .default, keyPath: \User.notificationMode)
+                    
+                    Router.shared.navigate(to: .withoutAirpods)
                 }) {
                     VStack(spacing: 0){
                         Image("RegularTime")
                             .padding(.bottom, 18)
                         
                         Text("기본 알림")
-                            .font(.crBodyEmphasized)
+                            .font(.tnBodyEmphasized)
                             .padding(.bottom, 10)
                         
                         Text("주기적으로 자세에 관련된\n알림을 보내드려요.")
                             .multilineTextAlignment(.center)
                             .lineSpacing(2)
-                            .font(.crBodyRegular)
+                            .font(.tnBodyRegular)
                             .padding(.bottom, 6)
+                        
+                        Spacer()
                     }
                     .padding(.top, 20)
-                    .padding(.bottom, 24)
-                    .padding(.horizontal, 29)
                     .frame(width: 230, height: 312)
-                    .background(isRegularTimeHovered ? Color.buttonHoverBG : Color.clear)
+                    .background(isRegularTimeHovered ? Color.buttonHover : Color.clear)
                     .cornerRadius(16)
                 }
                 .buttonStyle(.plain)

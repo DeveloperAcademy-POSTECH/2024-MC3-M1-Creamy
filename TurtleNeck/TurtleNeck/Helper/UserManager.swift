@@ -39,4 +39,12 @@ class UserManager {
     func deleteUser() {
         UserDefaults.standard.removeObject(forKey: user_key)
     }
+    
+    //User의 정보를 갱신하는 제네릭 함수
+    func setUserMode<T>(selectedMode: T, keyPath: WritableKeyPath<User, T>) {
+        if var user = loadUser() {
+            user[keyPath: keyPath] = selectedMode // 제네릭 타입으로 할당
+            saveUser(user)
+        }
+    }
 }

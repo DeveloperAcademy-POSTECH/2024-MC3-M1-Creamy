@@ -12,7 +12,6 @@ struct TurtleView: View {
     
     var body: some View {
         ZStack(alignment: .center) {
-//            Color.white
             Color.clear
             let defaultOffset = clampedPitchValue(motionManager.pitch)
             
@@ -44,6 +43,16 @@ struct TurtleView: View {
 
 extension TurtleView {
     private func clampedPitchValue(_ pitch: CGFloat) -> CGFloat {
-        return min(max(pitch, -0.73), 0.44)
+        if UserManager().loadUser()?.notificationMode == .posture {
+            if motionManager.isConnected {
+                return min(max(pitch, -0.73), 0.44)
+            }
+            else{
+                return 0
+            }
+        }
+        else {
+            return 0.44
+        }
     }
 }

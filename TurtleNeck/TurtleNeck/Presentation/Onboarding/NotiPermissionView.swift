@@ -34,7 +34,6 @@ struct NotiPermissionView: View {
                 action: {
                     //모션 허용 시, default 유저 정보 생성
                     let user = User(isFirst: true)
-                    
                     userManager.saveUser(user)
                     
                     Router.shared.navigate(to: .checkDevice)

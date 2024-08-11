@@ -34,4 +34,6 @@ extension Font {
     //body-thin
     static let tnBodyThin12: Font = .system(size: 12, weight: .thin)
 
+    //body-light
+    static let tnBodylight8: Font = .system(size: 8, weight: .light)
 }

@@ -34,7 +34,7 @@ struct TurtleNeckApp: App {
                 ContentView()
                     .environment(\.appDelegate, appDelegate)
                     .modelContainer(modelContainer)
-                    .frame(width: 560, height: 560)
+                    .frame(width: 560, height: 532)
                     .background(.white)
             }
             EmptyView()

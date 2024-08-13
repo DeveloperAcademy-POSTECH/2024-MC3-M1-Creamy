@@ -12,7 +12,7 @@ struct CharacterNotiView: View {
     @ObservedObject var characterNotiManager: CharacterNotiManager
     
     private var viewSize: CGSize
-    private var imgName: String = "CharacterNoti"
+    private var imgName: String = "CharacterNoti2"
     
     init(viewSize: CGSize, characterNotiManager: CharacterNotiManager) {
         self.viewSize = viewSize
@@ -24,7 +24,7 @@ struct CharacterNotiView: View {
             .resizable()
             .scaledToFit()
             .frame(width: viewSize.width, height: viewSize.height)
-            .rotationEffect(.degrees(characterNotiManager.isAppearing ? -20 : 0))
+            .rotationEffect(.degrees(characterNotiManager.isAppearing ? 0 : 0))
             .animation(.linear(duration: 1), value: characterNotiManager.isAppearing)
             .onTapGesture {
                 characterNotiManager.removeCharacterNoti()

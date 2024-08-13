@@ -12,14 +12,14 @@ class CharacterNotiManager: NSPanel, ObservableObject {
     
     @Published var isAppearing: Bool = false
     
-    private var contentSize : CGSize = CGSize(width: 100, height: 180)
+    private var contentSize : CGSize = CGSize(width: 235, height: 145)
     private var contentPosition : CGPoint
     
     init() {
         
         self.contentPosition = CGPoint(x: NSScreen.main!.frame.size.width - self.contentSize.width, y: -self.contentSize.height)
         
-        super.init(contentRect: NSRect(x: contentPosition.x + contentSize.width, y: 0, width: contentSize.width, height: contentSize.height), styleMask: [.fullSizeContentView, .nonactivatingPanel], backing: .buffered, defer: false)
+        super.init(contentRect: NSRect(x: contentPosition.x + contentSize.width, y: contentSize.height, width: contentSize.width, height: contentSize.height), styleMask: [.fullSizeContentView, .nonactivatingPanel], backing: .buffered, defer: false)
         
         backgroundColor = .clear
         isFloatingPanel = true
@@ -35,7 +35,7 @@ class CharacterNotiManager: NSPanel, ObservableObject {
         self.contentView = NSHostingView(rootView: CharacterNotiView(viewSize: contentSize, characterNotiManager: self))
         self.orderFront(nil)
         NSAnimationContext.runAnimationGroup({ context in
-            let newFrame = NSRect(x: contentPosition.x, y: 0, width: contentSize.width, height: contentSize.height)
+            let newFrame = NSRect(x: contentPosition.x + 35, y: contentSize.height, width: contentSize.width, height: contentSize.height)
             context.duration = 2
             self.animator().setFrame(newFrame, display: true)
         }, completionHandler: {})

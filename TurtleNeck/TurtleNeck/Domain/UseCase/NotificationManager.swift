@@ -11,6 +11,14 @@ import UserNotifications
 class NotificationManager {
     
     private let notiCenter = UNUserNotificationCenter.current()
+    private var userData: User = User(isFirst: true)
+    
+    init() {
+        let userManager = UserManager()
+        if let loadedUserData = userManager.loadUser() {
+            self.userData = loadedUserData
+        }
+    }
     
     // 알림 권한 상태 받아오기
     func fetchNotiPermissionState() {
@@ -106,13 +114,13 @@ class NotificationManager {
         
         switch state {
         case .worse:
-            return 1
+            return userData.worseNotiCycle
         case .bad:
-            return 5
+            return userData.badNotiCycle
         case .good:
             return 1
         case .normal:
-            return 60
+            return userData.timeNotiCycle
         }
     }
 }

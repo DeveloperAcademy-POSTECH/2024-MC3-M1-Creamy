@@ -162,11 +162,11 @@ extension HeadphoneMotionManager {
                 lastBadPostureTime = Date()
                 print("자세가 안좋아졌어요")
                 
-            //나쁜자세를 오래 유지했을 때 .worse 설정 (5분)
+            // 나쁜자세를 오래 유지했을 때 .worse 설정
             } else if let lastBadPostureTime = lastBadPostureTime,
-                      Date().timeIntervalSince(lastBadPostureTime) >= user!.notiCycle {
+                      Date().timeIntervalSince(lastBadPostureTime) >= user!.worseNotiCycle {
                 currentState = .worse
-                print("안좋은 자세를 10분간 유지했어요")
+                print("안좋은 자세를 \(user!.worseNotiCycle)초간 유지했어요")
                 
                 // 상태를 .worse로 설정한 후 즉시(0.01초 뒤) .bad로 돌아가기
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {

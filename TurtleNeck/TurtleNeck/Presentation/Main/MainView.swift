@@ -41,7 +41,7 @@ struct MainView: View {
             }
             .padding(.top, 12)
             
-            showView(isRealTime: isRealTime)
+            showView(isRealTime: isRealTime, timer: timer)
         }
         .padding(.horizontal,12)
         .background(.white)
@@ -63,7 +63,6 @@ struct MainView: View {
             
             switch currentState {
             case .good:
-                
                 // 타이머 시작
                 if timer == nil {
                     startTimer()
@@ -183,9 +182,9 @@ struct MainView: View {
 
 extension MainView {
     @ViewBuilder
-    private func showView(isRealTime: Bool) -> some View {
+    private func showView(isRealTime: Bool, timer: Timer?) -> some View {
         if isRealTime {
-            RealTimePostureView(motionManager: motionManager, time: $timerValue)
+            RealTimePostureView(motionManager: motionManager, timer: timer, time: $timerValue)
         }
         
         else {

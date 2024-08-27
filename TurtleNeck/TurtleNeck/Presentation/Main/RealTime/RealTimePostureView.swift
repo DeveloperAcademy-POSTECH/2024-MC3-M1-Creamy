@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RealTimePostureView: View {
     @ObservedObject var motionManager: HeadphoneMotionManager
+    var timer: Timer?
     @Binding var time: Int
     let user: User = UserManager().loadUser() ?? User(isFirst: true)
     
@@ -18,12 +19,22 @@ struct RealTimePostureView: View {
             if user.notificationMode == .posture {
                 if motionManager.isConnected {
                     //자세 알림 모드 & 에어팟 o
-                    VStack(spacing: 0){
-                        Text(formattedTime(from: time)).font(.tnHeadline20).foregroundColor(.black)
-                        Text("바른 자세 유지 중!").font(.tnBodyRegular14).foregroundColor(.black).padding(.top, 4)
+                    if timer != nil {
+                        VStack(spacing: 0){
+                            Text(formattedTime(from: time)).font(.tnHeadline20).foregroundColor(.black)
+                            Text("바른 자세 유지 중!").font(.tnBodyRegular12).foregroundColor(.black).padding(.top, 4)
+                        }
+                        .frame(height: 44)
+                        .padding(.top, 14)
                     }
-                    .frame(height: 44)
-                    .padding(.top, 14)
+                    
+                    else {
+                        VStack(spacing: 0){
+                            Text("자세를 다시 바르게 해주세요.").font(.tnBodyRegular14).foregroundColor(.black)
+                        }
+                        .frame(height: 37)
+                        .padding(.top, 21)
+                    }
                 }
                 else {
                     //자세 알림 모드 & 에어팟 x

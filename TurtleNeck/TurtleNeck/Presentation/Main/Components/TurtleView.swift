@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TurtleView: View {
     @ObservedObject var motionManager : HeadphoneMotionManager
+    let user = UserManager().loadUser()
     
     var body: some View {
         ZStack(alignment: .center) {
@@ -37,21 +38,26 @@ struct TurtleView: View {
                 .offset(x: 43 + defaultOffset * 35, y: -36 - defaultOffset * 10)
             
         }
-        .frame(width: 188,height: 114)
+        .frame(width: 188,height: 102)
     }
 }
 
 extension TurtleView {
     private func clampedPitchValue(_ pitch: CGFloat) -> CGFloat {
-        if UserManager().loadUser()?.notificationMode == .posture {
+        guard let goodPosture = user?.goodPosture else {
+            return 0
+        }
+        
+        //사람마다 에어팟을 끼는 각도가 다르기 때문에, 그것에 따라 거북이의 offset을 조절하기 위해 다음과 같이 설정
+        let adjustedPitch = pitch - goodPosture
+        
+        if user?.notificationMode == .posture {
             if motionManager.isConnected {
-                return min(max(pitch, -0.73), 0.44)
-            }
-            else{
+                return min(max(adjustedPitch, -0.73), 0.44)
+            } else {
                 return 0
             }
-        }
-        else {
+        } else {
             return 0.44
         }
     }

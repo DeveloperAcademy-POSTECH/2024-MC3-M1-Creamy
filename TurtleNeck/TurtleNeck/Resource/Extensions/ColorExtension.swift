@@ -35,6 +35,10 @@ extension Color {
     static let chart = Color(hex: "97B66D")
     
     static let settingSub = Color(hex: "7E7E7E")
+    
+    static let bestRecordBG = Color(hex: "FFF9E8")
+    
+    static let bestRecordText = Color(hex: "FFA800")
 }
 
 extension Color {

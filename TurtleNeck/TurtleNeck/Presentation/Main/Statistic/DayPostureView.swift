@@ -13,8 +13,6 @@ struct DayPostureView: View {
     @Query var statistic: [NotiStatistic]
     
     var body: some View {
-        let _ = print(statistic.last?.date)
-        
         VStack(spacing: 0){
             Image("SmileTurtle").resizable().scaledToFit().frame(width: 100,height: 100).padding(.top,16)
             Text("오늘의 최고기록").font(.tnBodyRegular12).foregroundColor(.black).padding(.top, 14)

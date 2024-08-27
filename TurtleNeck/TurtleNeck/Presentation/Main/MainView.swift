@@ -42,6 +42,8 @@ struct MainView: View {
             .padding(.top, 12)
             
             showView(isRealTime: isRealTime, timer: timer)
+            
+            Spacer()
         }
         .padding(.horizontal,12)
         .background(.white)

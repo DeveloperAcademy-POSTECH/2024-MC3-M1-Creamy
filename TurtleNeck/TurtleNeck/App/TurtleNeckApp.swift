@@ -173,7 +173,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         }
     }
     
-    func openAlwaysOnTopView(isMute: Binding<Bool>, motionManager: HeadphoneMotionManager) {
+    func openAlwaysOnTopView(motionManager: HeadphoneMotionManager) {
         let newWindow = NSWindow(contentRect: NSMakeRect(100, 100, 286, 160),
                                  styleMask: [.titled, .closable, .fullSizeContentView],
                                  backing: .buffered,
@@ -190,7 +190,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         visualEffectView.material = .light
         
         // NSHostingView 생성
-        let hostingView = NSHostingView(rootView: PIPView(isMute: isMute, motionManager: motionManager).environment(\.appDelegate, self).modelContainer(modelContainer))
+        let hostingView = NSHostingView(rootView: PIPView( motionManager: motionManager).environment(\.appDelegate, self).modelContainer(modelContainer))
         hostingView.frame = visualEffectView.bounds
         hostingView.autoresizingMask = [.width, .height]
         

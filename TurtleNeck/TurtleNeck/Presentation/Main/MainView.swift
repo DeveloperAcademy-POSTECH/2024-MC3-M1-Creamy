@@ -14,7 +14,6 @@ struct MainView: View {
     
     @StateObject private var motionManager = HeadphoneMotionManager()
     @State var isRealTime: Bool = true
-    @State var isMute: Bool = false
     @State private var lastCheckedDate = Date()
     @State private var wearingStartTime: Date?
     @State private var isStarted: Bool = false
@@ -35,8 +34,8 @@ struct MainView: View {
                 segmentView.padding(EdgeInsets(top: 4, leading: 0, bottom: 0, trailing: 16))
             
                 TopMenuView(action: {
-                    appDelegate?.openAlwaysOnTopView(isMute: $isMute, motionManager: motionManager)
-                }, isMute: $isMute, motionManager: motionManager)
+                    appDelegate?.openAlwaysOnTopView(motionManager: motionManager)
+                }, motionManager: motionManager)
                 
             }
             .padding(.top, 12)

@@ -13,7 +13,8 @@ enum Destination: Codable, Hashable {
     case notiPermission
     case checkDevice
     case motionPermission
-    case measureReady
+    case measureReadyFirst
+    case measureReadySecond
     case measurePosture
     case measureFinish
     case measureError
@@ -53,8 +54,10 @@ extension View {
             CheckDeviceView()
         case .motionPermission:
             MotionPermissionView()
-        case .measureReady:
-            MeasureReadyView()
+        case .measureReadyFirst:
+            MeasureReadyFirstView()
+        case .measureReadySecond:
+            MeasureReadySecondView()
         case .measurePosture:
             MeasurePostureView()
         case .measureFinish:

@@ -28,7 +28,7 @@ struct MeasureErrorView: View {
             VStack(spacing: 8){
                 HoverableButton(action: {
                     Router.shared.navigateToRoot()
-                    Router.shared.navigate(to: .measureReady)
+                    Router.shared.navigate(to: .measureReadyFirst)
                 }, label: "다시 측정하기")
                 
                 HoverableButton(action: {

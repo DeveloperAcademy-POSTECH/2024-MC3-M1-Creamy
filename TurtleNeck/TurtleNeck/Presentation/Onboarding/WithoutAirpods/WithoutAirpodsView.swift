@@ -15,23 +15,32 @@ struct WithoutAirpodsView: View {
     @State private var isAppStartHover = false
     let userManager = UserManager()
     
+    var cycles: [Double] = [15, 30, 45, 60]
+    @State private var selectedCycle: Double = 15
+    
     var body: some View {
         VStack(spacing: 16){
             Image("withoutAirpodsNoti")
                 .padding(.bottom, 68)
             
-            Text("주기적으로 알람을 드릴게요.")
-                .font(.title3)
-                .fontWeight(.semibold)
-                .padding(.bottom, 16)
+            Text("알림 간격을 선택해 주세요.")
+                .font(.tnHeadline20)
+                .padding(.bottom, 12)
             
-            Text("10분 간격으로 알림을 드릴게요.\n알림 간격은 추후 설정에서 조절이 가능해요.\n추후 에어팟으로 자세 측정을 하고 싶다면 설정에서 모드를 바꿀 수 있어요.")
-                .multilineTextAlignment(.center)
-                .lineSpacing(4)
-                .font(.callout)
-                .foregroundColor(.subText)
-            
-            Spacer()
+            Menu("\(Int(selectedCycle))") {
+                ForEach(cycles, id: \.self) { cycle in
+                    Button(action: {
+                        selectedCycle = cycle
+                    }, label: {
+                        Text("\(Int(cycle))")
+                            .foregroundStyle(Color.black)
+                    })
+                }
+            }
+            .foregroundStyle(Color.white)
+            .frame(width: 100)
+            .padding(.bottom, 104)
+                
             
             HoverableButton(action: {
                 appDelegate?.createMenuBarIcon()
@@ -47,7 +56,7 @@ struct WithoutAirpodsView: View {
                 }
                 
                 userManager.setUserMode(selectedMode: false, keyPath: \User.isFirst)
-                
+                userManager.setUserMode(selectedMode: selectedCycle, keyPath: \User.timeNotiCycle)
             }, label: "시작하기")
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

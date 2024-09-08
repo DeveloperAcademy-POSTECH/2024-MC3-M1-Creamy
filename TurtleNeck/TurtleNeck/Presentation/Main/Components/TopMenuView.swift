@@ -11,17 +11,21 @@ struct TopMenuView: View {
     @Environment(\.appDelegate) var appDelegate: AppDelegate?
     
     let action: () -> Void
-    @Binding var isMute: Bool
     @ObservedObject var motionManager: HeadphoneMotionManager
+    let userManager = UserManager()
     
     var body: some View {
         HStack(alignment: .center,spacing: 4) {
-            Button(action: {
-                isMute.toggle()
-            }) {
-                Image(isMute ? "speaker": "speaker.slash")
+            if var user = userManager.loadUser() {
+                Button(action: {
+                    user.isSoundOn.toggle()
+                    user.isNotificationOn.toggle()
+                    userManager.saveUser(user)
+                }) {
+                    Image(user.isSoundOn && user.isNotificationOn ? "speaker": "speaker.slash")
+                }
+                .buttonStyle(.plain)
             }
-            .buttonStyle(.plain)
 
             Button(action: action) {
                 Image("macwindow.on.rectangle")

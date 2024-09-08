@@ -19,7 +19,6 @@ struct DayPostureView: View {
             
 //            let highestRecord = max(statistic.last?.bestRecord ?? 0, time)
             Text(formattedTime(from: statistic.last?.bestRecord ?? 0)).font(.tnHeadline20).foregroundColor(.black).padding(.top, 4)
-            
         }
     }
 }

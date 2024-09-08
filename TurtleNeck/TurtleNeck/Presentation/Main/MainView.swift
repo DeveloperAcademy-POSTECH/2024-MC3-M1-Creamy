@@ -14,7 +14,6 @@ struct MainView: View {
     
     @StateObject private var motionManager = HeadphoneMotionManager()
     @State var isRealTime: Bool = true
-    @State var isMute: Bool = false
     @State private var lastCheckedDate = Date()
     @State private var wearingStartTime: Date?
     @State private var isStarted: Bool = false
@@ -35,13 +34,15 @@ struct MainView: View {
                 segmentView.padding(EdgeInsets(top: 4, leading: 0, bottom: 0, trailing: 16))
             
                 TopMenuView(action: {
-                    appDelegate?.openAlwaysOnTopView(isMute: $isMute, motionManager: motionManager)
-                }, isMute: $isMute, motionManager: motionManager)
+                    appDelegate?.openAlwaysOnTopView(motionManager: motionManager)
+                }, motionManager: motionManager)
                 
             }
             .padding(.top, 12)
             
-            showView(isRealTime: isRealTime)
+            showView(isRealTime: isRealTime, timer: timer)
+            
+            Spacer()
         }
         .padding(.horizontal,12)
         .background(.white)
@@ -63,7 +64,6 @@ struct MainView: View {
             
             switch currentState {
             case .good:
-                
                 // 타이머 시작
                 if timer == nil {
                     startTimer()
@@ -183,9 +183,9 @@ struct MainView: View {
 
 extension MainView {
     @ViewBuilder
-    private func showView(isRealTime: Bool) -> some View {
+    private func showView(isRealTime: Bool, timer: Timer?) -> some View {
         if isRealTime {
-            RealTimePostureView(motionManager: motionManager, time: $timerValue)
+            RealTimePostureView(motionManager: motionManager, timer: timer, time: $timerValue)
         }
         
         else {

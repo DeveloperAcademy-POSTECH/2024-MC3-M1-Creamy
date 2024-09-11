@@ -14,10 +14,10 @@ struct SettingView: View {
     @Query private var statistics: [NotiStatistic]
     
     @State private var userData: User = User(isFirst: false)
-    @State private var isNotificationOn: Bool = true
-    @State private var isSoundOn: Bool = true
-    @State private var postureMeasure: Bool = true
+    
+    // TODO: 민감도 조절 값으로 변경
     @State private var slideValue: Double = 3
+    
     @ObservedObject var motionManager: HeadphoneMotionManager
     
     private var userManager = UserManager()

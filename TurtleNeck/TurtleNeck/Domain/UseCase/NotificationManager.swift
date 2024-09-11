@@ -67,8 +67,7 @@ class NotificationManager {
         let notiContent = getNotiContent(state: state)
         let notiCycle = getNotiCycle(state: state)
         let id = UUID().uuidString
-        let notiTrigger = UNTimeIntervalNotificationTrigger(timeInterval: notiCycle, repeats: false)
-        
+        let notiTrigger = UNTimeIntervalNotificationTrigger(timeInterval: notiCycle, repeats: userData.notificationMode == .default)
         let notiRequest = UNNotificationRequest(identifier: id, content: notiContent, trigger: notiTrigger)
         notiCenter.add(notiRequest) { error in
             if (error != nil){

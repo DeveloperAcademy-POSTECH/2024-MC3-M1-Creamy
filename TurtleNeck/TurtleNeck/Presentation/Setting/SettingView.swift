@@ -209,7 +209,6 @@ struct SettingView: View {
                                     Rectangle()
                                         .frame(width: 480 *  slideValue/5, height: 4)
                                         .foregroundStyle(Color.buttonText)
-                                        
                                     Spacer(minLength: 0)
                                 }
                                 .padding(.init(top: 10, leading: 12, bottom: 0, trailing: 10))
@@ -231,7 +230,6 @@ struct SettingView: View {
                             .foregroundStyle(Color.settingSub)
                             .padding(10)
                             .font(.caption)
-
                             Divider()
                                 .padding(.horizontal, 10)
                             
@@ -271,7 +269,6 @@ struct SettingView: View {
                                 } label: {
                                     Text("자세 설정하러 가기")
                                         .foregroundColor(userData.notificationMode == .default ? .gray : .black)
-                                        
                                 }
                                 .shadow(radius: 1)
                             }

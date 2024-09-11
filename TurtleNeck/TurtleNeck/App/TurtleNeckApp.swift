@@ -213,7 +213,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         }
     }
     
-    func openSettingView() {
+    func openSettingView(motionManager: HeadphoneMotionManager) {
         let newWindow = NSWindow(contentRect: NSMakeRect(100, 100, 560, 684),
                                  styleMask: [.titled, .closable, .resizable],
                                  backing: .buffered,
@@ -227,7 +227,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         newWindow.isMovableByWindowBackground = true
         newWindow.setFrameAutosaveName("SettingWindow")
         
-        newWindow.contentView = NSHostingView(rootView: SettingView().environment(\.appDelegate, self).modelContainer(modelContainer))
+        newWindow.contentView = NSHostingView(rootView: SettingView(motionManager: motionManager).environment(\.appDelegate, self).modelContainer(modelContainer))
         
         newWindow.delegate = self
         if settingWindowController == nil {

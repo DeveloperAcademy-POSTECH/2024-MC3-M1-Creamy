@@ -33,7 +33,7 @@ struct TopMenuView: View {
             .buttonStyle(.plain)
             
             Button(action: {
-                appDelegate?.openSettingView()
+                appDelegate?.openSettingView(motionManager: motionManager)
             }) {
                 Image("gear")
             }

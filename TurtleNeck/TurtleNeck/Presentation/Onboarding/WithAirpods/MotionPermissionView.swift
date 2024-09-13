@@ -30,7 +30,7 @@ struct MotionPermissionView: View {
             
             HoverableButton(
                 action: {
-                    Router.shared.navigate(to: .measureReady)
+                    Router.shared.navigate(to: .measureReadyFirst)
                 },
                 label: "다음"
             )

@@ -17,7 +17,7 @@ struct SettingView: View {
     
     // TODO: 민감도 조절 값으로 변경
     @State private var slideValue: Double = 3
-    
+    @State private var notificationManager = NotificationManager()
     @ObservedObject var motionManager: HeadphoneMotionManager
     
     private var userManager = UserManager()
@@ -89,6 +89,11 @@ struct SettingView: View {
                             }
                             .onChange(of: userData.notificationMode, {
                                 userManager.saveUser(userData)
+                                notificationManager.removeNoti()
+                                
+                                if userData.notificationMode == .default {
+                                    notificationManager.settingTimeNoti(state: .normal)
+                                }
                             })
                             .pickerStyle(.radioGroup)
                             .horizontalRadioGroupLayout()
@@ -200,7 +205,7 @@ struct SettingView: View {
                             
                             HStack {
                                 Rectangle()
-                                    .foregroundStyle(Color(hex: "FFB0B0"))
+                                    .foregroundStyle(userData.notificationMode == .default ? Color.clear : Color(hex: "FFB0B0"))
                                     .frame(width: 480 * test(motionManager.pitch), height: 3)
                                 Spacer(minLength: 0)
                             }
@@ -209,7 +214,7 @@ struct SettingView: View {
                                 HStack(spacing: 0){
                                     Rectangle()
                                         .frame(width: 480 *  slideValue/5, height: 4)
-                                        .foregroundStyle(Color.buttonText)
+                                        .foregroundStyle(userData.notificationMode == .default ? Color.clear : Color.buttonText)
                                     Spacer(minLength: 0)
                                 }
                                 .padding(.init(top: 10, leading: 12, bottom: 0, trailing: 10))
@@ -330,8 +335,8 @@ struct SettingView: View {
                         .tint(.buttonText)
                         .padding(.leading, 200)
                         .onChange(of: userData.timeNotiCycle) {
-                            NotificationManager().removeTimeNoti()
-                            NotificationManager().settingTimeNoti(state: .normal)
+                            notificationManager.removeNoti()
+                            notificationManager.settingTimeNoti(state: .normal)
                         }
                     }
                     .padding(10)
@@ -406,27 +411,6 @@ extension SettingView {
             return 1
         default:
             return (0.32 + pitch) / 0.32
-        }
-    }
-    
-    private func clampedPitchValue(_ pitch: CGFloat) -> CGFloat {
-        let user = UserManager().loadUser()
-        
-        guard let goodPosture = user?.goodPosture else {
-            return 0
-        }
-        
-        //사람마다 에어팟을 끼는 각도가 다르기 때문에, 그것에 따라 거북이의 offset을 조절하기 위해 다음과 같이 설정
-        let adjustedPitch = pitch - goodPosture
-        
-        if user?.notificationMode == .posture {
-            if motionManager.isConnected {
-                return min(max(adjustedPitch, -0.73), 0.44)
-            } else {
-                return 0
-            }
-        } else {
-            return 0.44
         }
     }
 }

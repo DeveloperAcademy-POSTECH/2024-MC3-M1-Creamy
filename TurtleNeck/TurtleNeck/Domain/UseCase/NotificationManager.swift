@@ -12,6 +12,7 @@ class NotificationManager {
     
     private let notiCenter = UNUserNotificationCenter.current()
     private var userData: User = User(isFirst: true)
+    private var notiTimer: Timer?
     
     init() {
         print("NotificationManager init")
@@ -49,7 +50,7 @@ class NotificationManager {
     // 알림 권한 요청하기
     func requestNotiPermission() {
         
-        notiCenter.requestAuthorization(options: [.alert, .badge, .sound]) { isGranted, error in
+        notiCenter.requestAuthorization(options: [.alert, .sound]) { isGranted, error in
             if (isGranted) && (error == nil) {
                 print("알림 권한 허용")
             }
@@ -64,21 +65,40 @@ class NotificationManager {
     
     // 알림 설정하기
     func settingTimeNoti(state: NotiContentState) {
-        
-        let notiContent = getNotiContent(state: state)
-        let notiCycle = getNotiCycle(state: state)
-        let id = UUID().uuidString
-        let notiTrigger = UNTimeIntervalNotificationTrigger(timeInterval: notiCycle, repeats: userData.notificationMode == .default)
-        let notiRequest = UNNotificationRequest(identifier: id, content: notiContent, trigger: notiTrigger)
-        notiCenter.add(notiRequest) { error in
-            if (error != nil){
-                print("알림 추가 오류: \(error.debugDescription)")
+
+        if state == .normal{
+            let notiCycle = getNotiCycle(state: state)
+            notiTimer = Timer.scheduledTimer(withTimeInterval: notiCycle, repeats: true) { _ in
+                let id = UUID().uuidString
+                let notiContent = self.getNotiContent(state: state)
+                let notiTrigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+                let notiRequest = UNNotificationRequest(identifier: id, content: notiContent, trigger: notiTrigger)
+                self.notiCenter.add(notiRequest) { error in
+                    if (error != nil){
+                        print("알림 추가 오류: \(error.debugDescription)")
+                    }
+                }
+            }
+        }
+        else {
+            let notiContent = getNotiContent(state: state)
+            let notiCycle = getNotiCycle(state: state)
+            let id = UUID().uuidString
+            let notiTrigger = UNTimeIntervalNotificationTrigger(timeInterval: notiCycle, repeats: userData.notificationMode == .default)
+            let notiRequest = UNNotificationRequest(identifier: id, content: notiContent, trigger: notiTrigger)
+            notiCenter.add(notiRequest) { error in
+                if (error != nil){
+                    print("알림 추가 오류: \(error.debugDescription)")
+                }
             }
         }
     }
     
     // 설정된 알림 전체 제거하기
-    func removeTimeNoti() {
+    func removeNoti() {
+        self.notiTimer?.invalidate()
+        self.notiTimer = nil
+
         notiCenter.removeAllPendingNotificationRequests()
     }
     

@@ -19,6 +19,7 @@ struct MainView: View {
     @State private var isStarted: Bool = false
     @State private var timer: Timer? = nil
     @State private var timerValue: Int = 0
+    @State private var notificationManager = NotificationManager()
     private var userData: User = UserManager().loadUser() ?? User(isFirst: true)
     @Query var statistic: [NotiStatistic]
     
@@ -54,7 +55,7 @@ struct MainView: View {
                 }
                 else if userData.notificationMode == .default {
                     // 등록된 로컬 노티 제거
-                    NotificationManager().removeTimeNoti()
+                    NotificationManager().removeNoti()
                     // 로컬 노티 등록
                     NotificationManager().settingTimeNoti(state: .normal)
                 }
@@ -77,7 +78,7 @@ struct MainView: View {
                 }
                 
                 // 등록된 로컬 노티 제거
-                NotificationManager().removeTimeNoti()
+                notificationManager.removeNoti()
                 // 캐릭터 노티 제거
                 characterNotiManager.removeCharacterNoti()
                 
@@ -85,14 +86,14 @@ struct MainView: View {
                 if let lastBadTime = motionManager.lastBadPostureTime, Date().timeIntervalSince(lastBadTime) >= 5 {
 
                     // good 로컬 노티 등록
-                    NotificationManager().settingTimeNoti(state: .good)
+                    notificationManager.settingTimeNoti(state: .good)
                 }
                 
             case .bad:
                 resetTimer()
                 
                 if oldState == .good {
-                    NotificationManager().settingTimeNoti(state: .bad)
+                    notificationManager.settingTimeNoti(state: .bad)
                 }
                 else if oldState == .worse {
                     
@@ -108,7 +109,7 @@ struct MainView: View {
                 }
                 
                 // 등록된 로컬 노티 제거
-                NotificationManager().removeTimeNoti()
+                notificationManager.removeNoti()
                 // 캐릭터 노티 설정
                 characterNotiManager.setCharacterNoti()
             }

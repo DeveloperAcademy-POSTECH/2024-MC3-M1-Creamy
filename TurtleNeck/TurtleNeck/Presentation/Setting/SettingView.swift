@@ -17,7 +17,7 @@ struct SettingView: View {
     
     // TODO: 민감도 조절 값으로 변경
     @State private var slideValue: Double = 3
-    
+    @State private var notificationManager = NotificationManager()
     @ObservedObject var motionManager: HeadphoneMotionManager
     
     private var userManager = UserManager()

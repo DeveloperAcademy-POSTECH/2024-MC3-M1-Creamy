@@ -64,13 +64,10 @@ class NotificationManager {
     
     // 알림 설정하기
     func settingTimeNoti(state: NotiContentState) {
-        print("notificiationManager settingTimeNoti, \(state)")
-        if state == .normal {
-            self.notiTimer?.invalidate()
-            self.notiTimer = nil
-            
+
+        if state == .normal{
             let notiCycle = getNotiCycle(state: state)
-            self.notiTimer = Timer.scheduledTimer(withTimeInterval: notiCycle, repeats: true) { _ in
+            notiTimer = Timer.scheduledTimer(withTimeInterval: notiCycle, repeats: true) { _ in
                 let id = UUID().uuidString
                 let notiContent = self.getNotiContent(state: state)
                 let notiTrigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
@@ -83,9 +80,6 @@ class NotificationManager {
             }
         }
         else {
-            self.notiTimer?.invalidate()
-            self.notiTimer = nil
-            
             let notiContent = getNotiContent(state: state)
             let notiCycle = getNotiCycle(state: state)
             let id = UUID().uuidString
@@ -100,7 +94,10 @@ class NotificationManager {
     }
     
     // 설정된 알림 전체 제거하기
-    func removeTimeNoti() {
+    func removeNoti() {
+        self.notiTimer?.invalidate()
+        self.notiTimer = nil
+
         notiCenter.removeAllPendingNotificationRequests()
     }
     

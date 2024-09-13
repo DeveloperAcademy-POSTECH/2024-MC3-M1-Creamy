@@ -19,6 +19,7 @@ struct MainView: View {
     @State private var isStarted: Bool = false
     @State private var timer: Timer? = nil
     @State private var timerValue: Int = 0
+    @State private var notificationManager = NotificationManager()
     private var userData: User = User(isFirst: false)
     @Query var statistic: [NotiStatistic]
     
@@ -66,7 +67,7 @@ struct MainView: View {
                 // 등록된 로컬 노티 제거
                 notificationManager.removeNoti()
                 // 로컬 노티 등록
-                NotificationManager().settingTimeNoti(state: .normal)
+                notificationManager.settingTimeNoti(state: .normal)
             }
         }
         .onChange(of: motionManager.currentState) { oldState, newState in
@@ -94,14 +95,14 @@ struct MainView: View {
                 if let lastBadTime = motionManager.lastBadPostureTime, Date().timeIntervalSince(lastBadTime) >= 5 {
 
                     // good 로컬 노티 등록
-                    NotificationManager().settingTimeNoti(state: .good)
+                    notificationManager.settingTimeNoti(state: .good)
                 }
                 
             case .bad:
                 resetTimer()
                 
                 if oldState == .good {
-                    NotificationManager().settingTimeNoti(state: .bad)
+                    notificationManager.settingTimeNoti(state: .bad)
                 }
                 else if oldState == .worse {
                     

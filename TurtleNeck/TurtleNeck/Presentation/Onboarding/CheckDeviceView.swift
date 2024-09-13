@@ -66,7 +66,7 @@ struct CheckDeviceView: View {
                 )
                 
                 Button(action: {
-                    userManager.setUserMode(selectedMode: .default, keyPath: \User.notificationMode)
+                    userManager.setUserMode(selectedMode: NotificationMode.default, keyPath: \User.notificationMode)
                     
                     Router.shared.navigate(to: .withoutAirpods)
                 }) {

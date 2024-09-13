@@ -15,6 +15,7 @@ class NotificationManager {
     private var notiTimer: Timer?
     
     init() {
+        print("NotificationManager init")
         let userManager = UserManager()
         if let loadedUserData = userManager.loadUser() {
             self.userData = loadedUserData

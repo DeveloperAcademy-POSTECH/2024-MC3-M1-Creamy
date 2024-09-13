@@ -88,6 +88,8 @@ struct SettingView: View {
                             }
                             .onChange(of: userData.notificationMode, {
                                 userManager.saveUser(userData)
+                                NotificationManager().removeTimeNoti()
+                                NotificationManager().settingTimeNoti(state: .normal)
                             })
                             .pickerStyle(.radioGroup)
                             .horizontalRadioGroupLayout()
@@ -405,27 +407,6 @@ extension SettingView {
             return 1
         default:
             return (0.32 + pitch) / 0.32
-        }
-    }
-    
-    private func clampedPitchValue(_ pitch: CGFloat) -> CGFloat {
-        let user = UserManager().loadUser()
-        
-        guard let goodPosture = user?.goodPosture else {
-            return 0
-        }
-        
-        //사람마다 에어팟을 끼는 각도가 다르기 때문에, 그것에 따라 거북이의 offset을 조절하기 위해 다음과 같이 설정
-        let adjustedPitch = pitch - goodPosture
-        
-        if user?.notificationMode == .posture {
-            if motionManager.isConnected {
-                return min(max(adjustedPitch, -0.73), 0.44)
-            } else {
-                return 0
-            }
-        } else {
-            return 0.44
         }
     }
 }

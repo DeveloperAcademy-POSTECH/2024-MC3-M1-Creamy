@@ -27,12 +27,12 @@ struct WithoutAirpodsView: View {
                 .font(.tnHeadline20)
                 .padding(.bottom, 12)
             
-            Menu("\(Int(selectedCycle))") {
+            Menu("\(Int(selectedCycle))분") {
                 ForEach(cycles, id: \.self) { cycle in
                     Button(action: {
                         selectedCycle = cycle
                     }, label: {
-                        Text("\(Int(cycle))")
+                        Text("\(Int(cycle))분")
                             .foregroundStyle(Color.black)
                     })
                 }
@@ -56,7 +56,7 @@ struct WithoutAirpodsView: View {
                 }
                 
                 userManager.setUserMode(selectedMode: false, keyPath: \User.isFirst)
-                userManager.setUserMode(selectedMode: selectedCycle, keyPath: \User.timeNotiCycle)
+                userManager.setUserMode(selectedMode: selectedCycle * 60, keyPath: \User.timeNotiCycle)
             }, label: "시작하기")
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

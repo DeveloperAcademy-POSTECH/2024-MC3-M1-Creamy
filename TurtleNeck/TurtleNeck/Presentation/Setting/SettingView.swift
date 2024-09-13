@@ -88,8 +88,11 @@ struct SettingView: View {
                             }
                             .onChange(of: userData.notificationMode, {
                                 userManager.saveUser(userData)
-                                NotificationManager().removeTimeNoti()
-                                NotificationManager().settingTimeNoti(state: .normal)
+                                notificationManager.removeNoti()
+                                
+                                if userData.notificationMode == .default {
+                                    notificationManager.settingTimeNoti(state: .normal)
+                                }
                             })
                             .pickerStyle(.radioGroup)
                             .horizontalRadioGroupLayout()
@@ -331,8 +334,8 @@ struct SettingView: View {
                         .tint(.buttonText)
                         .padding(.leading, 200)
                         .onChange(of: userData.timeNotiCycle) {
-                            NotificationManager().removeTimeNoti()
-                            NotificationManager().settingTimeNoti(state: .normal)
+                            notificationManager.removeNoti()
+                            notificationManager.settingTimeNoti(state: .normal)
                         }
                     }
                     .padding(10)

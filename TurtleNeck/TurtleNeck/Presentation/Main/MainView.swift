@@ -19,19 +19,12 @@ struct MainView: View {
     @State private var isStarted: Bool = false
     @State private var timer: Timer? = nil
     @State private var timerValue: Int = 0
-    private var userData: User = User(isFirst: false)
+    private var userData: User = UserManager().loadUser() ?? User(isFirst: true)
     @Query var statistic: [NotiStatistic]
     
     let userManager = UserManager()
     
     var characterNotiManager : CharacterNotiManager = CharacterNotiManager()
-
-    init() {
-        let userManager = UserManager()
-        if let loadedUserData = userManager.loadUser() {
-            self.userData = loadedUserData
-        }
-    }
     
     var body: some View {
         VStack(spacing: 0){
@@ -55,18 +48,16 @@ struct MainView: View {
         .background(.white)
         .frame(width: 348,height: 232)
         .onAppear {
-            if let user = userManager.loadUser() { // UseDefault가 잘 들어갔는지 확인
-                print(user)
-            }
-            
-            if userData.notificationMode == .posture {
-                motionManager.startUpdates()
-            }
-            else if userData.notificationMode == .default {
-                // 등록된 로컬 노티 제거
-                NotificationManager().removeTimeNoti()
-                // 로컬 노티 등록
-                NotificationManager().settingTimeNoti(state: .normal)
+            if let userData = userManager.loadUser() { // UseDefault가 잘 들어갔는지 확인
+                if userData.notificationMode == .posture {
+                    motionManager.startUpdates()
+                }
+                else if userData.notificationMode == .default {
+                    // 등록된 로컬 노티 제거
+                    NotificationManager().removeTimeNoti()
+                    // 로컬 노티 등록
+                    NotificationManager().settingTimeNoti(state: .normal)
+                }
             }
         }
         .onChange(of: motionManager.currentState) { oldState, newState in

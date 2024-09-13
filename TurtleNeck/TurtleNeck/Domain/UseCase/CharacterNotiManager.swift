@@ -16,7 +16,7 @@ class CharacterNotiManager: NSPanel, ObservableObject {
     private var contentPosition : CGPoint
     
     init() {
-        
+        print("CharacterNotiManager init")
         self.contentPosition = CGPoint(x: NSScreen.main!.frame.size.width - self.contentSize.width, y: -self.contentSize.height)
         
         super.init(contentRect: NSRect(x: contentPosition.x + contentSize.width, y: contentSize.height, width: contentSize.width, height: contentSize.height), styleMask: [.fullSizeContentView, .nonactivatingPanel], backing: .buffered, defer: false)

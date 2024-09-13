@@ -34,6 +34,7 @@ class HeadphoneMotionManager: ObservableObject {
     var user: User?
     
     init() {
+        print("HeadphoneMotionManager init")
         updateAuthorization()
         user = userManager.loadUser()
     }

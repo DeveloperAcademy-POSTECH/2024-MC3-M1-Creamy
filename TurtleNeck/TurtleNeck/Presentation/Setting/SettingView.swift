@@ -25,6 +25,7 @@ struct SettingView: View {
     private let motionPreferenceURL = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Motion")!
     
     init(motionManager: HeadphoneMotionManager) {
+        print("SettingView init")
         let userManager = UserManager()
         if let loadedUserData = userManager.loadUser() {
             self.userData = loadedUserData
@@ -218,9 +219,9 @@ struct SettingView: View {
                                     .padding(.init(top: 10, leading: 10, bottom: 0, trailing: 10))
                                     .frame(width: 500)
                             }
-                            .onChange(of: motionManager.pitch) {
-                                print("motionManager.pitch: \(motionManager.pitch)")
-                            }
+//                            .onChange(of: motionManager.pitch) {
+//                                print("motionManager.pitch: \(motionManager.pitch)")
+//                            }
                             
                             HStack {
                                 Text("Low")
@@ -299,25 +300,25 @@ struct SettingView: View {
 
                         Menu {
                             Button {
-                                userData.timeNotiCycle = 15
+                                userData.timeNotiCycle = 15 * 60
                                 userManager.saveUser(userData)
                             } label: {
                                 Text("15분")
                             }
                             Button {
-                                userData.timeNotiCycle = 30
+                                userData.timeNotiCycle = 30 * 60
                                 userManager.saveUser(userData)
                             } label: {
                                 Text("30분")
                             }
                             Button {
-                                userData.timeNotiCycle = 45
+                                userData.timeNotiCycle = 45 * 60
                                 userManager.saveUser(userData)
                             } label: {
                                 Text("45분")
                             }
                             Button {
-                                userData.timeNotiCycle = 60
+                                userData.timeNotiCycle = 60 * 60
                                 userManager.saveUser(userData)
                             } label: {
                                 Text("60분")

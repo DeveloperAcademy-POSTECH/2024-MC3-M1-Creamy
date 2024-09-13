@@ -14,6 +14,7 @@ class NotificationManager {
     private var userData: User = User(isFirst: true)
     
     init() {
+        print("NotificationManager init")
         let userManager = UserManager()
         if let loadedUserData = userManager.loadUser() {
             self.userData = loadedUserData

@@ -24,7 +24,7 @@ struct ContentView: View {
             }
             else if isFromSetting {
                 VStack{
-                    MeasureReadyView()
+                    MeasureReadyFirstView()
                 }
                 .navigationDestination(for: Destination.self) { destination in
                     destinationPath(destination: destination)

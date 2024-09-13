@@ -201,7 +201,7 @@ struct SettingView: View {
                             
                             HStack {
                                 Rectangle()
-                                    .foregroundStyle(Color(hex: "FFB0B0"))
+                                    .foregroundStyle(userData.notificationMode == .default ? Color.clear : Color(hex: "FFB0B0"))
                                     .frame(width: 480 * test(motionManager.pitch), height: 3)
                                 Spacer(minLength: 0)
                             }
@@ -210,7 +210,7 @@ struct SettingView: View {
                                 HStack(spacing: 0){
                                     Rectangle()
                                         .frame(width: 480 *  slideValue/5, height: 4)
-                                        .foregroundStyle(Color.buttonText)
+                                        .foregroundStyle(userData.notificationMode == .default ? Color.clear : Color.buttonText)
                                     Spacer(minLength: 0)
                                 }
                                 .padding(.init(top: 10, leading: 12, bottom: 0, trailing: 10))

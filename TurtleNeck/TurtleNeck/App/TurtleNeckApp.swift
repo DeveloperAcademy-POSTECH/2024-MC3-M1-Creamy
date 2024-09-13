@@ -50,6 +50,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     private var launchWindowController: NSWindowController?
     private var settingWindowController: NSWindowController?
     private var alwaysOnTopWindowController: NSWindowController?
+    private var measureWindowController: NSWindowController?
     private var statusItem: NSStatusItem!
     private var popover: NSPopover!
     private var isMenuBarIconVisible = false
@@ -213,7 +214,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         }
     }
     
-    func openSettingView() {
+    func openSettingView(motionManager: HeadphoneMotionManager) {
         let newWindow = NSWindow(contentRect: NSMakeRect(100, 100, 560, 684),
                                  styleMask: [.titled, .closable, .resizable],
                                  backing: .buffered,
@@ -227,7 +228,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         newWindow.isMovableByWindowBackground = true
         newWindow.setFrameAutosaveName("SettingWindow")
         
-        newWindow.contentView = NSHostingView(rootView: SettingView().environment(\.appDelegate, self).modelContainer(modelContainer))
+        newWindow.contentView = NSHostingView(rootView: SettingView(motionManager: motionManager).environment(\.appDelegate, self).modelContainer(modelContainer))
         
         newWindow.delegate = self
         if settingWindowController == nil {
@@ -236,6 +237,36 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         }
         else{
             settingWindowController?.window?.makeKeyAndOrderFront(nil)
+        }
+    }
+    
+    func openMeasureView() {
+        let newWindow = NSWindow(contentRect: NSMakeRect(100, 100, 560, 532),
+                                 styleMask: [.titled, .closable, .resizable],
+                                 backing: .buffered,
+                                 defer: false)
+        
+        newWindow.title = "TurtleNeck"
+        newWindow.backgroundColor = .white
+        
+        newWindow.center()
+        newWindow.level = .normal
+        newWindow.isMovableByWindowBackground = true
+        newWindow.setFrameAutosaveName("MeasureWindow")
+        
+        newWindow.contentView = NSHostingView(rootView: 
+                                                ContentView(isFromSetting: true)
+            .environment(\.appDelegate, self)
+            .modelContainer(modelContainer)
+            .background(.white))
+        
+        newWindow.delegate = self
+        if measureWindowController == nil {
+            measureWindowController = NSWindowController(window: newWindow)
+            measureWindowController?.showWindow(self)
+        }
+        else{
+            measureWindowController?.window?.makeKeyAndOrderFront(nil)
         }
     }
 }

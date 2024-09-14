@@ -8,19 +8,10 @@
 import Foundation
 import UserNotifications
 
-class NotificationManager {
+class NotificationManager: ObservableObject {
     
     private let notiCenter = UNUserNotificationCenter.current()
-    private var userData: User = User(isFirst: true)
     private var notiTimer: Timer?
-    
-    init() {
-        print("NotificationManager init")
-        let userManager = UserManager()
-        if let loadedUserData = userManager.loadUser() {
-            self.userData = loadedUserData
-        }
-    }
     
     // 알림 권한 상태 받아오기
     func fetchNotiPermissionState() {
@@ -140,6 +131,11 @@ class NotificationManager {
     
     // 알림 주기 가져오기
     private func getNotiCycle(state: NotiContentState) -> Double{
+        
+        guard let userData = UserManager().loadUser() else {
+            print("getNotiCycle UserManager().loadUser() 오류")
+            return 0
+        }
         
         switch state {
         case .worse:

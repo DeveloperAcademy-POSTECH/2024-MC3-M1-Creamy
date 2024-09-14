@@ -26,7 +26,17 @@ struct NotificationContent{
         self.body = body
         self.notiContent.title = title
         self.notiContent.body = body
-        self.notiContent.sound = .default
+        self.notiContent.sound = {
+            guard let userData = UserManager().loadUser() else {
+                return .default
+            }
+            if userData.isSoundOn {
+                return .default
+            }
+            else {
+                return .none
+            }
+        }()
         
         if let imgURL = Bundle.main.urlForImageResource(self.attachmentImgName) {
             do {

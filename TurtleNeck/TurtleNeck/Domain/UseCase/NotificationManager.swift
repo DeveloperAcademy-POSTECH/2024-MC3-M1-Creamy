@@ -105,26 +105,35 @@ class NotificationManager {
     // 알림 컨텐츠 가져오기
     private func getNotiContent(state: NotiContentState) -> UNMutableNotificationContent{
         
+        guard let userData = UserManager().loadUser() else {
+            print("getNotiContent UserManager().loadUser() 실패")
+            return UNMutableNotificationContent()
+        }
+        
         switch state {
         case .worse:
             guard let content = WorseNotiContent.contents.randomElement()?.notiContent else{
                 return UNMutableNotificationContent()
             }
+            content.sound = userData.isSoundOn ? .default : .none
             return content
         case .bad:
             guard let content = BadNotiContent.contents.randomElement()?.notiContent else{
                 return UNMutableNotificationContent()
             }
+            content.sound = userData.isSoundOn ? .default : .none
             return content
         case .good:
             guard let content = GoodNotiContent.contents.randomElement()?.notiContent else{
                 return UNMutableNotificationContent()
             }
+            content.sound = userData.isSoundOn ? .default : .none
             return content
         case .normal:
             guard let content = NormalNotiContent.contents.randomElement()?.notiContent else{
                 return UNMutableNotificationContent()
             }
+            content.sound = userData.isSoundOn ? .default : .none
             return content
         }
     }

@@ -93,6 +93,7 @@ struct SettingView: View {
                                 notificationManager.removeNoti()
                                 
                                 if userData.notificationMode == .default {
+                                    motionManager.isConnected = false
                                     motionManager.stopUpdates()
                                     
                                     notificationManager.settingTimeNoti(state: .normal)

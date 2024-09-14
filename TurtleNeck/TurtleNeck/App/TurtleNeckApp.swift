@@ -224,7 +224,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         newWindow.backgroundColor = .white
         
         newWindow.center()
-        newWindow.level = .normal
+        newWindow.level = .floating
         newWindow.isMovableByWindowBackground = true
         newWindow.setFrameAutosaveName("SettingWindow")
         

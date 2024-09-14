@@ -12,6 +12,7 @@ struct MainView: View {
     @Environment(\.appDelegate) var appDelegate: AppDelegate?
     @Environment(\.modelContext) var modelContext
     
+    @StateObject private var notificationManager = NotificationManager()
     @StateObject private var motionManager = HeadphoneMotionManager()
     @State var isRealTime: Bool = true
     @State private var lastCheckedDate = Date()
@@ -19,7 +20,6 @@ struct MainView: View {
     @State private var isStarted: Bool = false
     @State private var timer: Timer? = nil
     @State private var timerValue: Int = 0
-    @State private var notificationManager = NotificationManager()
     private var userData: User = UserManager().loadUser() ?? User(isFirst: true)
     @Query var statistic: [NotiStatistic]
     
@@ -35,8 +35,8 @@ struct MainView: View {
                 segmentView.padding(EdgeInsets(top: 4, leading: 0, bottom: 0, trailing: 16))
             
                 TopMenuView(action: {
-                    appDelegate?.openAlwaysOnTopView(motionManager: motionManager)
-                }, motionManager: motionManager)
+                    appDelegate?.openAlwaysOnTopView(notificationManager: notificationManager, motionManager: motionManager)
+                }, notificationManager: notificationManager, motionManager: motionManager)
                 
             }
             .padding(.top, 12)
@@ -55,9 +55,9 @@ struct MainView: View {
                 }
                 else if userData.notificationMode == .default {
                     // 등록된 로컬 노티 제거
-                    NotificationManager().removeNoti()
+                    notificationManager.removeNoti()
                     // 로컬 노티 등록
-                    NotificationManager().settingTimeNoti(state: .normal)
+                    notificationManager.settingTimeNoti(state: .normal)
                 }
             }
         }

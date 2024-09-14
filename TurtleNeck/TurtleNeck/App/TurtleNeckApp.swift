@@ -174,7 +174,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         }
     }
     
-    func openAlwaysOnTopView(motionManager: HeadphoneMotionManager) {
+    func openAlwaysOnTopView(notificationManager: NotificationManager, motionManager: HeadphoneMotionManager) {
         let newWindow = NSWindow(contentRect: NSMakeRect(100, 100, 286, 160),
                                  styleMask: [.titled, .closable, .fullSizeContentView],
                                  backing: .buffered,
@@ -191,7 +191,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         visualEffectView.material = .light
         
         // NSHostingView 생성
-        let hostingView = NSHostingView(rootView: PIPView( motionManager: motionManager).environment(\.appDelegate, self).modelContainer(modelContainer))
+        let hostingView = NSHostingView(rootView: PIPView(notificationManager: notificationManager, motionManager: motionManager).environment(\.appDelegate, self).modelContainer(modelContainer))
         hostingView.frame = visualEffectView.bounds
         hostingView.autoresizingMask = [.width, .height]
         
@@ -214,7 +214,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         }
     }
     
-    func openSettingView(motionManager: HeadphoneMotionManager) {
+    func openSettingView(notificationManager: NotificationManager, motionManager: HeadphoneMotionManager) {
         let newWindow = NSWindow(contentRect: NSMakeRect(100, 100, 560, 684),
                                  styleMask: [.titled, .closable, .resizable],
                                  backing: .buffered,
@@ -224,11 +224,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         newWindow.backgroundColor = .white
         
         newWindow.center()
-        newWindow.level = .normal
+        newWindow.level = .floating
         newWindow.isMovableByWindowBackground = true
         newWindow.setFrameAutosaveName("SettingWindow")
         
-        newWindow.contentView = NSHostingView(rootView: SettingView(motionManager: motionManager).environment(\.appDelegate, self).modelContainer(modelContainer))
+        newWindow.contentView = NSHostingView(rootView: SettingView(notificationManager: notificationManager, motionManager: motionManager).environment(\.appDelegate, self).modelContainer(modelContainer))
         
         newWindow.delegate = self
         if settingWindowController == nil {

@@ -17,19 +17,20 @@ struct SettingView: View {
     
     // TODO: 민감도 조절 값으로 변경
     @State private var slideValue: Double = 3
-    @State private var notificationManager = NotificationManager()
+    @ObservedObject var notificationManager: NotificationManager
     @ObservedObject var motionManager: HeadphoneMotionManager
     
     private var userManager = UserManager()
     private let notiPreferenceURL = URL(string: "x-apple.systempreferences:com.apple.preference.notifications?id=\(Bundle.main.bundleIdentifier!)")!
     private let motionPreferenceURL = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Motion")!
     
-    init(motionManager: HeadphoneMotionManager) {
+    init(notificationManager: NotificationManager, motionManager: HeadphoneMotionManager) {
         print("SettingView init")
         let userManager = UserManager()
         if let loadedUserData = userManager.loadUser() {
             self.userData = loadedUserData
         }
+        self.notificationManager = notificationManager
         self.motionManager = motionManager
     }
     
@@ -92,7 +93,12 @@ struct SettingView: View {
                                 notificationManager.removeNoti()
                                 
                                 if userData.notificationMode == .default {
+                                    motionManager.stopUpdates()
+                                    
                                     notificationManager.settingTimeNoti(state: .normal)
+                                }
+                                else {
+                                    motionManager.startUpdates()
                                 }
                             })
                             .pickerStyle(.radioGroup)
@@ -224,9 +230,6 @@ struct SettingView: View {
                                     .padding(.init(top: 10, leading: 10, bottom: 0, trailing: 10))
                                     .frame(width: 500)
                             }
-//                            .onChange(of: motionManager.pitch) {
-//                                print("motionManager.pitch: \(motionManager.pitch)")
-//                            }
                             
                             HStack {
                                 Text("Low")
@@ -335,6 +338,7 @@ struct SettingView: View {
                         .tint(.buttonText)
                         .padding(.leading, 200)
                         .onChange(of: userData.timeNotiCycle) {
+                            userManager.saveUser(userData)
                             notificationManager.removeNoti()
                             notificationManager.settingTimeNoti(state: .normal)
                         }
@@ -416,5 +420,5 @@ extension SettingView {
 }
 
 #Preview {
-    SettingView(motionManager: HeadphoneMotionManager())
+    SettingView(notificationManager: NotificationManager(), motionManager: HeadphoneMotionManager())
 }

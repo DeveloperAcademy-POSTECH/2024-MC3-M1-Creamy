@@ -8,19 +8,10 @@
 import Foundation
 import UserNotifications
 
-class NotificationManager {
+class NotificationManager: ObservableObject {
     
     private let notiCenter = UNUserNotificationCenter.current()
-    private var userData: User = User(isFirst: true)
     private var notiTimer: Timer?
-    
-    init() {
-        print("NotificationManager init")
-        let userManager = UserManager()
-        if let loadedUserData = userManager.loadUser() {
-            self.userData = loadedUserData
-        }
-    }
     
     // 알림 권한 상태 받아오기
     func fetchNotiPermissionState() {
@@ -84,7 +75,7 @@ class NotificationManager {
             let notiContent = getNotiContent(state: state)
             let notiCycle = getNotiCycle(state: state)
             let id = UUID().uuidString
-            let notiTrigger = UNTimeIntervalNotificationTrigger(timeInterval: notiCycle, repeats: userData.notificationMode == .default)
+            let notiTrigger = UNTimeIntervalNotificationTrigger(timeInterval: notiCycle, repeats: false)
             let notiRequest = UNNotificationRequest(identifier: id, content: notiContent, trigger: notiTrigger)
             notiCenter.add(notiRequest) { error in
                 if (error != nil){
@@ -105,32 +96,46 @@ class NotificationManager {
     // 알림 컨텐츠 가져오기
     private func getNotiContent(state: NotiContentState) -> UNMutableNotificationContent{
         
+        guard let userData = UserManager().loadUser() else {
+            print("getNotiContent UserManager().loadUser() 실패")
+            return UNMutableNotificationContent()
+        }
+        
         switch state {
         case .worse:
             guard let content = WorseNotiContent.contents.randomElement()?.notiContent else{
                 return UNMutableNotificationContent()
             }
+            content.sound = userData.isSoundOn ? .default : .none
             return content
         case .bad:
             guard let content = BadNotiContent.contents.randomElement()?.notiContent else{
                 return UNMutableNotificationContent()
             }
+            content.sound = userData.isSoundOn ? .default : .none
             return content
         case .good:
             guard let content = GoodNotiContent.contents.randomElement()?.notiContent else{
                 return UNMutableNotificationContent()
             }
+            content.sound = userData.isSoundOn ? .default : .none
             return content
         case .normal:
             guard let content = NormalNotiContent.contents.randomElement()?.notiContent else{
                 return UNMutableNotificationContent()
             }
+            content.sound = userData.isSoundOn ? .default : .none
             return content
         }
     }
     
     // 알림 주기 가져오기
     private func getNotiCycle(state: NotiContentState) -> Double{
+        
+        guard let userData = UserManager().loadUser() else {
+            print("getNotiCycle UserManager().loadUser() 오류")
+            return 0
+        }
         
         switch state {
         case .worse:

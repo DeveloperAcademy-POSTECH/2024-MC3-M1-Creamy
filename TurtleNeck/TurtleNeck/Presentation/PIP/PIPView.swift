@@ -11,6 +11,7 @@ struct PIPView: View {
     @Environment(\.appDelegate) var appDelegate: AppDelegate?
     @Environment(\.presentationMode) var presentationMode
     
+    @ObservedObject var notificationManager: NotificationManager
     @ObservedObject var motionManager: HeadphoneMotionManager
     
     var body: some View {
@@ -23,7 +24,7 @@ struct PIPView: View {
             TopMenuView(action: {
                 NSApplication.shared.keyWindow?.close()
                 appDelegate?.showPopover()
-            }, motionManager: motionManager)
+            }, notificationManager: notificationManager, motionManager: motionManager)
             .offset(x: 100, y: -77)
         }
         .frame(width: 286,height: 130)

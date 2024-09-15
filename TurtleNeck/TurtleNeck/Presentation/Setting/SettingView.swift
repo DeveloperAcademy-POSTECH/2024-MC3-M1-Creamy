@@ -181,11 +181,17 @@ struct SettingView: View {
                         }
                         .shadow(radius: 1)
                     }
-                    .padding(10)
-                    .background{
-                        RoundedRectangle(cornerRadius: 6)
-                            .fill(Color.settingBG)
-                            .stroke(Color.borderLine, lineWidth: 1)
+                    Rectangle().frame(height: 1).foregroundColor(Color.borderLine)
+                    
+                    VStack(spacing: 0){
+                        HStack(alignment:.center){
+                            Text("민감도").font(.tnBodyRegular13).foregroundColor(.black)
+                                .padding(.top,2)
+                            Spacer()
+                        }
+                        Slider(value: $speed, in: 0...100)
+                            .tint(.buttonText)
+                        
                     }
                 } header: {
                     VStack(alignment: .leading, spacing: 0){

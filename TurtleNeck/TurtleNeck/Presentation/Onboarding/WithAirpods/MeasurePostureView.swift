@@ -37,6 +37,7 @@ struct MeasureCountDownView: View {
             
             Text("곧 측정이 시작돼요!")
                 .font(.tnHeadline20)
+                .padding(.bottom, 12)
             
             Text("에어팟을 착용한 채로 바른 자세를 유지해 주세요.")
                 .font(.tnBodyRegular14)
@@ -45,7 +46,7 @@ struct MeasureCountDownView: View {
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .padding(.top, 160)
+        .padding(.top, 140)
         .onAppear {
             startCountdown()
         }

@@ -53,7 +53,7 @@ struct MeasureFinishView: View {
                 HoverableButton(
                     action: {
                         Router.shared.navigateToRoot()
-                        Router.shared.navigate(to: .measureReady)
+                        Router.shared.navigate(to: .measureReadyFirst)
                     },
                     label: "다시 측정하기"
                 )

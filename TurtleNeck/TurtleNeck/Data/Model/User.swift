@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum NotificationMode: String, Codable {
+enum NotificationMode: Codable {
     case posture // 자세 알림 모드
     case `default` // 기본 알림 모드
 }
@@ -18,7 +18,7 @@ struct User: Codable {
     var goodPostureRange : Double = 0.1 //약 5.7도
     var disturbMode : Bool = false
     var notiCycle: Double = 10 //TODO: 10초 -> 10분으로 수정
-    var notificationMode: NotificationMode?
+    var notificationMode: NotificationMode = .default
     var isSoundOn: Bool = true // 알림소리 On/Off: 기본 값 On(true)
     var isNotificationOn: Bool = true // 알림 On/Off: 기본 값 On(true)
     var timeNotiCycle: Double = 15 * 60 // 시간 알림 시간: 기본 값 15분

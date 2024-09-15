@@ -50,6 +50,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     private var launchWindowController: NSWindowController?
     private var settingWindowController: NSWindowController?
     private var alwaysOnTopWindowController: NSWindowController?
+    private var measureWindowController: NSWindowController?
     private var statusItem: NSStatusItem!
     private var popover: NSPopover!
     private var isMenuBarIconVisible = false
@@ -80,7 +81,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.badge, .banner, .sound])
+        completionHandler([.banner, .sound])
     }
     
     func createMenuBarIcon() {
@@ -173,7 +174,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         }
     }
     
-    func openAlwaysOnTopView(motionManager: HeadphoneMotionManager) {
+    func openAlwaysOnTopView(notificationManager: NotificationManager, motionManager: HeadphoneMotionManager) {
         let newWindow = NSWindow(contentRect: NSMakeRect(100, 100, 286, 160),
                                  styleMask: [.titled, .closable, .fullSizeContentView],
                                  backing: .buffered,
@@ -190,7 +191,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         visualEffectView.material = .light
         
         // NSHostingView 생성
-        let hostingView = NSHostingView(rootView: PIPView( motionManager: motionManager).environment(\.appDelegate, self).modelContainer(modelContainer))
+        let hostingView = NSHostingView(rootView: PIPView(notificationManager: notificationManager, motionManager: motionManager).environment(\.appDelegate, self).modelContainer(modelContainer))
         hostingView.frame = visualEffectView.bounds
         hostingView.autoresizingMask = [.width, .height]
         
@@ -213,8 +214,34 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         }
     }
     
-    func openSettingView() {
+    func openSettingView(notificationManager: NotificationManager, motionManager: HeadphoneMotionManager) {
         let newWindow = NSWindow(contentRect: NSMakeRect(100, 100, 560, 684),
+                                 styleMask: [.titled, .closable, .resizable],
+                                 backing: .buffered,
+                                 defer: false)
+        
+        newWindow.title = "TurtleNeck"
+        newWindow.backgroundColor = .white
+        
+        newWindow.center()
+        newWindow.level = .floating
+        newWindow.isMovableByWindowBackground = true
+        newWindow.setFrameAutosaveName("SettingWindow")
+        
+        newWindow.contentView = NSHostingView(rootView: SettingView(notificationManager: notificationManager, motionManager: motionManager).environment(\.appDelegate, self).modelContainer(modelContainer))
+        
+        newWindow.delegate = self
+        if settingWindowController == nil {
+            settingWindowController = NSWindowController(window: newWindow)
+            settingWindowController?.showWindow(self)
+        }
+        else{
+            settingWindowController?.window?.makeKeyAndOrderFront(nil)
+        }
+    }
+    
+    func openMeasureView() {
+        let newWindow = NSWindow(contentRect: NSMakeRect(100, 100, 560, 532),
                                  styleMask: [.titled, .closable, .resizable],
                                  backing: .buffered,
                                  defer: false)
@@ -225,17 +252,21 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         newWindow.center()
         newWindow.level = .normal
         newWindow.isMovableByWindowBackground = true
-        newWindow.setFrameAutosaveName("SettingWindow")
+        newWindow.setFrameAutosaveName("MeasureWindow")
         
-        newWindow.contentView = NSHostingView(rootView: SettingView().environment(\.appDelegate, self).modelContainer(modelContainer))
+        newWindow.contentView = NSHostingView(rootView: 
+                                                ContentView(isFromSetting: true)
+            .environment(\.appDelegate, self)
+            .modelContainer(modelContainer)
+            .background(.white))
         
         newWindow.delegate = self
-        if settingWindowController == nil {
-            settingWindowController = NSWindowController(window: newWindow)
-            settingWindowController?.showWindow(self)
+        if measureWindowController == nil {
+            measureWindowController = NSWindowController(window: newWindow)
+            measureWindowController?.showWindow(self)
         }
         else{
-            settingWindowController?.window?.makeKeyAndOrderFront(nil)
+            measureWindowController?.window?.makeKeyAndOrderFront(nil)
         }
     }
 }

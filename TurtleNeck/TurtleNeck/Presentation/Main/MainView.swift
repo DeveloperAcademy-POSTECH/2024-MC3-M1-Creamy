@@ -12,6 +12,7 @@ struct MainView: View {
     @Environment(\.appDelegate) var appDelegate: AppDelegate?
     @Environment(\.modelContext) var modelContext
     
+    @StateObject private var notificationManager = NotificationManager()
     @StateObject private var motionManager = HeadphoneMotionManager()
     @State var isRealTime: Bool = true
     @State private var lastCheckedDate = Date()
@@ -19,13 +20,13 @@ struct MainView: View {
     @State private var isStarted: Bool = false
     @State private var timer: Timer? = nil
     @State private var timerValue: Int = 0
-    
+    private var userData: User = UserManager().loadUser() ?? User(isFirst: true)
     @Query var statistic: [NotiStatistic]
     
     let userManager = UserManager()
     
     var characterNotiManager : CharacterNotiManager = CharacterNotiManager()
-
+    
     var body: some View {
         VStack(spacing: 0){
             HStack(alignment: .center, spacing: 10){
@@ -34,8 +35,8 @@ struct MainView: View {
                 segmentView.padding(EdgeInsets(top: 4, leading: 0, bottom: 0, trailing: 16))
             
                 TopMenuView(action: {
-                    appDelegate?.openAlwaysOnTopView(motionManager: motionManager)
-                }, motionManager: motionManager)
+                    appDelegate?.openAlwaysOnTopView(notificationManager: notificationManager, motionManager: motionManager)
+                }, notificationManager: notificationManager, motionManager: motionManager)
                 
             }
             .padding(.top, 12)
@@ -48,9 +49,16 @@ struct MainView: View {
         .background(.white)
         .frame(width: 348,height: 232)
         .onAppear {
-            motionManager.startUpdates()
-            if let user = userManager.loadUser() { // UseDefault가 잘 들어갔는지 확인
-                print(user)
+            if let userData = userManager.loadUser() { // UseDefault가 잘 들어갔는지 확인
+                if userData.notificationMode == .posture {
+                    motionManager.startUpdates()
+                }
+                else if userData.notificationMode == .default {
+                    // 등록된 로컬 노티 제거
+                    notificationManager.removeNoti()
+                    // 로컬 노티 등록
+                    notificationManager.settingTimeNoti(state: .normal)
+                }
             }
         }
         .onChange(of: motionManager.currentState) { oldState, newState in
@@ -70,7 +78,7 @@ struct MainView: View {
                 }
                 
                 // 등록된 로컬 노티 제거
-                NotificationManager().removeTimeNoti()
+                notificationManager.removeNoti()
                 // 캐릭터 노티 제거
                 characterNotiManager.removeCharacterNoti()
                 
@@ -78,14 +86,14 @@ struct MainView: View {
                 if let lastBadTime = motionManager.lastBadPostureTime, Date().timeIntervalSince(lastBadTime) >= 5 {
 
                     // good 로컬 노티 등록
-                    NotificationManager().settingTimeNoti(state: .good)
+                    notificationManager.settingTimeNoti(state: .good)
                 }
                 
             case .bad:
                 resetTimer()
                 
                 if oldState == .good {
-                    NotificationManager().settingTimeNoti(state: .bad)
+                    notificationManager.settingTimeNoti(state: .bad)
                 }
                 else if oldState == .worse {
                     
@@ -101,7 +109,7 @@ struct MainView: View {
                 }
                 
                 // 등록된 로컬 노티 제거
-                NotificationManager().removeTimeNoti()
+                notificationManager.removeNoti()
                 // 캐릭터 노티 설정
                 characterNotiManager.setCharacterNoti()
             }

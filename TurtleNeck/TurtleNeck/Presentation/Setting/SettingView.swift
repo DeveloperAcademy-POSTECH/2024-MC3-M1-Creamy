@@ -16,7 +16,7 @@ struct SettingView: View {
     @State private var userData: User = User(isFirst: false)
     
     // TODO: 민감도 조절 값으로 변경
-    @State private var slideValue: Double = 3
+    @State private var slideValue: Double = 2
     @ObservedObject var notificationManager: NotificationManager
     @ObservedObject var motionManager: HeadphoneMotionManager
     
@@ -189,9 +189,6 @@ struct SettingView: View {
                                 .padding(.top,2)
                             Spacer()
                         }
-                        Slider(value: $speed, in: 0...100)
-                            .tint(.buttonText)
-                        
                     }
                 } header: {
                     VStack(alignment: .leading, spacing: 0){
@@ -226,14 +223,14 @@ struct SettingView: View {
                             .overlay {
                                 HStack(spacing: 0){
                                     Rectangle()
-                                        .frame(width: 480 *  slideValue/5, height: 4)
+                                        .frame(width: 480 *  slideValue/4, height: 4)
                                         .foregroundStyle(userData.notificationMode == .default ? Color.clear : Color.buttonText)
                                     Spacer(minLength: 0)
                                 }
                                 .padding(.init(top: 10, leading: 12, bottom: 0, trailing: 10))
                             }
                             .overlay {
-                                NSSliderView(value: $slideValue, minValue: 0, maxValue: 5, countOfMark: 5)
+                                NSSliderView(value: $slideValue, minValue: 0, maxValue: 4, countOfMark: 5)
                                     .padding(.init(top: 10, leading: 10, bottom: 0, trailing: 10))
                                     .frame(width: 500)
                             }

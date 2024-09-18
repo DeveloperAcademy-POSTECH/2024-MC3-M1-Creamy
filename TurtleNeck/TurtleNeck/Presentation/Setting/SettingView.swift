@@ -233,6 +233,10 @@ struct SettingView: View {
                                 NSSliderView(value: $slideValue, minValue: 0, maxValue: 4, countOfMark: 5)
                                     .padding(.init(top: 10, leading: 10, bottom: 0, trailing: 10))
                                     .frame(width: 500)
+                                    .onChange(of: slideValue) {
+                                        updateGoodPostureRange()
+                                        print("슬라이드 값 변경")
+                                    }
                             }
                             
                             HStack {
@@ -420,6 +424,18 @@ extension SettingView {
         default:
             return (0.32 + pitch) / 0.32
         }
+    }
+    
+    /// 슬라이더 값에 따라 goodPostureRange값 조정
+    private func updateGoodPostureRange() {
+        // 슬라이더 한단계 값-> 0.05
+        let rangeAdjustment = (slideValue - 2) * 0.05
+        userManager.setUserMode(selectedMode: userData.goodPostureRange + rangeAdjustment, keyPath: \.goodPostureRange)
+        
+        let user = userManager.loadUser()
+        print(user?.goodPostureRange)
+        userManager.saveUser(userData)
+        
     }
 }
 

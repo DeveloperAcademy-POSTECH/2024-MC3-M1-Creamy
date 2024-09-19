@@ -16,7 +16,7 @@ struct SettingView: View {
     @State private var userData: User = User(isFirst: false)
     
     // TODO: 민감도 조절 값으로 변경
-    @State private var slideValue: Double = 3
+    @State private var slideValue: Double = 2
     @ObservedObject var notificationManager: NotificationManager
     @ObservedObject var motionManager: HeadphoneMotionManager
     
@@ -181,11 +181,14 @@ struct SettingView: View {
                         }
                         .shadow(radius: 1)
                     }
-                    .padding(10)
-                    .background{
-                        RoundedRectangle(cornerRadius: 6)
-                            .fill(Color.settingBG)
-                            .stroke(Color.borderLine, lineWidth: 1)
+                    Rectangle().frame(height: 1).foregroundColor(Color.borderLine)
+                    
+                    VStack(spacing: 0){
+                        HStack(alignment:.center){
+                            Text("민감도").font(.tnBodyRegular13).foregroundColor(.black)
+                                .padding(.top,2)
+                            Spacer()
+                        }
                     }
                 } header: {
                     VStack(alignment: .leading, spacing: 0){
@@ -220,16 +223,20 @@ struct SettingView: View {
                             .overlay {
                                 HStack(spacing: 0){
                                     Rectangle()
-                                        .frame(width: 480 *  slideValue/5, height: 4)
+                                        .frame(width: 480 *  slideValue/4, height: 4)
                                         .foregroundStyle(userData.notificationMode == .default ? Color.clear : Color.buttonText)
                                     Spacer(minLength: 0)
                                 }
                                 .padding(.init(top: 10, leading: 12, bottom: 0, trailing: 10))
                             }
                             .overlay {
-                                NSSliderView(value: $slideValue, minValue: 0, maxValue: 5, countOfMark: 5)
+                                NSSliderView(value: $slideValue, minValue: 0, maxValue: 4, countOfMark: 5)
                                     .padding(.init(top: 10, leading: 10, bottom: 0, trailing: 10))
                                     .frame(width: 500)
+                                    .onChange(of: slideValue) {
+                                        updateGoodPostureRange()
+                                        print("슬라이드 값 변경")
+                                    }
                             }
                             
                             HStack {
@@ -417,6 +424,18 @@ extension SettingView {
         default:
             return (0.32 + pitch) / 0.32
         }
+    }
+    
+    /// 슬라이더 값에 따라 goodPostureRange값 조정
+    private func updateGoodPostureRange() {
+        // 슬라이더 한단계 값-> 0.05
+        let rangeAdjustment = (slideValue - 2) * 0.05
+        userManager.setUserMode(selectedMode: userData.goodPostureRange + rangeAdjustment, keyPath: \.goodPostureRange)
+        
+        let user = userManager.loadUser()
+        print(user?.goodPostureRange)
+        userManager.saveUser(userData)
+        
     }
 }
 

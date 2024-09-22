@@ -13,6 +13,8 @@ struct TopMenuView: View {
     let action: () -> Void
     @ObservedObject var notificationManager: NotificationManager
     @ObservedObject var motionManager: HeadphoneMotionManager
+    @ObservedObject var timerManager: TimerManager
+    
     let userManager = UserManager()
     
     var body: some View {
@@ -34,7 +36,7 @@ struct TopMenuView: View {
             .buttonStyle(.plain)
             
             Button(action: {
-                appDelegate?.openSettingView(notificationManager: notificationManager, motionManager: motionManager)
+                appDelegate?.openSettingView(notificationManager: notificationManager, motionManager: motionManager, timerManager: timerManager)
             }) {
                 Image("gear")
             }

@@ -10,7 +10,8 @@ import SwiftUI
 struct StatisticView: View {
     @State private var isToday: Bool = true
     @ObservedObject var motionManager: HeadphoneMotionManager
-    @Binding var time: Int
+    @ObservedObject var timerManager: TimerManager
+//    @Binding var time: Int
     let user: User = UserManager().loadUser() ?? User(isFirst: true)
     
     var body: some View {
@@ -79,7 +80,7 @@ extension StatisticView {
     @ViewBuilder
     private func showView(isToday: Bool) -> some View {
         if isToday {
-            DayPostureView(time: $time)
+            DayPostureView(timerManager: timerManager)
                 .transition(.move(edge: .leading))
         }
         else {

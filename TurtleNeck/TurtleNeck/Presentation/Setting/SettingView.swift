@@ -19,12 +19,13 @@ struct SettingView: View {
     @State private var slideValue: Double = 2
     @ObservedObject var notificationManager: NotificationManager
     @ObservedObject var motionManager: HeadphoneMotionManager
+    @ObservedObject var timerManager: TimerManager
     
     private var userManager = UserManager()
     private let notiPreferenceURL = URL(string: "x-apple.systempreferences:com.apple.preference.notifications?id=\(Bundle.main.bundleIdentifier!)")!
     private let motionPreferenceURL = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Motion")!
     
-    init(notificationManager: NotificationManager, motionManager: HeadphoneMotionManager) {
+    init(notificationManager: NotificationManager, motionManager: HeadphoneMotionManager, timerManager: TimerManager) {
         print("SettingView init")
         let userManager = UserManager()
         if let loadedUserData = userManager.loadUser() {
@@ -32,6 +33,7 @@ struct SettingView: View {
         }
         self.notificationManager = notificationManager
         self.motionManager = motionManager
+        self.timerManager = timerManager
     }
     
     var body: some View {
@@ -97,8 +99,11 @@ struct SettingView: View {
                                     motionManager.stopUpdates()
                                     
                                     notificationManager.settingTimeNoti(state: .normal)
+                                    
+                                    timerManager.resetTimer(statistic: statistics)
                                 }
                                 else {
+                                    motionManager.isConnected = true
                                     motionManager.startUpdates()
                                 }
                             })
@@ -451,5 +456,5 @@ extension SettingView {
 }
 
 #Preview {
-    SettingView(notificationManager: NotificationManager(), motionManager: HeadphoneMotionManager())
+    SettingView(notificationManager: NotificationManager(), motionManager: HeadphoneMotionManager(), timerManager: TimerManager())
 }

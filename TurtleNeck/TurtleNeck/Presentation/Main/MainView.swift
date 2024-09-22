@@ -14,12 +14,12 @@ struct MainView: View {
     
     @StateObject private var notificationManager = NotificationManager()
     @StateObject private var motionManager = HeadphoneMotionManager()
+    @StateObject private var timerManager = TimerManager()
     @State var isRealTime: Bool = true
     @State private var lastCheckedDate = Date()
     @State private var wearingStartTime: Date?
     @State private var isStarted: Bool = false
-    @State private var timer: Timer? = nil
-    @State private var timerValue: Int = 0
+
     private var userData: User = UserManager().loadUser() ?? User(isFirst: true)
     @Query var statistic: [NotiStatistic]
     
@@ -35,13 +35,13 @@ struct MainView: View {
                 segmentView.padding(EdgeInsets(top: 4, leading: 0, bottom: 0, trailing: 16))
             
                 TopMenuView(action: {
-                    appDelegate?.openAlwaysOnTopView(notificationManager: notificationManager, motionManager: motionManager)
-                }, notificationManager: notificationManager, motionManager: motionManager)
+                    appDelegate?.openAlwaysOnTopView(notificationManager: notificationManager, motionManager: motionManager, timerManager: timerManager)
+                }, notificationManager: notificationManager, motionManager: motionManager, timerManager: timerManager)
                 
             }
             .padding(.top, 12)
             
-            showView(isRealTime: isRealTime, timer: timer)
+            showView(isRealTime: isRealTime, timer: timerManager.timer)
             
             Spacer()
         }
@@ -73,8 +73,8 @@ struct MainView: View {
             switch currentState {
             case .good:
                 // 타이머 시작
-                if timer == nil {
-                    startTimer()
+                if timerManager.timer == nil {
+                    timerManager.startTimer()
                 }
                 
                 // 등록된 로컬 노티 제거
@@ -90,7 +90,7 @@ struct MainView: View {
                 }
                 
             case .bad:
-                resetTimer()
+                timerManager.resetTimer(statistic: statistic)
                 
                 if oldState == .good {
                     notificationManager.settingTimeNoti(state: .bad)
@@ -120,7 +120,7 @@ struct MainView: View {
                 checkAndAddTodayData() // isConnected가 true일 때 호출
             }
             else {
-                resetTimer()
+                timerManager.resetTimer(statistic: statistic)
 
                 if let startTime = wearingStartTime {
                     let endTime = Date()
@@ -193,11 +193,11 @@ extension MainView {
     @ViewBuilder
     private func showView(isRealTime: Bool, timer: Timer?) -> some View {
         if isRealTime {
-            RealTimePostureView(motionManager: motionManager, timer: timer, time: $timerValue)
+            RealTimePostureView(motionManager: motionManager, timerManager: timerManager)
         }
         
         else {
-            StatisticView(motionManager: motionManager,time: $timerValue)
+            StatisticView(motionManager: motionManager, timerManager: timerManager)
         }
     }
 }
@@ -219,31 +219,6 @@ extension MainView {
             guard let firstItem = statistic.first else { return } // 첫 번째 아이템 확인
             modelContext.delete(firstItem)
             print("가장 오래된 데이터가 삭제되었습니다.")
-        }
-    }
-    
-    private func startTimer() {
-        timerValue = 0
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            timerValue += 1
-            print("타이머: \(timerValue)초")
-        }
-    }
-    
-    private func resetTimer() {
-        checkBestRecord()
-        
-        timer?.invalidate()
-        timer = nil
-        timerValue = 0
-    }
-    
-    private func checkBestRecord() {
-        if let todayStatistic = statistic.last {
-            if timerValue > todayStatistic.bestRecord {
-                todayStatistic.bestRecord = timerValue // bestRecord 갱신
-                print("Best Record 갱신됨: \(todayStatistic.bestRecord)초")
-            }
         }
     }
 }

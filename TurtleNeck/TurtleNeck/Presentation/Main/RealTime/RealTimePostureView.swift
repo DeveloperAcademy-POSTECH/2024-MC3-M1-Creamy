@@ -10,8 +10,9 @@ import SwiftData
 
 struct RealTimePostureView: View {
     @ObservedObject var motionManager: HeadphoneMotionManager
-    var timer: Timer?
-    @Binding var time: Int
+    @ObservedObject var timerManager: TimerManager
+//    var timer: Timer?
+//    @Binding var time: Int
     @Query var statistic: [NotiStatistic]
     let user: User = UserManager().loadUser() ?? User(isFirst: true)
     
@@ -21,15 +22,15 @@ struct RealTimePostureView: View {
             if user.notificationMode == .posture {
                 if motionManager.isConnected {
                     //자세 알림 모드 & 에어팟 o
-                    if timer != nil {
+                    if timerManager.timer != nil {
                         VStack(spacing: 0){
-                            Text(formattedTime(from: time)).font(.tnHeadline20).foregroundColor(.black)
+                            Text(formattedTime(from: timerManager.timerValue)).font(.tnHeadline20).foregroundColor(.black)
                             Text("바른 자세 유지 중!").font(.tnBodyRegular12).foregroundColor(.black).padding(.top, 4)
                             ZStack{
                                 RoundedRectangle(cornerRadius: 4)
-                                    .fill(statistic.last?.bestRecord ?? 0 < time ? Color.bestRecordBG : Color.white)
+                                    .fill(statistic.last?.bestRecord ?? 0 < timerManager.timerValue ? Color.bestRecordBG : Color.white)
                                     .frame(width: 57, height: 16)
-                                Text("최고 기록!").font(.tnBodyRegular10).foregroundColor(statistic.last?.bestRecord ?? 0 < time ? .bestRecordText : Color.white)
+                                Text("최고 기록!").font(.tnBodyRegular10).foregroundColor(statistic.last?.bestRecord ?? 0 < timerManager.timerValue ? .bestRecordText : Color.white)
                             }
                             .padding(.top, 4)
                         }

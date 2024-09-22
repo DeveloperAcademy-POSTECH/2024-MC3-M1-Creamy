@@ -151,12 +151,12 @@ struct SettingView: View {
                          */
                     }
                 }
-                .listRowSeparator(.hidden)
                 .background{
                     RoundedRectangle(cornerRadius: 6)
                         .fill(Color.settingBG)
                         .stroke(Color.borderLine, lineWidth: 1)
                 }
+                .listRowSeparator(.hidden)
                 .padding(.bottom)
                 
                 // MARK: 모션 데이터 접근 허용 설정 열기
@@ -181,12 +181,22 @@ struct SettingView: View {
                         }
                         .shadow(radius: 1)
                     }
-                    Rectangle().frame(height: 1).foregroundColor(Color.borderLine)
+                    .padding(10)
+                    .background{
+                        RoundedRectangle(cornerRadius: 6)
+                            .fill(Color.settingBG)
+                            .stroke(Color.borderLine, lineWidth: 1)
+                    }
+                    
+//                    Rectangle().frame(height: 1).foregroundColor(Color.borderLine)
                     
                     VStack(spacing: 0){
                         HStack(alignment:.center){
-                            Text("민감도").font(.tnBodyRegular13).foregroundColor(.black)
+                            Text("민감도")
+                                .font(.headline)
+                                .foregroundColor(.black)
                                 .padding(.top,2)
+                            
                             Spacer()
                         }
                     }
@@ -350,6 +360,7 @@ struct SettingView: View {
                             notificationManager.removeNoti()
                             notificationManager.settingTimeNoti(state: .normal)
                         }
+                        .disabled(userData.notificationMode == .posture)
                     }
                     .padding(10)
                     .background{

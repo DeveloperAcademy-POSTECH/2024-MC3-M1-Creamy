@@ -174,7 +174,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         }
     }
     
-    func openAlwaysOnTopView(notificationManager: NotificationManager, motionManager: HeadphoneMotionManager) {
+    func openAlwaysOnTopView(notificationManager: NotificationManager, motionManager: HeadphoneMotionManager, timerManager: TimerManager) {
         let newWindow = NSWindow(contentRect: NSMakeRect(100, 100, 286, 160),
                                  styleMask: [.titled, .closable, .fullSizeContentView],
                                  backing: .buffered,
@@ -191,7 +191,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         visualEffectView.material = .light
         
         // NSHostingView 생성
-        let hostingView = NSHostingView(rootView: PIPView(notificationManager: notificationManager, motionManager: motionManager).environment(\.appDelegate, self).modelContainer(modelContainer))
+        let hostingView = NSHostingView(rootView: PIPView(notificationManager: notificationManager, motionManager: motionManager, timerManager: timerManager).environment(\.appDelegate, self).modelContainer(modelContainer))
         hostingView.frame = visualEffectView.bounds
         hostingView.autoresizingMask = [.width, .height]
         
@@ -208,13 +208,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         if alwaysOnTopWindowController == nil {
             alwaysOnTopWindowController = NSWindowController(window: newWindow)
             alwaysOnTopWindowController?.showWindow(self)
+            alwaysOnTopWindowController?.window?.makeKeyAndOrderFront(nil)
         }
         else{
             alwaysOnTopWindowController?.window?.makeKeyAndOrderFront(nil)
         }
     }
     
-    func openSettingView(notificationManager: NotificationManager, motionManager: HeadphoneMotionManager) {
+    func openSettingView(notificationManager: NotificationManager, motionManager: HeadphoneMotionManager, timerManager: TimerManager) {
         let newWindow = NSWindow(contentRect: NSMakeRect(100, 100, 560, 684),
                                  styleMask: [.titled, .closable, .resizable],
                                  backing: .buffered,
@@ -228,12 +229,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         newWindow.isMovableByWindowBackground = true
         newWindow.setFrameAutosaveName("SettingWindow")
         
-        newWindow.contentView = NSHostingView(rootView: SettingView(notificationManager: notificationManager, motionManager: motionManager).environment(\.appDelegate, self).modelContainer(modelContainer))
+        newWindow.contentView = NSHostingView(rootView: SettingView(notificationManager: notificationManager, motionManager: motionManager, timerManager: timerManager).environment(\.appDelegate, self).modelContainer(modelContainer))
         
         newWindow.delegate = self
+        
         if settingWindowController == nil {
             settingWindowController = NSWindowController(window: newWindow)
             settingWindowController?.showWindow(self)
+            settingWindowController?.window?.makeKeyAndOrderFront(nil)
         }
         else{
             settingWindowController?.window?.makeKeyAndOrderFront(nil)
@@ -250,7 +253,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         newWindow.backgroundColor = .white
         
         newWindow.center()
-        newWindow.level = .normal
+        newWindow.level = .floating
         newWindow.isMovableByWindowBackground = true
         newWindow.setFrameAutosaveName("MeasureWindow")
         
@@ -264,6 +267,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         if measureWindowController == nil {
             measureWindowController = NSWindowController(window: newWindow)
             measureWindowController?.showWindow(self)
+            measureWindowController?.window?.makeKeyAndOrderFront(nil)
         }
         else{
             measureWindowController?.window?.makeKeyAndOrderFront(nil)

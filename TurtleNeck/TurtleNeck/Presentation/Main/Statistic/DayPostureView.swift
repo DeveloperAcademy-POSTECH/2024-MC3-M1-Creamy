@@ -9,7 +9,8 @@ import SwiftUI
 import SwiftData
 
 struct DayPostureView: View {
-    @Binding var time: Int
+//    @Binding var time: Int
+    @ObservedObject var timerManager: TimerManager
     @Query var statistic: [NotiStatistic]
     
     var body: some View {

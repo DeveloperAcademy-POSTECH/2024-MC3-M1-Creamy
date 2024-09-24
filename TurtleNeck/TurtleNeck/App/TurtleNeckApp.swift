@@ -262,7 +262,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         let toolbar = NSToolbar(identifier: "MainToolbar")
         toolbar.displayMode = .iconAndLabel
         newWindow.toolbar = toolbar
-        
+        newWindow.toolbarStyle = .expanded
         newWindow.contentResizeIncrements = NSSize(width: 1.0, height: 1.0)
 
         newWindow.contentView = NSHostingView(rootView:

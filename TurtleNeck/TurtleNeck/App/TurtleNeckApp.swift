@@ -250,6 +250,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
                                  defer: false)
         
         newWindow.title = "TurtleNeck"
+        newWindow.titleVisibility = .hidden
+        newWindow.titlebarAppearsTransparent = true
         newWindow.backgroundColor = .white
         
         newWindow.center()
@@ -257,7 +259,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         newWindow.isMovableByWindowBackground = true
         newWindow.setFrameAutosaveName("MeasureWindow")
         
-        newWindow.contentView = NSHostingView(rootView: 
+        let toolbar = NSToolbar(identifier: "MainToolbar")
+        toolbar.displayMode = .iconAndLabel
+        newWindow.toolbar = toolbar
+        
+        newWindow.contentResizeIncrements = NSSize(width: 1.0, height: 1.0)
+
+        newWindow.contentView = NSHostingView(rootView:
                                                 ContentView(isFromSetting: true)
             .environment(\.appDelegate, self)
             .modelContainer(modelContainer)

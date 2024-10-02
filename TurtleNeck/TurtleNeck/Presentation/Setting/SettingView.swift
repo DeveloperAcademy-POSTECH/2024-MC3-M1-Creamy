@@ -296,6 +296,7 @@ struct SettingView: View {
                                 Text("자세 재설정")
                                 Spacer()
                                 Button {
+                                    timerManager.resetTimer(statistic: statistics)
                                     appDelegate?.openMeasureView()
                                     Router.shared.navigateToRoot()
                                 } label: {
@@ -388,14 +389,14 @@ struct SettingView: View {
                 
                 // MARK: TurtleNeck 종료하기
                 HStack {
-                    Button{
-                        UserManager().deleteUser()
-                        deleteAllData()
-                    } label: {
-                        Text("테스트용 데이터 삭제: 출시 전에 삭제해주세요")
-                            .foregroundColor(.black)
-                    }
-                    .shadow(radius: 1)
+//                    Button{
+//                        UserManager().deleteUser()
+//                        deleteAllData()
+//                    } label: {
+//                        Text("테스트용 데이터 삭제: 출시 전에 삭제해주세요")
+//                            .foregroundColor(.black)
+//                    }
+//                    .shadow(radius: 1)
                     Spacer()
                     Button{
                         exit(0)

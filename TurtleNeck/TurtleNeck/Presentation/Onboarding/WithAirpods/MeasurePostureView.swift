@@ -123,6 +123,8 @@ struct MeasuringView: View {
                             
                             userManager.setUserMode(selectedMode: averagePitch, keyPath: \User.goodPosture)
                             
+                            print(userManager.loadUser()?.goodPosture)
+                            
                             Router.shared.navigate(to: .measureFinish)
                         }
                     }

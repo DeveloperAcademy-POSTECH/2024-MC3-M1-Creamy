@@ -39,6 +39,12 @@ class HeadphoneMotionManager: ObservableObject {
         user = userManager.loadUser()
     }
     
+    //자세값 재생성을 하고 인스턴스를 제 생성 하기 위한 코드
+    func reset() {
+        stopUpdates()
+        user = userManager.loadUser() // 최신 사용자 정보 로드
+    }
+    
     /// 헤드폰 모션 추적 시작
     func startUpdates() {
         print("헤드폰 모션 추적을 시작합니다.")
@@ -143,6 +149,7 @@ extension HeadphoneMotionManager {
         }
         
         let difference = abs(pitch - goodPosture)
+        
 
         return difference <= user!.goodPostureRange
     }

@@ -23,7 +23,7 @@ struct MainView: View {
     private var userData: User = UserManager().loadUser() ?? User(isFirst: true)
     @Query var statistic: [NotiStatistic]
     
-    let userManager = UserManager()
+    var userManager = UserManager()
     
     var characterNotiManager : CharacterNotiManager = CharacterNotiManager()
     
@@ -33,7 +33,7 @@ struct MainView: View {
                 Spacer()
                 
                 segmentView.padding(EdgeInsets(top: 4, leading: 0, bottom: 0, trailing: 16))
-            
+                
                 TopMenuView(action: {
                     appDelegate?.openAlwaysOnTopView(notificationManager: notificationManager, motionManager: motionManager, timerManager: timerManager)
                 }, notificationManager: notificationManager, motionManager: motionManager, timerManager: timerManager)
@@ -84,7 +84,7 @@ struct MainView: View {
                 
                 // bad 상태 5초 이상 유지 후 good 상태로 전환일 때
                 if let lastBadTime = motionManager.lastBadPostureTime, Date().timeIntervalSince(lastBadTime) >= 5 {
-
+                    
                     // good 로컬 노티 등록
                     notificationManager.settingTimeNoti(state: .good)
                 }
@@ -105,7 +105,7 @@ struct MainView: View {
                 
             case .worse:
                 if let notiStatistic = statistic.last {
-                    notiStatistic.notiCount = notiStatistic.notiCount + 1                    
+                    notiStatistic.notiCount = notiStatistic.notiCount + 1
                 }
                 
                 // 등록된 로컬 노티 제거
@@ -121,7 +121,7 @@ struct MainView: View {
             }
             else {
                 timerManager.resetTimer(statistic: statistic)
-
+                
                 if let startTime = wearingStartTime {
                     let endTime = Date()
                     let wearingDuration = Int(endTime.timeIntervalSince(startTime))
@@ -141,6 +141,10 @@ struct MainView: View {
                 
                 wearingStartTime = nil // 착용 시간 초기화
             }
+        }
+        .onChange(of: userManager.loadUser()?.goodPosture) { _ in
+            motionManager.reset() // goodPosture가 변경될 때 reset 호출
+            motionManager.startUpdates()
         }
     }
     

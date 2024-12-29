@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct WithoutAirpodsView: View {
-    @AppStorage("isFirst") var isFirst: Bool = true
     @Environment(\.appDelegate) var appDelegate: AppDelegate?
     @Environment(\.presentationMode) var presentationMode
-    @Environment(\.modelContext) var modelContext
+    @StateObject var statisticManager = StatisticManager()
     @State private var isAppStartHover = false
     let userManager = UserManager()
     
@@ -45,9 +44,9 @@ struct WithoutAirpodsView: View {
             HoverableButton(action: {
                 appDelegate?.createMenuBarIcon()
                 
-                // default NotiStatistic 정보 생성
-                let notiStatistic = NotiStatistic(date: Date())
-                modelContext.insert(notiStatistic)
+                // default Statistic 정보 생성
+                let newTodayData = Statistic(date: Date())
+                statisticManager.addStatistic(newTodayData)
                 
                 NSApplication.shared.keyWindow?.close()
                 

@@ -6,22 +6,20 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct MainView: View {
     @Environment(\.appDelegate) var appDelegate: AppDelegate?
-    @Environment(\.modelContext) var modelContext
-    
+    @EnvironmentObject var statisticManager: StatisticManager
     @StateObject private var notificationManager = NotificationManager()
     @StateObject private var motionManager = HeadphoneMotionManager()
     @StateObject private var timerManager = TimerManager()
+
     @State var isRealTime: Bool = true
     @State private var lastCheckedDate = Date()
     @State private var wearingStartTime: Date?
     @State private var isStarted: Bool = false
 
     private var userData: User = UserManager().loadUser() ?? User(isFirst: true)
-    @Query var statistic: [NotiStatistic]
     
     var userManager = UserManager()
     
@@ -60,6 +58,7 @@ struct MainView: View {
                     notificationManager.settingTimeNoti(state: .normal)
                 }
             }
+            print(statisticManager.statistics)
         }
         .onChange(of: motionManager.currentState) { oldState, newState in
             guard let currentState = motionManager.currentState else { return }
@@ -90,22 +89,25 @@ struct MainView: View {
                 }
                 
             case .bad:
-                timerManager.resetTimer(statistic: statistic)
-                
+                timerManager.resetTimer(statistics: &statisticManager.statistics)
+
                 if oldState == .good {
                     notificationManager.settingTimeNoti(state: .bad)
                 }
-                else if oldState == .worse {
-                    
-                }
                 
-                if let notiStatistic = statistic.last {
-                    notiStatistic.notiCount = notiStatistic.notiCount + 1
+                // 마지막 통계 업데이트
+                if var lastStatistic = statisticManager.statistics.last {
+                    lastStatistic.notiCount += 1 // notiCount 증가
+                    statisticManager.statistics[statisticManager.statistics.count - 1] = lastStatistic
+                    statisticManager.saveStatistics()
                 }
                 
             case .worse:
-                if let notiStatistic = statistic.last {
-                    notiStatistic.notiCount = notiStatistic.notiCount + 1
+                // 마지막 통계 업데이트
+                if var lastStatistic = statisticManager.statistics.last {
+                    lastStatistic.notiCount += 1 // notiCount 증가
+                    statisticManager.statistics[statisticManager.statistics.count - 1] = lastStatistic
+                    statisticManager.saveStatistics()
                 }
                 
                 // 등록된 로컬 노티 제거
@@ -114,13 +116,13 @@ struct MainView: View {
                 characterNotiManager.setCharacterNoti()
             }
         }
-        .onChange(of: motionManager.isConnected) { isConnected in
+        .onChange(of: motionManager.isConnected) { _, isConnected in
             if isConnected {
                 wearingStartTime = Date()
                 checkAndAddTodayData() // isConnected가 true일 때 호출
             }
             else {
-                timerManager.resetTimer(statistic: statistic)
+                timerManager.resetTimer(statistics: &statisticManager.statistics)
                 
                 if let startTime = wearingStartTime {
                     let endTime = Date()
@@ -128,21 +130,18 @@ struct MainView: View {
                     
                     let today = Calendar.current.startOfDay(for: endTime)
                     
-                    if let lastStatistic = statistic.last {
+                    if var lastStatistic = statisticManager.statistics.last {
                         lastStatistic.time += wearingDuration
+                        statisticManager.statistics[statisticManager.statistics.count - 1] = lastStatistic
                     }
                     
-                    do {
-                        try modelContext.save()
-                    } catch {
-                        print("저장 중 오류 발생: \(error)")
-                    }
+                    statisticManager.saveStatistics()
                 }
                 
                 wearingStartTime = nil // 착용 시간 초기화
             }
         }
-        .onChange(of: userManager.loadUser()?.goodPosture) { _ in
+        .onChange(of: userManager.loadUser()?.goodPosture) { _, _ in
             motionManager.reset() // goodPosture가 변경될 때 reset 호출
             motionManager.startUpdates()
         }
@@ -198,10 +197,12 @@ extension MainView {
     private func showView(isRealTime: Bool, timer: Timer?) -> some View {
         if isRealTime {
             RealTimePostureView(motionManager: motionManager, timerManager: timerManager)
+                .environmentObject(statisticManager)
         }
         
         else {
             StatisticView(motionManager: motionManager, timerManager: timerManager)
+                .environmentObject(statisticManager)
         }
     }
 }
@@ -209,19 +210,16 @@ extension MainView {
 extension MainView {
     private func checkAndAddTodayData() {
         let today = Calendar.current.startOfDay(for: Date())
-        let todayDataExists = statistic.contains { Calendar.current.isDate($0.date, inSameDayAs: today) }
-        
+        let todayDataExists = statisticManager.statistics.contains { Calendar.current.isDate($0.date, inSameDayAs: today) }
+
         if !todayDataExists {
-            // 오늘 데이터가 없으면 새 데이터 추가
-            let newTodayData = NotiStatistic(date: today)
-            modelContext.insert(newTodayData)
+            let newTodayData = Statistic(date: today)
+            statisticManager.addStatistic(newTodayData)
             print("오늘에 해당하는 데이터가 추가되었습니다.")
         }
-        
-        // 데이터 갯수가 8개를 초과할 경우 제일 오래된 데이터 삭제
-        if statistic.count > 8 {
-            guard let firstItem = statistic.first else { return } // 첫 번째 아이템 확인
-            modelContext.delete(firstItem)
+
+        if statisticManager.statistics.count > 8 {
+            statisticManager.statistics.removeFirst()
             print("가장 오래된 데이터가 삭제되었습니다.")
         }
     }
@@ -229,5 +227,5 @@ extension MainView {
 
 
 #Preview {
-    MainView()
+    MainView().environmentObject(StatisticManager())
 }

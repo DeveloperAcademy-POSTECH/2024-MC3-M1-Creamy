@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var statisticManager: StatisticManager
     @State var isFirst: Bool = true
     @State var isFromSetting: Bool = false
     @StateObject private var router = Router.shared
@@ -15,7 +16,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack(path: $router.navPath) {
             if !isFromSetting {
-                VStack{
+                VStack(spacing: 0){
                     NotiPermissionView()
                 }
                 .navigationDestination(for: Destination.self) { destination in
@@ -23,7 +24,7 @@ struct ContentView: View {
                 }
             }
             else if isFromSetting {
-                VStack{
+                VStack(spacing: 0){
                     MeasureReadyFirstView()
                 }
                 .navigationDestination(for: Destination.self) { destination in
@@ -35,5 +36,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView().environmentObject(StatisticManager())
 }

@@ -6,14 +6,11 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct RealTimePostureView: View {
+    @EnvironmentObject var statisticManager: StatisticManager
     @ObservedObject var motionManager: HeadphoneMotionManager
     @ObservedObject var timerManager: TimerManager
-//    var timer: Timer?
-//    @Binding var time: Int
-    @Query var statistic: [NotiStatistic]
     let user: User = UserManager().loadUser() ?? User(isFirst: true)
     
     
@@ -28,9 +25,9 @@ struct RealTimePostureView: View {
                             Text("바른 자세 유지 중!").font(.tnBodyRegular12).foregroundColor(.black).padding(.top, 4)
                             ZStack{
                                 RoundedRectangle(cornerRadius: 4)
-                                    .fill(statistic.last?.bestRecord ?? 0 < timerManager.timerValue ? Color.bestRecordBG : Color.white)
+                                    .fill(statisticManager.statistics.last?.bestRecord ?? 0 < timerManager.timerValue ? Color.bestRecordBG : Color.white)
                                     .frame(width: 57, height: 16)
-                                Text("최고 기록!").font(.tnBodyRegular10).foregroundColor(statistic.last?.bestRecord ?? 0 < timerManager.timerValue ? .bestRecordText : Color.white)
+                                Text("최고 기록!").font(.tnBodyRegular10).foregroundColor(statisticManager.statistics.last?.bestRecord ?? 0 < timerManager.timerValue ? .bestRecordText : Color.white)
                             }
                             .padding(.top, 4)
                         }
@@ -49,7 +46,7 @@ struct RealTimePostureView: View {
                 }
                 else {
                     //자세 알림 모드 & 에어팟 x
-                    VStack{
+                    VStack(spacing: 0){
                         Text("에어팟을 착용해 주세요.").font(.tnBodyRegular14).foregroundColor(.black)
                         Spacer()
                     }

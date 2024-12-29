@@ -6,12 +6,10 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct SettingView: View {
     @Environment(\.appDelegate) var appDelegate: AppDelegate?
-    @Environment(\.modelContext) private var modelContext
-    @Query private var statistics: [NotiStatistic]
+    @EnvironmentObject var statisticManager: StatisticManager
     
     @State private var userData: User = User(isFirst: false)
     
@@ -38,7 +36,7 @@ struct SettingView: View {
     
     var body: some View {
         // MARK: 개발자 모드가 들어가 있으므로 추후에 프레임 크기를 .frame(width: 560, height: 684)로 수정해야 합니다.
-        VStack {
+        VStack(spacing: 0){
             List {
                 // MARK: 설정 타이틀
                 Text("설정")
@@ -100,7 +98,7 @@ struct SettingView: View {
                                     
                                     notificationManager.settingTimeNoti(state: .normal)
                                     
-                                    timerManager.resetTimer(statistic: statistics)
+                                    timerManager.resetTimer(statistics: &statisticManager.statistics)
                                 }
                                 else {
                                     motionManager.isConnected = true
@@ -296,7 +294,7 @@ struct SettingView: View {
                                 Text("자세 재설정")
                                 Spacer()
                                 Button {
-                                    timerManager.resetTimer(statistic: statistics)
+                                    timerManager.resetTimer(statistics: &statisticManager.statistics)
                                     appDelegate?.openMeasureView()
                                     Router.shared.navigateToRoot()
                                 } label: {
@@ -391,12 +389,13 @@ struct SettingView: View {
                 HStack {
 //                    Button{
 //                        UserManager().deleteUser()
-//                        deleteAllData()
+//                        statisticManager.deleteAllData()
 //                    } label: {
 //                        Text("테스트용 데이터 삭제: 출시 전에 삭제해주세요")
 //                            .foregroundColor(.black)
 //                    }
 //                    .shadow(radius: 1)
+                    
                     Spacer()
                     Button{
                         exit(0)
@@ -418,19 +417,7 @@ struct SettingView: View {
 }
 
 extension SettingView {
-    private func deleteAllData() {
-        // 모든 데이터 삭제
-        for statistic in statistics {
-            modelContext.delete(statistic)
-        }
-        
-        // 변경 사항 저장
-        do {
-            try modelContext.save()
-        } catch {
-            print("데이터 삭제 오류: \(error.localizedDescription)")
-        }
-    }
+    
     private func test(_ pitch: CGFloat) -> CGFloat {
         // -0.32 / -0.24 / -0.16 / 0.08 / 0
         switch pitch {

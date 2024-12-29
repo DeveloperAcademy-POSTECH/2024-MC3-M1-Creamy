@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct MeasureFinishView: View {
-    @AppStorage("isFirst") var isFirst: Bool = true
     @Environment(\.appDelegate) var appDelegate: AppDelegate?
     @Environment(\.presentationMode) var presentationMode
-    @Environment(\.modelContext) var modelContext
+    @StateObject var statisticManager = StatisticManager()
+    
     let userManager = UserManager()
+    
     
     var body: some View {
         VStack(spacing: 0){
@@ -35,10 +36,11 @@ struct MeasureFinishView: View {
                     action: {
                         appDelegate?.createMenuBarIcon()
                         
-                        // default NotiStatistic 정보 생성
-                        let notiStatistic = NotiStatistic(date: Date())
-                        modelContext.insert(notiStatistic)
+                        // default Statistic 정보 생성
+                        let newTodayData = Statistic(date: Date())
+                        statisticManager.addStatistic(newTodayData)
 
+                        
                         NSApplication.shared.keyWindow?.close()
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {

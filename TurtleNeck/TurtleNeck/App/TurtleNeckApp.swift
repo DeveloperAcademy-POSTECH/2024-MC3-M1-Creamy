@@ -7,25 +7,12 @@
 
 import Foundation
 import SwiftUI
-import SwiftData
 import UserNotifications
-
-private var modelContainer: ModelContainer = {
-    let schema = Schema([NotiStatistic.self])
-    let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-     
-    do {
-        return try ModelContainer(for: schema,
-                                  configurations: [modelConfiguration])
-    } catch {
-        fatalError("modelContainer가 생성되지 않았습니다: \(error)")
-    }
-}()
 
 @main
 struct TurtleNeckApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @AppStorage("isFirst") var isFirst: Bool = true
+    @StateObject private var statisticManager = StatisticManager()
     var user = UserManager().loadUser() ??  User(isFirst: true)
     
     var body: some Scene {
@@ -33,7 +20,7 @@ struct TurtleNeckApp: App {
             if user.isFirst == true {
                 ContentView()
                     .environment(\.appDelegate, appDelegate)
-                    .modelContainer(modelContainer)
+                    .environmentObject(statisticManager)
                     .frame(width: 560, height: 532)
                     .background(.white)
             }
@@ -56,7 +43,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     private var isMenuBarIconVisible = false
     private var user = UserManager().loadUser() ??  User(isFirst: true)
     
-    @AppStorage("isFirst") var isFirst: Bool = true
+    var statisticManager = StatisticManager()
     
     func applicationDidFinishLaunching(_ notification: Notification) {
         UNUserNotificationCenter.current().delegate = self
@@ -75,7 +62,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         
         let mainView = MainView()
             .environment(\.appDelegate, self)
-            .modelContainer(modelContainer)
+            .environmentObject(statisticManager)
         
         popover.contentViewController = NSHostingController(rootView: mainView)
     }
@@ -138,10 +125,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         visualEffectView.layer?.cornerRadius = 10.0
 
         
-        let hostingView = NSHostingView(rootView: LaunchScreenView().environment(\.appDelegate, self).modelContainer(modelContainer))
+        let hostingView = NSHostingView(rootView: LaunchScreenView()
+            .environment(\.appDelegate, self)
+        )
         hostingView.frame = visualEffectView.bounds
         hostingView.autoresizingMask = [.width, .height]
-        ///
+
         visualEffectView.addSubview(hostingView)
         
         newWindow.contentView = visualEffectView
@@ -191,7 +180,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         visualEffectView.material = .light
         
         // NSHostingView 생성
-        let hostingView = NSHostingView(rootView: PIPView(notificationManager: notificationManager, motionManager: motionManager, timerManager: timerManager).environment(\.appDelegate, self).modelContainer(modelContainer))
+        let hostingView = NSHostingView(rootView: PIPView(notificationManager: notificationManager, motionManager: motionManager, timerManager: timerManager)
+            .environment(\.appDelegate, self)
+        )
         hostingView.frame = visualEffectView.bounds
         hostingView.autoresizingMask = [.width, .height]
         
@@ -229,7 +220,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         newWindow.isMovableByWindowBackground = true
         newWindow.setFrameAutosaveName("SettingWindow")
         
-        newWindow.contentView = NSHostingView(rootView: SettingView(notificationManager: notificationManager, motionManager: motionManager, timerManager: timerManager).environment(\.appDelegate, self).modelContainer(modelContainer))
+        newWindow.contentView = NSHostingView(rootView: SettingView(notificationManager: notificationManager, motionManager: motionManager, timerManager: timerManager)
+            .environment(\.appDelegate, self)
+            .environmentObject(statisticManager)
+        )
         
         newWindow.delegate = self
         
@@ -268,7 +262,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         newWindow.contentView = NSHostingView(rootView:
                                                 ContentView(isFromSetting: true)
             .environment(\.appDelegate, self)
-            .modelContainer(modelContainer)
             .background(.white))
         
         newWindow.delegate = self

@@ -8,15 +8,20 @@
 import Foundation
 
 func formattedTime(from seconds: Int) -> String {
-    let hours = seconds / 3600
+//    let hours = seconds / 3600
     let minutes = (seconds % 3600) / 60
     let secs = seconds % 60
     
-    if hours > 0 {
-        return String(format: "%02d시간 %02d분 %02d초", hours, minutes, secs)
-    } else if minutes > 0 {
-        return String(format: "%02d분 %02d초", minutes, secs)
+//    if hours > 0 {
+//        return String(format: "%01d시간%01d분%01d초", hours, minutes, secs)
+//    } else if minutes > 0 {
+//        return String(format: "%01d분%01d초", minutes, secs)
+//    } else {
+//        return String(format: "%01d초", secs)
+//    }
+    if minutes > 0 {
+        return String(format: "%01d분%01d초", minutes, secs)
     } else {
-        return String(format: "%02d초", secs)
+        return String(format: "%01d초", secs)
     }
 }

@@ -12,7 +12,7 @@ struct MeasurePostureView: View {
     @StateObject private var motionManager = HeadphoneMotionManager()
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             if isCountdownComplete {
                 MeasuringView(motionManager: motionManager)
                     .onAppear {

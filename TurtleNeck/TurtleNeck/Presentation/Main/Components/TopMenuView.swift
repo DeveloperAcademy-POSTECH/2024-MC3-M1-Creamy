@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct TopMenuView: View {
-    @Environment(\.appDelegate) var appDelegate: AppDelegate?
-    
+    private let userManager = UserManager()
     let action: () -> Void
+    
+    @Environment(\.appDelegate) var appDelegate: AppDelegate?
     @ObservedObject var notificationManager: NotificationManager
     @ObservedObject var motionManager: HeadphoneMotionManager
     @ObservedObject var timerManager: TimerManager
     
-    let userManager = UserManager()
     
     var body: some View {
         HStack(alignment: .center,spacing: 4) {

@@ -8,14 +8,13 @@
 import SwiftUI
 
 struct CheckDeviceView: View {
-    let userManager = UserManager()
-    
+    private let userManager = UserManager()
+
     @State private var isMeasuringBadHovered = false
     @State private var isRegularTimeHovered = false
     
     var body: some View {
         VStack(spacing: 12){
-            
             Text("받고 싶은 알림을 선택해 주세요.")
                 .font(.tnHeadline20)
 

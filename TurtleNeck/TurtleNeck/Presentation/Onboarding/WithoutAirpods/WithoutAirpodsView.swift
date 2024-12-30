@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct WithoutAirpodsView: View {
+    private let userManager = UserManager()
+    private var cycles: [Double] = [15, 30, 45, 60]
+    
     @Environment(\.appDelegate) var appDelegate: AppDelegate?
     @Environment(\.presentationMode) var presentationMode
-    @StateObject var statisticManager = StatisticManager()
-    @State private var isAppStartHover = false
-    let userManager = UserManager()
     
-    var cycles: [Double] = [15, 30, 45, 60]
+    @StateObject private var statisticManager = StatisticManager()
+    @State private var isAppStartHover = false
     @State private var selectedCycle: Double = 15
     
     var body: some View {

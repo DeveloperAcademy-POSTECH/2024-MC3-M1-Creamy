@@ -30,7 +30,7 @@ class HeadphoneMotionManager: ObservableObject {
     
     private var motionTimer: Timer? //에어팟을 빼고 있는 시간을 나타냅니다. 즉, 모션 데이터의 수집이 안된 시간
     
-    let userManager = UserManager()
+    private let userManager = UserManager()
     var user: User?
     
     init() {

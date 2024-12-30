@@ -69,14 +69,15 @@ struct MeasureCountDownView: View {
 
 //MARK: - 자세 측정 중 뷰
 struct MeasuringView: View {
-    @State private var pitchValues: [Double] = []
-    @ObservedObject var motionManager: HeadphoneMotionManager
-    @State private var progress = 0.0
+    private let userManager = UserManager()
     private let totalTime: Double = 6
+    
+    @ObservedObject var motionManager: HeadphoneMotionManager
+    @State private var pitchValues: [Double] = []
+    @State private var progress = 0.0
     @State private var timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
     @State private var hasExecutedElseBlock = false
     
-    let userManager = UserManager()
     
     var body: some View {
         VStack(spacing: 0){

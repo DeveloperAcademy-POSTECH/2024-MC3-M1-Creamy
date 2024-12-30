@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct MeasureFinishView: View {
+    private let userManager = UserManager()
+    
     @Environment(\.appDelegate) var appDelegate: AppDelegate?
     @Environment(\.presentationMode) var presentationMode
     @StateObject var statisticManager = StatisticManager()
-    
-    let userManager = UserManager()
-    
     
     var body: some View {
         VStack(spacing: 0){

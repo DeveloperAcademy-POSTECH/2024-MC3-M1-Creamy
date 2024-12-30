@@ -33,17 +33,16 @@ struct TurtleNeckApp: App {
 }
 
 
-class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, UNUserNotificationCenterDelegate {
     private var launchWindowController: NSWindowController?
     private var settingWindowController: NSWindowController?
-    private var alwaysOnTopWindowController: NSWindowController?
+    private var pipWindowController: NSWindowController?
     private var measureWindowController: NSWindowController?
     private var statusItem: NSStatusItem!
     private var popover: NSPopover!
     private var isMenuBarIconVisible = false
     private var user = UserManager().loadUser() ??  User(isFirst: true)
-    
-    var statisticManager = StatisticManager()
+    private var statisticManager = StatisticManager()
     
     func applicationDidFinishLaunching(_ notification: Notification) {
         UNUserNotificationCenter.current().delegate = self
@@ -67,8 +66,24 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         popover.contentViewController = NSHostingController(rootView: mainView)
     }
     
+    func windowWillClose(_ notification: Notification) {
+        // 팝오버를 다시 열기
+        showPopover()
+    }
+    
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.banner, .sound])
+    }
+}
+
+/// Popover
+extension AppDelegate {
+    @objc private func togglePopover(_ sender: Any?) {
+        if popover.isShown {
+            popover.performClose(sender)
+        } else {
+            showPopover()
+        }
     }
     
     func createMenuBarIcon() {
@@ -97,20 +112,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         isMenuBarIconVisible = true
     }
     
-    @objc func togglePopover(_ sender: Any?) {
-        if popover.isShown {
-            popover.performClose(sender)
-        } else {
-            showPopover()
-        }
-    }
-    
     func showPopover() {
         if let button = statusItem.button {
             popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
         }
     }
-    
+}
+
+/// Open NSWindow
+extension AppDelegate {
     func openLaunchScreenView(){
         let newWindow = NSWindow(contentRect: NSMakeRect(0, 0, 560, 560),
                                  styleMask: [.borderless], // 제목 바 없는 스타일
@@ -163,7 +173,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         }
     }
     
-    func openAlwaysOnTopView(notificationManager: NotificationManager, motionManager: HeadphoneMotionManager, timerManager: TimerManager) {
+    func openPIPView(notificationManager: NotificationManager, motionManager: HeadphoneMotionManager, timerManager: TimerManager) {
         let newWindow = NSWindow(contentRect: NSMakeRect(100, 100, 286, 160),
                                  styleMask: [.titled, .closable, .fullSizeContentView],
                                  backing: .buffered,
@@ -196,13 +206,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         newWindow.isMovableByWindowBackground = true
         newWindow.setFrameAutosaveName("AlwaysOnTopWindow")
         
-        if alwaysOnTopWindowController == nil {
-            alwaysOnTopWindowController = NSWindowController(window: newWindow)
-            alwaysOnTopWindowController?.showWindow(self)
-            alwaysOnTopWindowController?.window?.makeKeyAndOrderFront(nil)
+        if pipWindowController == nil {
+            pipWindowController = NSWindowController(window: newWindow)
+            pipWindowController?.showWindow(self)
+            pipWindowController?.window?.makeKeyAndOrderFront(nil)
         }
         else{
-            alwaysOnTopWindowController?.window?.makeKeyAndOrderFront(nil)
+            pipWindowController?.window?.makeKeyAndOrderFront(nil)
         }
     }
     
@@ -273,13 +283,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         else{
             measureWindowController?.window?.makeKeyAndOrderFront(nil)
         }
-    }
-}
-
-extension AppDelegate: NSWindowDelegate {
-    func windowWillClose(_ notification: Notification) {
-        // 팝오버를 다시 열기
-        showPopover()
     }
 }
 

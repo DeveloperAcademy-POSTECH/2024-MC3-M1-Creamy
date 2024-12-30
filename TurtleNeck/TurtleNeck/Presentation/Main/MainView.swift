@@ -33,7 +33,7 @@ struct MainView: View {
                 segmentView.padding(EdgeInsets(top: 4, leading: 0, bottom: 0, trailing: 16))
                 
                 TopMenuView(action: {
-                    appDelegate?.openAlwaysOnTopView(notificationManager: notificationManager, motionManager: motionManager, timerManager: timerManager)
+                    appDelegate?.openPIPView(notificationManager: notificationManager, motionManager: motionManager, timerManager: timerManager)
                 }, notificationManager: notificationManager, motionManager: motionManager, timerManager: timerManager)
                 
             }

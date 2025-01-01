@@ -20,19 +20,24 @@ class TimerManager: ObservableObject {
         }
     }
 
-    func resetTimer(statistic: [NotiStatistic]) {
-        self.checkBestRecord(statistic: statistic)
-        timer?.invalidate() // 타이머 중지
+    func resetTimer(statistics: inout [Statistic]) {
+        checkBestRecord(statistics: &statistics)
+        timer?.invalidate()
         timer = nil
-        timerValue = 0 // 값 초기화
+        timerValue = 0
     }
     
-    func checkBestRecord(statistic: [NotiStatistic]) {
-        if let todayStatistic = statistic.last {
-            if timerValue > todayStatistic.bestRecord {
-                todayStatistic.bestRecord = timerValue // bestRecord 갱신
-                print("Best Record 갱신됨: \(todayStatistic.bestRecord)초")
-            }
+    func checkBestRecord(statistics: inout [Statistic]) {
+        guard let todayStatisticIndex = statistics.firstIndex(where: { Calendar.current.isDate($0.date, inSameDayAs: Date()) }) else {
+            return
+        }
+        
+        var todayStatistic = statistics[todayStatisticIndex]
+
+        if timerValue > todayStatistic.bestRecord {
+            todayStatistic.bestRecord = timerValue
+            statistics[todayStatisticIndex] = todayStatistic
+            print("Best Record 갱신됨: \(todayStatistic.bestRecord)초")
         }
     }
 }

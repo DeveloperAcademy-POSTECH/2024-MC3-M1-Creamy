@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct StatisticView: View {
+    @EnvironmentObject var statisticManager: StatisticManager
     @State private var isToday: Bool = true
     @ObservedObject var motionManager: HeadphoneMotionManager
     @ObservedObject var timerManager: TimerManager
-//    @Binding var time: Int
     let user: User = UserManager().loadUser() ?? User(isFirst: true)
     
     var body: some View {
@@ -24,7 +24,7 @@ struct StatisticView: View {
     }
     
     private var posturePostureView: some View {
-        VStack{
+        VStack(spacing: 0){
             HStack {
                 Button(action: {
                     withAnimation {
@@ -65,7 +65,7 @@ struct StatisticView: View {
     }
     
     private var defaultModePostureView: some View {
-        VStack{
+        VStack(spacing: 0){
             Image("CryingTurtle").resizable().scaledToFit().frame(width: 100,height: 100).padding(.top,8)
             Text("자세 알림을 선택했을 경우에만\n 사용할 수 있어요.").font(.tnBodyRegular14).foregroundColor(.black)
                 .multilineTextAlignment(.center)
@@ -81,12 +81,18 @@ extension StatisticView {
     private func showView(isToday: Bool) -> some View {
         if isToday {
             DayPostureView(timerManager: timerManager)
+                .environmentObject(statisticManager)
                 .transition(.move(edge: .leading))
         }
         else {
             WeekPostureView()
+                .environmentObject(statisticManager)
                 .transition(.move(edge: .trailing))
         }
     }
+}
+
+#Preview {
+    StatisticView(motionManager: HeadphoneMotionManager(), timerManager: TimerManager()).environmentObject(StatisticManager())
 }
 

@@ -17,6 +17,8 @@
 		4F8160732C57EC5B0030E5D6 /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8160722C57EC5B0030E5D6 /* FontExtension.swift */; };
 		4F89F8E32C5A261700A9953D /* StatisticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F89F8E22C5A261700A9953D /* StatisticView.swift */; };
 		4F89F8E52C5A290F00A9953D /* DayPostureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F89F8E42C5A290F00A9953D /* DayPostureView.swift */; };
+		4FA31D622D2183AF00038CDF /* Statistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA31D612D2183A900038CDF /* Statistic.swift */; };
+		4FA31D642D2183EC00038CDF /* StatisticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA31D632D2183E700038CDF /* StatisticManager.swift */; };
 		4FB171882CA01B81005FD046 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB171872CA01B73005FD046 /* TimerManager.swift */; };
 		4FF6E4942C5FC5F2002B08A6 /* PIPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF6E4932C5FC5F2002B08A6 /* PIPView.swift */; };
 		512DD15A2C538B410033985C /* TurtleNeckApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512DD1592C538B410033985C /* TurtleNeckApp.swift */; };
@@ -38,7 +40,6 @@
 		51EB27582C5C7F2500CEE9FB /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EB27572C5C7F2500CEE9FB /* NotificationManager.swift */; };
 		BD17242D2C592FF200C80B4B /* HoverableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD17242C2C592FF200C80B4B /* HoverableButton.swift */; };
 		BD2713122C539C12000820F6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2713112C539C12000820F6 /* User.swift */; };
-		BD2713142C539C34000820F6 /* NotiStatistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2713132C539C34000820F6 /* NotiStatistic.swift */; };
 		BD4020DC2C6708AE00FF5F60 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4020DB2C6708AE00FF5F60 /* UserManager.swift */; };
 		BD500FBA2C5BDFED00F0D257 /* HeadphoneMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD500FB92C5BDFED00F0D257 /* HeadphoneMotionManager.swift */; };
 		BD76C5DB2C5678E6004993EC /* CheckDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD76C5DA2C5678E6004993EC /* CheckDeviceView.swift */; };
@@ -63,6 +64,8 @@
 		4F8160742C57EC840030E5D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		4F89F8E22C5A261700A9953D /* StatisticView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticView.swift; sourceTree = "<group>"; };
 		4F89F8E42C5A290F00A9953D /* DayPostureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayPostureView.swift; sourceTree = "<group>"; };
+		4FA31D612D2183A900038CDF /* Statistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistic.swift; sourceTree = "<group>"; };
+		4FA31D632D2183E700038CDF /* StatisticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticManager.swift; sourceTree = "<group>"; };
 		4FB171872CA01B73005FD046 /* TimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
 		4FF6E4932C5FC5F2002B08A6 /* PIPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIPView.swift; sourceTree = "<group>"; };
 		512DD1562C538B410033985C /* TurtleNeck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TurtleNeck.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,7 +89,6 @@
 		51EB27572C5C7F2500CEE9FB /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		BD17242C2C592FF200C80B4B /* HoverableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoverableButton.swift; sourceTree = "<group>"; };
 		BD2713112C539C12000820F6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		BD2713132C539C34000820F6 /* NotiStatistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiStatistic.swift; sourceTree = "<group>"; };
 		BD4020DB2C6708AE00FF5F60 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		BD500FB92C5BDFED00F0D257 /* HeadphoneMotionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadphoneMotionManager.swift; sourceTree = "<group>"; };
 		BD76C5DA2C5678E6004993EC /* CheckDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckDeviceView.swift; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 		512DD1682C538E3E0033985C /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				4FA31D632D2183E700038CDF /* StatisticManager.swift */,
 				4FB171872CA01B73005FD046 /* TimerManager.swift */,
 				512DD17A2C5391660033985C /* DummyHelper.swift */,
 				BD76C5ED2C56AE83004993EC /* Router.swift */,
@@ -351,8 +354,8 @@
 		BD2713102C539BFF000820F6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4FA31D612D2183A900038CDF /* Statistic.swift */,
 				BD2713112C539C12000820F6 /* User.swift */,
-				BD2713132C539C34000820F6 /* NotiStatistic.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -405,7 +408,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1530;
-				LastUpgradeCheck = 1530;
+				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					512DD1552C538B410033985C = {
 						CreatedOnToolsVersion = 15.3;
@@ -453,19 +456,19 @@
 				BD4020DC2C6708AE00FF5F60 /* UserManager.swift in Sources */,
 				BD17242D2C592FF200C80B4B /* HoverableButton.swift in Sources */,
 				512DD1842C5392CC0033985C /* SettingView.swift in Sources */,
+				4FA31D622D2183AF00038CDF /* Statistic.swift in Sources */,
 				515673B12C918A79008052CB /* SliderComponent.swift in Sources */,
 				4FB171882CA01B81005FD046 /* TimerManager.swift in Sources */,
 				4F8160732C57EC5B0030E5D6 /* FontExtension.swift in Sources */,
 				4F1D5FB52C67C51D00B2051A /* TimeFormatter.swift in Sources */,
+				4FA31D642D2183EC00038CDF /* StatisticManager.swift in Sources */,
 				51300EC32C62A880000A4EF5 /* CharacterNotiManager.swift in Sources */,
 				4F5FEFBD2C5C762000E00081 /* TopMenuView.swift in Sources */,
 				512DD1802C5392A60033985C /* MainView.swift in Sources */,
 				4F89F8E52C5A290F00A9953D /* DayPostureView.swift in Sources */,
 				4F89F8E32C5A261700A9953D /* StatisticView.swift in Sources */,
 				4F5FEFBB2C5C761400E00081 /* TurtleView.swift in Sources */,
-				BD2713142C539C34000820F6 /* NotiStatistic.swift in Sources */,
 				BD76C5DF2C567952004993EC /* MeasureReadyView.swift in Sources */,
-				BD2713142C539C34000820F6 /* NotiStatistic.swift in Sources */,
 				512DD15C2C538B410033985C /* ContentView.swift in Sources */,
 				512DD1822C5392BF0033985C /* NotiPermissionView.swift in Sources */,
 				BD76C5E82C567B1E004993EC /* MeasureFinishView.swift in Sources */,
@@ -528,6 +531,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -591,6 +595,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -622,6 +627,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 20240929;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"TurtleNeck/Preview Content\"";
 				DEVELOPMENT_TEAM = U6CCD5BT22;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -656,6 +662,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 20240929;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"TurtleNeck/Preview Content\"";
 				DEVELOPMENT_TEAM = U6CCD5BT22;
 				ENABLE_HARDENED_RUNTIME = YES;

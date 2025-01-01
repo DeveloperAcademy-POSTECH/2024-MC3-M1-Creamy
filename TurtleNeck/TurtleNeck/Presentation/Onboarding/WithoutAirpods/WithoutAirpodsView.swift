@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct WithoutAirpodsView: View {
-    @AppStorage("isFirst") var isFirst: Bool = true
+    private let userManager = UserManager()
+    private var cycles: [Double] = [15, 30, 45, 60]
+    
     @Environment(\.appDelegate) var appDelegate: AppDelegate?
     @Environment(\.presentationMode) var presentationMode
-    @Environment(\.modelContext) var modelContext
-    @State private var isAppStartHover = false
-    let userManager = UserManager()
     
-    var cycles: [Double] = [15, 30, 45, 60]
+    @StateObject private var statisticManager = StatisticManager()
+    @State private var isAppStartHover = false
     @State private var selectedCycle: Double = 15
     
     var body: some View {
@@ -45,9 +45,9 @@ struct WithoutAirpodsView: View {
             HoverableButton(action: {
                 appDelegate?.createMenuBarIcon()
                 
-                // default NotiStatistic 정보 생성
-                let notiStatistic = NotiStatistic(date: Date())
-                modelContext.insert(notiStatistic)
+                // default Statistic 정보 생성
+                let newTodayData = Statistic(date: Date())
+                statisticManager.addStatistic(newTodayData)
                 
                 NSApplication.shared.keyWindow?.close()
                 

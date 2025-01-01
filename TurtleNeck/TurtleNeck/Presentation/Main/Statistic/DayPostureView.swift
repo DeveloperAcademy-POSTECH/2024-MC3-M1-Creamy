@@ -6,20 +6,18 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct DayPostureView: View {
-//    @Binding var time: Int
+    @EnvironmentObject var statisticManager: StatisticManager
     @ObservedObject var timerManager: TimerManager
-    @Query var statistic: [NotiStatistic]
     
     var body: some View {
         VStack(spacing: 0){
             Image("SmileTurtle").resizable().scaledToFit().frame(width: 100,height: 100).padding(.top,16)
             Text("오늘의 최고기록").font(.tnBodyRegular12).foregroundColor(.black).padding(.top, 14)
             
-//            let highestRecord = max(statistic.last?.bestRecord ?? 0, time)
-            Text(formattedTime(from: statistic.last?.bestRecord ?? 0)).font(.tnHeadline20).foregroundColor(.black).padding(.top, 4)
+            let highestRecord = max((statisticManager.statistics.last?.bestRecord ?? 0), 0)
+            Text(formattedTime(from: highestRecord)).font(.tnHeadline20).foregroundColor(.black).padding(.top, 4)
         }
     }
 }

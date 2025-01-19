@@ -23,5 +23,5 @@ struct User: Codable {
     var isNotificationOn: Bool = true // 알림 On/Off: 기본 값 On(true)
     var timeNotiCycle: Double = 15 * 60 // 시간 알림 시간: 기본 값 15분
     var badNotiCycle: Double = 10 // 나쁜 자세 유지 시간(일반 알림): 기본 값 10초
-    var worseNotiCycle: Double = 3 * 60 // 나쁜 자세 유지 시간(캐릭터 알림): 기본 값 3분
+    var worseNotiCycle: Double = 1 * 60 // 나쁜 자세 유지 시간(캐릭터 알림): 기본 값 1분
 }

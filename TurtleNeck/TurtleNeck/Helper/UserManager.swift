@@ -13,7 +13,7 @@ class UserManager: ObservableObject {
     @AppStorage("user") private var userData: Data = Data()
     @Published var user: User = User(isFirst: true)
     
-    init(){
+    private init(){
         loadUser()
     }
     

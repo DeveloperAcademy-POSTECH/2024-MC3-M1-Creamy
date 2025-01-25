@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct CheckDeviceView: View {
-    private let userManager = UserManager()
-
+    @EnvironmentObject private var userManager: UserManager
     @State private var isMeasuringBadHovered = false
     @State private var isRegularTimeHovered = false
     
@@ -25,8 +24,7 @@ struct CheckDeviceView: View {
                         
             HStack(spacing: 16){
                 Button(action: {
-                    userManager.setUserMode(selectedMode: .posture, keyPath: \User.notificationMode)
-                    
+                    userManager.updateUser(keyPath: \User.notificationMode, value: .posture)
                     Router.shared.navigate(to: .motionPermission)
                 }) {
                     VStack(spacing: 0){
@@ -65,8 +63,7 @@ struct CheckDeviceView: View {
                 )
                 
                 Button(action: {
-                    userManager.setUserMode(selectedMode: NotificationMode.default, keyPath: \User.notificationMode)
-                    
+                    userManager.updateUser(keyPath: \User.notificationMode, value: NotificationMode.default)
                     Router.shared.navigate(to: .withoutAirpods)
                 }) {
                     VStack(spacing: 0){

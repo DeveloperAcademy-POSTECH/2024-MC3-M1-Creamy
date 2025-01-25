@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct RealTimePostureView: View {
-    @EnvironmentObject var statisticManager: StatisticManager
+    @EnvironmentObject private var statisticManager: StatisticManager
+    @EnvironmentObject private var userManager: UserManager
     @ObservedObject var motionManager: HeadphoneMotionManager
     @ObservedObject var timerManager: TimerManager
-    let user: User = UserManager().loadUser() ?? User(isFirst: true)
     
     
     var body: some View {
         VStack(spacing:0){
-            if user.notificationMode == .posture {
+            if userManager.user.notificationMode == .posture {
                 if motionManager.isConnected {
                     //자세 알림 모드 & 에어팟 o
                     if timerManager.timer != nil {
@@ -66,6 +66,7 @@ struct RealTimePostureView: View {
             }
             
             TurtleView(motionManager: motionManager)
+                .environmentObject(userManager)
                 .offset(x: -16,y: 18)
         }
     }

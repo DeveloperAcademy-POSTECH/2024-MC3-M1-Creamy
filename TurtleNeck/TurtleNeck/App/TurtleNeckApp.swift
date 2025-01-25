@@ -13,14 +13,15 @@ import UserNotifications
 struct TurtleNeckApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private var statisticManager = StatisticManager()
-    var user = UserManager().loadUser() ??  User(isFirst: true)
+    @StateObject private var userManager = UserManager.shared
     
     var body: some Scene {
         WindowGroup {
-            if user.isFirst == true {
+            if userManager.user.isFirst == true {
                 ContentView()
                     .environment(\.appDelegate, appDelegate)
                     .environmentObject(statisticManager)
+                    .environmentObject(userManager)
                     .frame(width: 560, height: 532)
                     .background(.white)
             }
@@ -41,8 +42,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, UNUserNoti
     private var statusItem: NSStatusItem!
     private var popover: NSPopover!
     private var isMenuBarIconVisible = false
-    private var user = UserManager().loadUser() ??  User(isFirst: true)
     private var statisticManager = StatisticManager()
+    private var userManager = UserManager.shared
     
     func applicationDidFinishLaunching(_ notification: Notification) {
         UNUserNotificationCenter.current().delegate = self
@@ -55,13 +56,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, UNUserNoti
         popover.contentSize = NSSize(width: 348, height: 232)
         popover.behavior = .transient
         
-        if !user.isFirst {
+        if !userManager.user.isFirst {
             openLaunchScreenView()
         }
         
         let mainView = MainView()
             .environment(\.appDelegate, self)
             .environmentObject(statisticManager)
+            .environmentObject(userManager)
         
         popover.contentViewController = NSHostingController(rootView: mainView)
     }
@@ -192,6 +194,7 @@ extension AppDelegate {
         // NSHostingView 생성
         let hostingView = NSHostingView(rootView: PIPView(notificationManager: notificationManager, motionManager: motionManager, timerManager: timerManager)
             .environment(\.appDelegate, self)
+            .environmentObject(userManager)
         )
         hostingView.frame = visualEffectView.bounds
         hostingView.autoresizingMask = [.width, .height]
@@ -232,6 +235,7 @@ extension AppDelegate {
         
         newWindow.contentView = NSHostingView(rootView: SettingView(notificationManager: notificationManager, motionManager: motionManager, timerManager: timerManager)
             .environment(\.appDelegate, self)
+            .environmentObject(userManager)
             .environmentObject(statisticManager)
         )
         

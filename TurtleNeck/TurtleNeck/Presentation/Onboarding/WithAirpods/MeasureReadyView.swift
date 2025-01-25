@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MeasureReadyFirstView: View {
+    @EnvironmentObject private var userManager: UserManager
     var body: some View {
         VStack (spacing: 0){
             Image("ExplanationStep1")
@@ -39,6 +40,7 @@ struct MeasureReadyFirstView: View {
 }
 
 struct MeasureReadySecondView: View {
+    @EnvironmentObject private var userManager: UserManager
     var body: some View {
         VStack (spacing: 0){
             Image("ExplanationStep2")
@@ -67,6 +69,7 @@ struct MeasureReadySecondView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
+    
 }
 
 #Preview {

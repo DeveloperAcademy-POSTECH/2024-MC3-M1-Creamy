@@ -1,5 +1,5 @@
 //
-//  UserHandler.swift
+//  UserManager.swift
 //  TurtleNeck
 //
 //  Created by Doran on 1/25/25.
@@ -7,7 +7,9 @@
 
 import SwiftUI
 
-class UserHandler: ObservableObject {
+class UserManager: ObservableObject {
+    static let shared = UserManager()
+    
     @AppStorage("user") private var userData: Data = Data()
     @Published var user: User = User(isFirst: true)
     

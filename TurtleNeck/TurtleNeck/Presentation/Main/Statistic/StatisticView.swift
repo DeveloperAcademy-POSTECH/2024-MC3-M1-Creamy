@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct StatisticView: View {
-    @EnvironmentObject var statisticManager: StatisticManager
+    @EnvironmentObject private var statisticManager: StatisticManager
+    @EnvironmentObject private var userManager: UserManager
     @State private var isToday: Bool = true
     @ObservedObject var motionManager: HeadphoneMotionManager
     @ObservedObject var timerManager: TimerManager
-    let user: User = UserManager().loadUser() ?? User(isFirst: true)
     
     var body: some View {
-        if(user.notificationMode == .posture){
+        if(userManager.user.notificationMode == .posture){
             posturePostureView.padding(.horizontal,8)
         }
         else{

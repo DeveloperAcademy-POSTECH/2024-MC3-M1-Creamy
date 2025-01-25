@@ -9,8 +9,7 @@ import SwiftUI
 import CoreMotion
 
 struct MotionPermissionView: View {
-    private let userManager = UserManager()
-    
+    @EnvironmentObject private var userManager: UserManager
     @StateObject private var motionManager = HeadphoneMotionManager()
     
     var body: some View {

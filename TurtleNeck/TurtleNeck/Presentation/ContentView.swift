@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject private var userManager: UserManager
     @State var isFromSetting: Bool = false
     @StateObject private var router = Router.shared
     
@@ -23,6 +24,7 @@ struct ContentView: View {
             }
             .navigationDestination(for: Destination.self) { destination in
                 destinationPath(destination: destination)
+                    .environmentObject(userManager)
             }
         }
     }

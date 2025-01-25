@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct MeasureFinishView: View {
-    private let userManager = UserManager()
-    
+    @EnvironmentObject private var userManager: UserManager
     @Environment(\.appDelegate) var appDelegate: AppDelegate?
     @Environment(\.presentationMode) var presentationMode
     @StateObject var statisticManager = StatisticManager()
@@ -45,8 +44,7 @@ struct MeasureFinishView: View {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             appDelegate?.showPopover()
                         }
-                        
-                        userManager.setUserMode(selectedMode: false, keyPath: \User.isFirst)
+                        userManager.updateUser(keyPath: \User.isFirst, value: false)
                     },
                     label: "시작하기"
                 )

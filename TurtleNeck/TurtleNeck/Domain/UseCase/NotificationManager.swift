@@ -12,6 +12,7 @@ class NotificationManager: ObservableObject {
     
     private let notiCenter = UNUserNotificationCenter.current()
     private var notiTimer: Timer?
+    private var userManager = UserManager.shared
     
     // 알림 권한 상태 받아오기
     func fetchNotiPermissionState() {
@@ -96,56 +97,58 @@ class NotificationManager: ObservableObject {
     // 알림 컨텐츠 가져오기
     private func getNotiContent(state: NotiContentState) -> UNMutableNotificationContent{
         
-        guard let userData = UserManager().loadUser() else {
-            print("getNotiContent UserManager().loadUser() 실패")
+        if userManager.user.isFirst {
+            print("getNotiContent: user값이 없습니다.")
             return UNMutableNotificationContent()
         }
-        
-        switch state {
-        case .worse:
-            guard let content = WorseNotiContent.contents.randomElement()?.notiContent else{
-                return UNMutableNotificationContent()
+        else {
+            switch state {
+            case .worse:
+                guard let content = WorseNotiContent.contents.randomElement()?.notiContent else{
+                    return UNMutableNotificationContent()
+                }
+                content.sound = userManager.user.isSoundOn ? .default : .none
+                return content
+            case .bad:
+                guard let content = BadNotiContent.contents.randomElement()?.notiContent else{
+                    return UNMutableNotificationContent()
+                }
+                content.sound = userManager.user.isSoundOn ? .default : .none
+                return content
+            case .good:
+                guard let content = GoodNotiContent.contents.randomElement()?.notiContent else{
+                    return UNMutableNotificationContent()
+                }
+                content.sound = userManager.user.isSoundOn ? .default : .none
+                return content
+            case .normal:
+                guard let content = NormalNotiContent.contents.randomElement()?.notiContent else{
+                    return UNMutableNotificationContent()
+                }
+                content.sound = userManager.user.isSoundOn ? .default : .none
+                return content
             }
-            content.sound = userData.isSoundOn ? .default : .none
-            return content
-        case .bad:
-            guard let content = BadNotiContent.contents.randomElement()?.notiContent else{
-                return UNMutableNotificationContent()
-            }
-            content.sound = userData.isSoundOn ? .default : .none
-            return content
-        case .good:
-            guard let content = GoodNotiContent.contents.randomElement()?.notiContent else{
-                return UNMutableNotificationContent()
-            }
-            content.sound = userData.isSoundOn ? .default : .none
-            return content
-        case .normal:
-            guard let content = NormalNotiContent.contents.randomElement()?.notiContent else{
-                return UNMutableNotificationContent()
-            }
-            content.sound = userData.isSoundOn ? .default : .none
-            return content
         }
     }
     
     // 알림 주기 가져오기
     private func getNotiCycle(state: NotiContentState) -> Double{
         
-        guard let userData = UserManager().loadUser() else {
-            print("getNotiCycle UserManager().loadUser() 오류")
+        if userManager.user.isFirst {
+            print("getNotiCycle: user값이 없습니다.")
             return 0
         }
-        
-        switch state {
-        case .worse:
-            return userData.worseNotiCycle
-        case .bad:
-            return userData.badNotiCycle
-        case .good:
-            return 1
-        case .normal:
-            return userData.timeNotiCycle
+        else {
+            switch state {
+            case .worse:
+                return userManager.user.worseNotiCycle
+            case .bad:
+                return userManager.user.badNotiCycle
+            case .good:
+                return 1
+            case .normal:
+                return userManager.user.timeNotiCycle
+            }
         }
     }
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct WeekPostureView: View {
-    @EnvironmentObject var statisticManager: StatisticManager
+    @EnvironmentObject private var statisticManager: StatisticManager
 
     var body: some View {
         VStack(alignment: .center, spacing: 0) {

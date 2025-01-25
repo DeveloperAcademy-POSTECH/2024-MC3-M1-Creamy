@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct NotiPermissionView: View {
-    private let userManager = UserManager()
-    
+    @EnvironmentObject private var userManager: UserManager
     var body: some View {
         VStack(spacing: 0){
             VStack(spacing: 0){
@@ -30,9 +29,7 @@ struct NotiPermissionView: View {
             
             HoverableButton(
                 action: {
-                    let user = User(isFirst: true)
-                    userManager.saveUser(user)
-
+                    userManager.saveUser()
                     Router.shared.navigate(to: .checkDevice)
                 },
                 label: "다음"

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DayPostureView: View {
-    @EnvironmentObject var statisticManager: StatisticManager
+    @EnvironmentObject private var statisticManager: StatisticManager
     @ObservedObject var timerManager: TimerManager
     
     var body: some View {

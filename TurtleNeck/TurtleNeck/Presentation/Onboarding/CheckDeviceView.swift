@@ -25,7 +25,7 @@ struct CheckDeviceView: View {
             HStack(spacing: 16){
                 Button(action: {
                     userManager.updateUser(keyPath: \User.notificationMode, value: .posture)
-                    Router.shared.navigate(to: .motionPermission)
+                    NavigationManager.shared.navigate(to: .motionPermission)
                 }) {
                     VStack(spacing: 0){
                         Image("MeasuringBad")
@@ -64,7 +64,7 @@ struct CheckDeviceView: View {
                 
                 Button(action: {
                     userManager.updateUser(keyPath: \User.notificationMode, value: NotificationMode.default)
-                    Router.shared.navigate(to: .withoutAirpods)
+                    NavigationManager.shared.navigate(to: .withoutAirpods)
                 }) {
                     VStack(spacing: 0){
                         Image("RegularTime")

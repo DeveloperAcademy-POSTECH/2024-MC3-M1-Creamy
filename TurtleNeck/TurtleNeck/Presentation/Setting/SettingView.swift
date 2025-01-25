@@ -290,7 +290,7 @@ struct SettingView: View {
                                 Button {
                                     timerManager.resetTimer(statistics: &statisticManager.statistics)
                                     appDelegate?.openMeasureView()
-                                    Router.shared.navigateToRoot()
+                                    NavigationManager.shared.navigateToRoot()
                                 } label: {
                                     Text("자세 설정하러 가기")
                                         .foregroundColor(userManager.user.notificationMode == .default ? .gray : .black)

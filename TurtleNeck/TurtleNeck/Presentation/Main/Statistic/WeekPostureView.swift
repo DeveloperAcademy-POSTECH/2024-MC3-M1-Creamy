@@ -37,7 +37,7 @@ struct WeekPostureView: View {
                                     .font(.tnBodyMedium8)
                                     .foregroundColor(.chevron)
                             } else {
-                                let averageAlerts = formattedTime(from: data.bestRecord)
+                                let averageAlerts = data.bestRecord.formattedTime()
                                 Text("\(averageAlerts)")
                                     .font(.tnBodylight8)
                                     .foregroundColor(.black)

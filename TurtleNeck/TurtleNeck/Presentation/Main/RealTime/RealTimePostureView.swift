@@ -21,7 +21,7 @@ struct RealTimePostureView: View {
                     //자세 알림 모드 & 에어팟 o
                     if timerManager.timer != nil {
                         VStack(spacing: 0){
-                            Text(formattedTime(from: timerManager.timerValue)).font(.tnHeadline20).foregroundColor(.black)
+                            Text(timerManager.timerValue.formattedTime()).font(.tnHeadline20).foregroundColor(.black)
                             Text("바른 자세 유지 중!").font(.tnBodyRegular12).foregroundColor(.black).padding(.top, 4)
                             ZStack{
                                 RoundedRectangle(cornerRadius: 4)

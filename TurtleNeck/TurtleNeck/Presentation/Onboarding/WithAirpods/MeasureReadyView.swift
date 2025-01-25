@@ -29,7 +29,7 @@ struct MeasureReadyFirstView: View {
             VStack(spacing: 8){
                 HoverableButton(
                     action: {
-                        Router.shared.navigate(to: .measureReadySecond)
+                        NavigationManager.shared.navigate(to: .measureReadySecond)
                     },
                     label: "다음"
                 )
@@ -61,7 +61,7 @@ struct MeasureReadySecondView: View {
             VStack(spacing: 8){
                 HoverableButton(
                     action: {
-                        Router.shared.navigate(to: .measurePosture)
+                        NavigationManager.shared.navigate(to: .measurePosture)
                     },
                     label: "측정 시작하기"
                 )

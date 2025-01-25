@@ -51,8 +51,8 @@ struct MeasureFinishView: View {
                 
                 HoverableButton(
                     action: {
-                        Router.shared.navigateToRoot()
-                        Router.shared.navigate(to: .measureReadyFirst)
+                        NavigationManager.shared.navigateToRoot()
+                        NavigationManager.shared.navigate(to: .measureReadyFirst)
                     },
                     label: "다시 측정하기"
                 )

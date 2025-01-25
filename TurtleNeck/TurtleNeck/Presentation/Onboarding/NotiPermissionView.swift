@@ -30,7 +30,7 @@ struct NotiPermissionView: View {
             HoverableButton(
                 action: {
                     userManager.saveUser()
-                    Router.shared.navigate(to: .checkDevice)
+                    NavigationManager.shared.navigate(to: .checkDevice)
                 },
                 label: "다음"
             )

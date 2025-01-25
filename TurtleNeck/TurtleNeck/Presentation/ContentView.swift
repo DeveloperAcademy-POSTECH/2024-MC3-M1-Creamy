@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject private var userManager: UserManager
     @State var isFromSetting: Bool = false
-    @StateObject private var router = Router.shared
+    @StateObject private var router = NavigationManager.shared
     
     var body: some View {
         NavigationStack(path: $router.navPath) {

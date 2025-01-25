@@ -123,7 +123,7 @@ struct MeasuringView: View {
                             
                             print("5초 동안의 평균 pitch 값: \(averagePitch)")
                             userManager.updateUser(keyPath: \User.goodPosture, value: averagePitch)
-                            Router.shared.navigate(to: .measureFinish)
+                            NavigationManager.shared.navigate(to: .measureFinish)
                         }
                     }
                 }

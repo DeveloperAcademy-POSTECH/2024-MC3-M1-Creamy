@@ -2,49 +2,41 @@
 //  UserManager.swift
 //  TurtleNeck
 //
-//  Created by Hyun Jaeyeon on 8/9/24.
+//  Created by Doran on 1/25/25.
 //
 
-import Foundation
+import SwiftUI
 
-class UserManager {
-    private let user_key = "user"
-
-    // User를 UserDefaults에 저장
-    func saveUser(_ user: User) {
-        do {
-            let encodedData = try JSONEncoder().encode(user)
-            UserDefaults.standard.set(encodedData, forKey: user_key)
-        } catch {
-            print("user 인코딩 실패 \(error.localizedDescription)")
-        }
-    }
-
-    // UserDefaults에서 User를 불러옴
-    func loadUser() -> User? {
-        guard let savedData = UserDefaults.standard.data(forKey: user_key) else {
-            return nil
-        }
-        
-        do {
-            let user = try JSONDecoder().decode(User.self, from: savedData)
-            return user
-        } catch {
-            print("user 디코딩 실패\(error.localizedDescription)")
-            return nil
-        }
-    }
-
-    // UserDefaults에서 User 삭제
-    func deleteUser() {
-        UserDefaults.standard.removeObject(forKey: user_key)
+class UserManager: ObservableObject {
+    static let shared = UserManager()
+    
+    @AppStorage("user") private var userData: Data = Data()
+    @Published var user: User = User(isFirst: true)
+    
+    private init(){
+        loadUser()
     }
     
-    //User의 정보를 갱신하는 제네릭 함수
-    func setUserMode<T>(selectedMode: T, keyPath: WritableKeyPath<User, T>) {
-        if var user = loadUser() {
-            user[keyPath: keyPath] = selectedMode // 제네릭 타입으로 할당
-            saveUser(user)
+    func loadUser() {
+        if let decodedUser = try? JSONDecoder().decode(User.self, from: userData) {
+            self.user = decodedUser
         }
+    }
+    
+    func saveUser() {
+        if let encodedData = try? JSONEncoder().encode(user) {
+            self.userData = encodedData
+        }
+    }
+    
+    func deleteUser() {
+        UserDefaults.standard.removeObject(forKey: "user")
+        self.user = User(isFirst: true)
+        saveUser()
+    }
+    
+    func updateUser<T>(keyPath: WritableKeyPath<User, T>, value: T) {
+        user[keyPath: keyPath] = value
+        saveUser()
     }
 }

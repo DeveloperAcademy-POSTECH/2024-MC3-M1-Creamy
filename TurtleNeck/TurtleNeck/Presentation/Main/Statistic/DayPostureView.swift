@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DayPostureView: View {
-    @EnvironmentObject var statisticManager: StatisticManager
+    @EnvironmentObject private var statisticManager: StatisticManager
     @ObservedObject var timerManager: TimerManager
     
     var body: some View {
@@ -17,7 +17,7 @@ struct DayPostureView: View {
             Text("오늘의 최고기록").font(.tnBodyRegular12).foregroundColor(.black).padding(.top, 14)
             
             let highestRecord = max((statisticManager.statistics.last?.bestRecord ?? 0), 0)
-            Text(formattedTime(from: highestRecord)).font(.tnHeadline20).foregroundColor(.black).padding(.top, 4)
+            Text(highestRecord.formattedTime()).font(.tnHeadline20).foregroundColor(.black).padding(.top, 4)
         }
     }
 }

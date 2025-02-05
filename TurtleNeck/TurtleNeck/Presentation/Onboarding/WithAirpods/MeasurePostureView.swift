@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MeasurePostureView: View {
+    @EnvironmentObject private var userManager: UserManager
     @State private var isCountdownComplete = false
     @StateObject private var motionManager = HeadphoneMotionManager()
     
@@ -15,6 +16,7 @@ struct MeasurePostureView: View {
         VStack(spacing: 0) {
             if isCountdownComplete {
                 MeasuringView(motionManager: motionManager)
+                    .environmentObject(userManager)
                     .onAppear {
                         motionManager.startUpdates()
                     }
@@ -69,9 +71,8 @@ struct MeasureCountDownView: View {
 
 //MARK: - 자세 측정 중 뷰
 struct MeasuringView: View {
-    private let userManager = UserManager()
     private let totalTime: Double = 6
-    
+    @EnvironmentObject private var userManager: UserManager
     @ObservedObject var motionManager: HeadphoneMotionManager
     @State private var pitchValues: [Double] = []
     @State private var progress = 0.0
@@ -121,12 +122,8 @@ struct MeasuringView: View {
                             let averagePitch = calculateAveragePitch()
                             
                             print("5초 동안의 평균 pitch 값: \(averagePitch)")
-                            
-                            userManager.setUserMode(selectedMode: averagePitch, keyPath: \User.goodPosture)
-                            
-                            print(userManager.loadUser()?.goodPosture)
-                            
-                            Router.shared.navigate(to: .measureFinish)
+                            userManager.updateUser(keyPath: \User.goodPosture, value: averagePitch)
+                            NavigationManager.shared.navigate(to: .measureFinish)
                         }
                     }
                 }

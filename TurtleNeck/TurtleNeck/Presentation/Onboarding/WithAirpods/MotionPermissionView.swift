@@ -9,8 +9,7 @@ import SwiftUI
 import CoreMotion
 
 struct MotionPermissionView: View {
-    private let userManager = UserManager()
-    
+    @EnvironmentObject private var userManager: UserManager
     @StateObject private var motionManager = HeadphoneMotionManager()
     
     var body: some View {
@@ -31,7 +30,7 @@ struct MotionPermissionView: View {
             
             HoverableButton(
                 action: {
-                    Router.shared.navigate(to: .measureReadyFirst)
+                    NavigationManager.shared.navigate(to: .measureReadyFirst)
                 },
                 label: "다음"
             )

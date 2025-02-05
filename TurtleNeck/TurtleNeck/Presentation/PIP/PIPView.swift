@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PIPView: View {
+    @EnvironmentObject private var userManager: UserManager
     @Environment(\.appDelegate) var appDelegate: AppDelegate?
     @Environment(\.presentationMode) var presentationMode
     
@@ -19,6 +20,7 @@ struct PIPView: View {
         
         ZStack{
             TurtleView(motionManager: motionManager)
+                .environmentObject(userManager)
                 .offset(x: -16, y: 12)
                 .padding(.top, 16)
             
@@ -26,6 +28,7 @@ struct PIPView: View {
                 NSApplication.shared.keyWindow?.close()
                 appDelegate?.showPopover()
             }, notificationManager: notificationManager, motionManager: motionManager, timerManager: timerManager)
+            .environmentObject(userManager)
             .offset(x: 100, y: -77)
         }
         .frame(width: 286,height: 130)

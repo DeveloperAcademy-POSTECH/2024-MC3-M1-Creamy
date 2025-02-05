@@ -30,19 +30,17 @@ class HeadphoneMotionManager: ObservableObject {
     
     private var motionTimer: Timer? //에어팟을 빼고 있는 시간을 나타냅니다. 즉, 모션 데이터의 수집이 안된 시간
     
-    private let userManager = UserManager()
-    var user: User?
+    private let userManager = UserManager.shared
+
     
     init() {
         print("HeadphoneMotionManager init")
         updateAuthorization()
-        user = userManager.loadUser()
     }
     
     //자세값 재생성을 하고 인스턴스를 제 생성 하기 위한 코드
     func reset() {
         stopUpdates()
-        user = userManager.loadUser() // 최신 사용자 정보 로드
     }
     
     /// 헤드폰 모션 추적 시작
@@ -143,7 +141,7 @@ extension HeadphoneMotionManager {
 extension HeadphoneMotionManager {
     /// 현재 좋은 자세인지 판단하는 함수
     private func isWithinGoodPosture() -> Bool {
-        guard let goodPosture = user?.goodPosture else {
+        guard let goodPosture = userManager.user.goodPosture else {
             print("goodPosture값이 없어요")
             return false
         }
@@ -151,7 +149,7 @@ extension HeadphoneMotionManager {
         let difference = abs(pitch - goodPosture)
         
 
-        return difference <= user!.goodPostureRange
+        return difference <= userManager.user.goodPostureRange
     }
     
     /// 자세 상태를 업데이트하는 함수
@@ -172,9 +170,9 @@ extension HeadphoneMotionManager {
                 
             // 나쁜자세를 오래 유지했을 때 .worse 설정
             } else if let lastBadPostureTime = lastBadPostureTime,
-                      Date().timeIntervalSince(lastBadPostureTime) >= user!.worseNotiCycle {
+                      Date().timeIntervalSince(lastBadPostureTime) >= userManager.user.worseNotiCycle {
                 currentState = .worse
-                print("안좋은 자세를 \(user!.worseNotiCycle)초간 유지했어요")
+                print("안좋은 자세를 \(userManager.user.worseNotiCycle)초간 유지했어요")
                 
                 // 상태를 .worse로 설정한 후 즉시(0.01초 뒤) .bad로 돌아가기
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {

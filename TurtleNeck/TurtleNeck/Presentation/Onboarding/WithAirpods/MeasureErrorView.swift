@@ -27,12 +27,12 @@ struct MeasureErrorView: View {
             
             VStack(spacing: 8){
                 HoverableButton(action: {
-                    Router.shared.navigateToRoot()
-                    Router.shared.navigate(to: .measureReadyFirst)
+                    NavigationManager.shared.navigateToRoot()
+                    NavigationManager.shared.navigate(to: .measureReadyFirst)
                 }, label: "다시 측정하기")
                 
                 HoverableButton(action: {
-                    Router.shared.navigate(to: .withoutAirpods)
+                    NavigationManager.shared.navigate(to: .withoutAirpods)
                 }, label: "에어팟 없이 알림만 받기")
             }
         }

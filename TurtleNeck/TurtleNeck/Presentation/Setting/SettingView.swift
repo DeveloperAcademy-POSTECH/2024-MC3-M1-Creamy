@@ -9,9 +9,8 @@ import SwiftUI
 
 struct SettingView: View {
     @Environment(\.appDelegate) var appDelegate: AppDelegate?
-    @EnvironmentObject var statisticManager: StatisticManager
-    
-    @State private var userData: User = User(isFirst: false)
+    @EnvironmentObject private var statisticManager: StatisticManager
+    @EnvironmentObject private var userManager: UserManager
     
     // TODO: 민감도 조절 값으로 변경
     @State private var slideValue: Double = 2
@@ -19,16 +18,11 @@ struct SettingView: View {
     @ObservedObject var motionManager: HeadphoneMotionManager
     @ObservedObject var timerManager: TimerManager
     
-    private var userManager = UserManager()
     private let notiPreferenceURL = URL(string: "x-apple.systempreferences:com.apple.preference.notifications?id=\(Bundle.main.bundleIdentifier!)")!
     private let motionPreferenceURL = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Motion")!
     
     init(notificationManager: NotificationManager, motionManager: HeadphoneMotionManager, timerManager: TimerManager) {
         print("SettingView init")
-        let userManager = UserManager()
-        if let loadedUserData = userManager.loadUser() {
-            self.userData = loadedUserData
-        }
         self.notificationManager = notificationManager
         self.motionManager = motionManager
         self.timerManager = timerManager
@@ -84,15 +78,15 @@ struct SettingView: View {
                         HStack {
                             Text("받고싶은 알림")
                             Spacer()
-                            Picker("", selection: $userData.notificationMode) {
+                            Picker("", selection: $userManager.user.notificationMode) {
                                 Text("자세 측정 알림").tag(NotificationMode.posture)
                                 Text("기본 알림").tag(NotificationMode.default)
                             }
-                            .onChange(of: userData.notificationMode, {
-                                userManager.saveUser(userData)
+                            .onChange(of: userManager.user.notificationMode, {
+                                userManager.saveUser()
                                 notificationManager.removeNoti()
                                 
-                                if userData.notificationMode == .default {
+                                if userManager.user.notificationMode == .default {
                                     motionManager.isConnected = false
                                     motionManager.stopUpdates()
                                     
@@ -115,13 +109,13 @@ struct SettingView: View {
                             .padding(.horizontal, 10)
                         
                         HStack {
-                            Toggle(isOn: $userData.isSoundOn, label: {
+                            Toggle(isOn: $userManager.user.isSoundOn, label: {
                                 Text("알림소리 켜기")
                             })
                             .tint(.buttonText)
                             .toggleStyle(.switch)
-                            .onChange(of: userData.isSoundOn) {
-                                userManager.saveUser(userData)
+                            .onChange(of: userManager.user.isSoundOn) {
+                                userManager.saveUser()
                             }
                         }
                         .padding(10)
@@ -228,7 +222,7 @@ struct SettingView: View {
                             
                             HStack {
                                 Rectangle()
-                                    .foregroundStyle(userData.notificationMode == .default ? Color.clear : Color(hex: "FFB0B0"))
+                                    .foregroundStyle(userManager.user.notificationMode == .default ? Color.clear : Color(hex: "FFB0B0"))
                                     .frame(width: 480 * test(motionManager.pitch), height: 3)
                                 Spacer(minLength: 0)
                             }
@@ -237,7 +231,7 @@ struct SettingView: View {
                                 HStack(spacing: 0){
                                     Rectangle()
                                         .frame(width: 480 *  slideValue/4, height: 4)
-                                        .foregroundStyle(userData.notificationMode == .default ? Color.clear : Color.buttonText)
+                                        .foregroundStyle(userManager.user.notificationMode == .default ? Color.clear : Color.buttonText)
                                     Spacer(minLength: 0)
                                 }
                                 .padding(.init(top: 10, leading: 12, bottom: 0, trailing: 10))
@@ -273,7 +267,7 @@ struct SettingView: View {
                                         .padding(.top, 2)
                                 }
                                 Spacer()
-                                Picker("", selection: $userData.badNotiCycle) {
+                                Picker("", selection: $userManager.user.badNotiCycle) {
                                     ForEach([5.0, 10.0, 15.0], id: \.self) { time in
                                         Text("\(Int(time))초")
                                     }
@@ -281,8 +275,8 @@ struct SettingView: View {
                                 .pickerStyle(.radioGroup)
                                 .horizontalRadioGroupLayout()
                                 .accentColor(.buttonText)
-                                .onChange(of: userData.badNotiCycle) {
-                                    userManager.saveUser(userData)
+                                .onChange(of: userManager.user.badNotiCycle) {
+                                    userManager.saveUser()
                                 }
                             }
                             .padding(10)
@@ -296,17 +290,17 @@ struct SettingView: View {
                                 Button {
                                     timerManager.resetTimer(statistics: &statisticManager.statistics)
                                     appDelegate?.openMeasureView()
-                                    Router.shared.navigateToRoot()
+                                    NavigationManager.shared.navigateToRoot()
                                 } label: {
                                     Text("자세 설정하러 가기")
-                                        .foregroundColor(userData.notificationMode == .default ? .gray : .black)
+                                        .foregroundColor(userManager.user.notificationMode == .default ? .gray : .black)
                                 }
                                 .shadow(radius: 1)
                             }
                             .padding(10)
                         }
                     }
-                    .disabled(userData.notificationMode == .default)
+                    .disabled(userManager.user.notificationMode == .default)
                 }
                 .listRowSeparator(.hidden)
                 .background{
@@ -330,41 +324,41 @@ struct SettingView: View {
 
                         Menu {
                             Button {
-                                userData.timeNotiCycle = 15 * 60
-                                userManager.saveUser(userData)
+                                userManager.user.timeNotiCycle = 15 * 60
+                                userManager.saveUser()
                             } label: {
                                 Text("15분")
                             }
                             Button {
-                                userData.timeNotiCycle = 30 * 60
-                                userManager.saveUser(userData)
+                                userManager.user.timeNotiCycle = 30 * 60
+                                userManager.saveUser()
                             } label: {
                                 Text("30분")
                             }
                             Button {
-                                userData.timeNotiCycle = 45 * 60
-                                userManager.saveUser(userData)
+                                userManager.user.timeNotiCycle = 45 * 60
+                                userManager.saveUser()
                             } label: {
                                 Text("45분")
                             }
                             Button {
-                                userData.timeNotiCycle = 60 * 60
-                                userManager.saveUser(userData)
+                                userManager.user.timeNotiCycle = 60 * 60
+                                userManager.saveUser()
                             } label: {
                                 Text("60분")
                             }
                             
                         } label: {
-                            Text("\(Int(userData.timeNotiCycle / 60))분")
+                            Text("\(Int(userManager.user.timeNotiCycle / 60))분")
                         }
                         .tint(.buttonText)
                         .padding(.leading, 200)
-                        .onChange(of: userData.timeNotiCycle) {
-                            userManager.saveUser(userData)
+                        .onChange(of: userManager.user.timeNotiCycle) {
+                            userManager.saveUser()
                             notificationManager.removeNoti()
                             notificationManager.settingTimeNoti(state: .normal)
                         }
-                        .disabled(userData.notificationMode == .posture)
+                        .disabled(userManager.user.notificationMode == .posture)
                     }
                     .padding(10)
                     .background{
@@ -387,14 +381,14 @@ struct SettingView: View {
                 
                 // MARK: TurtleNeck 종료하기
                 HStack {
-//                    Button{
-//                        UserManager().deleteUser()
-//                        statisticManager.deleteAllData()
-//                    } label: {
-//                        Text("테스트용 데이터 삭제: 출시 전에 삭제해주세요")
-//                            .foregroundColor(.black)
-//                    }
-//                    .shadow(radius: 1)
+                    Button{
+                        userManager.deleteUser()
+                        statisticManager.deleteAllData()
+                    } label: {
+                        Text("테스트용 데이터 삭제: 출시 전에 삭제해주세요")
+                            .foregroundColor(.black)
+                    }
+                    .shadow(radius: 1)
                     
                     Spacer()
                     Button{
@@ -434,11 +428,9 @@ extension SettingView {
     private func updateGoodPostureRange() {
         // 슬라이더 한단계 값-> 0.05
         let rangeAdjustment = (slideValue - 2) * 0.05
-        userManager.setUserMode(selectedMode: userData.goodPostureRange + rangeAdjustment, keyPath: \.goodPostureRange)
-        
-        let user = userManager.loadUser()
-        print(user?.goodPostureRange)
-        userManager.saveUser(userData)
+        userManager.updateUser(keyPath: \.goodPostureRange, value: userManager.user.goodPostureRange + rangeAdjustment)
+        print(userManager.user.goodPostureRange)
+        userManager.saveUser()
         
     }
 }

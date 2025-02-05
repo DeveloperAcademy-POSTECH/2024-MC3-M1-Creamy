@@ -20,6 +20,7 @@ struct NotificationContent{
     let body: String
     let attachmentImgName: String = ""
     let notiContent: UNMutableNotificationContent = UNMutableNotificationContent()
+    let userManager = UserManager.shared
     
     init(title: String, body: String) {
         self.title = title
@@ -27,14 +28,16 @@ struct NotificationContent{
         self.notiContent.title = title
         self.notiContent.body = body
         self.notiContent.sound = {
-            guard let userData = UserManager().loadUser() else {
-                return .default
-            }
-            if userData.isSoundOn {
-                return .default
+            if userManager.user.isFirst {
+                if userManager.user.isSoundOn {
+                    return .default
+                }
+                else {
+                    return .none
+                }
             }
             else {
-                return .none
+                return .default
             }
         }()
         

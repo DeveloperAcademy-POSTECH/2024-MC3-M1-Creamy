@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MeasureReadyFirstView: View {
+    @EnvironmentObject private var userManager: UserManager
     var body: some View {
         VStack (spacing: 0){
             Image("ExplanationStep1")
@@ -28,7 +29,7 @@ struct MeasureReadyFirstView: View {
             VStack(spacing: 8){
                 HoverableButton(
                     action: {
-                        Router.shared.navigate(to: .measureReadySecond)
+                        NavigationManager.shared.navigate(to: .measureReadySecond)
                     },
                     label: "다음"
                 )
@@ -39,6 +40,7 @@ struct MeasureReadyFirstView: View {
 }
 
 struct MeasureReadySecondView: View {
+    @EnvironmentObject private var userManager: UserManager
     var body: some View {
         VStack (spacing: 0){
             Image("ExplanationStep2")
@@ -59,7 +61,7 @@ struct MeasureReadySecondView: View {
             VStack(spacing: 8){
                 HoverableButton(
                     action: {
-                        Router.shared.navigate(to: .measurePosture)
+                        NavigationManager.shared.navigate(to: .measurePosture)
                     },
                     label: "측정 시작하기"
                 )
@@ -67,6 +69,7 @@ struct MeasureReadySecondView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
+    
 }
 
 #Preview {

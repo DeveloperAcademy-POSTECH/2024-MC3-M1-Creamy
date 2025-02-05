@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct WithoutAirpodsView: View {
-    private let userManager = UserManager()
+    @EnvironmentObject private var userManager: UserManager
     private var cycles: [Double] = [15, 30, 45, 60]
     
     @Environment(\.appDelegate) var appDelegate: AppDelegate?
@@ -55,8 +55,8 @@ struct WithoutAirpodsView: View {
                     appDelegate?.showPopover()
                 }
                 
-                userManager.setUserMode(selectedMode: false, keyPath: \User.isFirst)
-                userManager.setUserMode(selectedMode: selectedCycle * 60, keyPath: \User.timeNotiCycle)
+                userManager.updateUser(keyPath: \User.isFirst, value: false)
+                userManager.updateUser(keyPath: \User.timeNotiCycle, value: selectedCycle * 60)
             }, label: "시작하기")
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

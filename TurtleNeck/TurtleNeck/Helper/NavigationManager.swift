@@ -1,5 +1,5 @@
 //
-//  Router.swift
+//  NavigationManager.swift
 //  TurtleNeck
 //
 //  Created by Hyun Jaeyeon on 7/29/24.
@@ -21,9 +21,9 @@ enum Destination: Codable, Hashable {
     case withoutAirpods
 }
 
-final class Router: ObservableObject {
+final class NavigationManager: ObservableObject {
     //싱글톤 패턴 적용
-    static let shared = Router()
+    static let shared = NavigationManager()
     
     @Published var navPath = NavigationPath()
     

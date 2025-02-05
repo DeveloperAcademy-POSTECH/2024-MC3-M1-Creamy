@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct TopMenuView: View {
-    private let userManager = UserManager()
     let action: () -> Void
-    
+    @EnvironmentObject private var userManager: UserManager
     @Environment(\.appDelegate) var appDelegate: AppDelegate?
     @ObservedObject var notificationManager: NotificationManager
     @ObservedObject var motionManager: HeadphoneMotionManager
@@ -19,13 +18,13 @@ struct TopMenuView: View {
     
     var body: some View {
         HStack(alignment: .center,spacing: 4) {
-            if var user = userManager.loadUser() {
+            if !userManager.user.isFirst {
                 Button(action: {
-                    user.isSoundOn.toggle()
-                    user.isNotificationOn.toggle()
-                    userManager.saveUser(user)
+                    userManager.user.isSoundOn.toggle()
+                    userManager.user.isNotificationOn.toggle()
+                    userManager.saveUser()
                 }) {
-                    Image(user.isSoundOn && user.isNotificationOn ? "speaker": "speaker.slash")
+                    Image(userManager.user.isSoundOn && userManager.user.isNotificationOn ? "speaker": "speaker.slash")
                 }
                 .buttonStyle(.plain)
             }

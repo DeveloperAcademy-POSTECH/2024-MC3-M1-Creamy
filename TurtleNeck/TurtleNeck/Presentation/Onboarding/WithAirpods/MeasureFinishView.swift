@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct MeasureFinishView: View {
-    private let userManager = UserManager()
-    
+    @EnvironmentObject private var userManager: UserManager
     @Environment(\.appDelegate) var appDelegate: AppDelegate?
     @Environment(\.presentationMode) var presentationMode
     @StateObject var statisticManager = StatisticManager()
@@ -45,16 +44,15 @@ struct MeasureFinishView: View {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             appDelegate?.showPopover()
                         }
-                        
-                        userManager.setUserMode(selectedMode: false, keyPath: \User.isFirst)
+                        userManager.updateUser(keyPath: \User.isFirst, value: false)
                     },
                     label: "시작하기"
                 )
                 
                 HoverableButton(
                     action: {
-                        Router.shared.navigateToRoot()
-                        Router.shared.navigate(to: .measureReadyFirst)
+                        NavigationManager.shared.navigateToRoot()
+                        NavigationManager.shared.navigate(to: .measureReadyFirst)
                     },
                     label: "다시 측정하기"
                 )

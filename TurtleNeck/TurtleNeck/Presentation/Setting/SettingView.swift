@@ -424,14 +424,24 @@ extension SettingView {
         }
     }
     
+    // 슬라이더 값을 goodPostureRange로 변환하는 함수
+    private func convertSliderValueToRange(_ sliderValue: Double) -> Double {
+        // 슬라이더 한단계 값-> 0.03
+        // slideValue가 0일 때 0.04
+        return 0.04 + (sliderValue * 0.03)
+    }
+    
     /// 슬라이더 값에 따라 goodPostureRange값 조정
     private func updateGoodPostureRange() {
         // 슬라이더 한단계 값-> 0.05
-        let rangeAdjustment = (slideValue - 2) * 0.05
-        userManager.updateUser(keyPath: \.goodPostureRange, value: userManager.user.goodPostureRange + rangeAdjustment)
+//        let rangeAdjustment = (slideValue - 2) * 0.05
+        let newRange = convertSliderValueToRange(slideValue)
+        
+        userManager.updateUser(keyPath: \.goodPostureRange, value: newRange)
         print(userManager.user.goodPostureRange)
         userManager.saveUser()
         
+        print("goodPostureRange 업데이트됨! 현재 값: \(newRange)")
     }
 }
 

@@ -250,6 +250,8 @@ extension AppDelegate {
         newWindow.contentView = NSHostingView(rootView:
                                                 ContentView(isFromSetting: true)
             .environment(\.appDelegate, self)
+            .environmentObject(userManager)
+            .environmentObject(statisticManager)
             .background(.white))
         
         newWindow.delegate = self

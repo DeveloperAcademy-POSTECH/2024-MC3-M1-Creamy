@@ -381,14 +381,14 @@ struct SettingView: View {
                 
                 // MARK: TurtleNeck 종료하기
                 HStack {
-                    Button{
-                        userManager.deleteUser()
-                        statisticManager.deleteAllData()
-                    } label: {
-                        Text("테스트용 데이터 삭제: 출시 전에 삭제해주세요")
-                            .foregroundColor(.black)
-                    }
-                    .shadow(radius: 1)
+//                    Button{
+//                        userManager.deleteUser()
+//                        statisticManager.deleteAllData()
+//                    } label: {
+//                        Text("테스트용 데이터 삭제: 출시 전에 삭제해주세요")
+//                            .foregroundColor(.black)
+//                    }
+//                    .shadow(radius: 1)
                     
                     Spacer()
                     Button{

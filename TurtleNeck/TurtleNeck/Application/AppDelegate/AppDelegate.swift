@@ -203,7 +203,7 @@ extension AppDelegate {
         newWindow.backgroundColor = .white
         
         newWindow.center()
-        newWindow.level = .floating
+        newWindow.level = .normal
         newWindow.isMovableByWindowBackground = true
         newWindow.setFrameAutosaveName("SettingWindow")
         

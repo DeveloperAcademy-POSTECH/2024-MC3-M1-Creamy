@@ -12,13 +12,13 @@ struct WeekPostureView: View {
 
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
-            Text("지난 7일간의 최고 기록")
+            Text("최근 7일간의 최고 기록")
                 .font(.tnBodyEmphasized12)
                 .foregroundColor(.black)
                 .padding(.top, 18)
             
             HStack(alignment: .bottom, spacing: 8) {
-                if filteredStatistics.count == 0 {
+                if past7DaysStatistics.count == 0 {
                     VStack(spacing: 0){
                         Image("CryingTurtle").resizable().scaledToFit().frame(width: 100,height: 100).padding(.top,8)
                         Text("측정된 데이터가 없어요.").font(.tnBodyRegular14).foregroundColor(.black)
@@ -29,7 +29,7 @@ struct WeekPostureView: View {
                     } .frame(width: 251).padding(.horizontal,14)
                 }
                 else {
-                    ForEach(filteredStatistics) { data in
+                    ForEach(past7DaysStatistics) { data in
                         let height = getHeightStatistic(day: data)
                         VStack(spacing: 2) {
                             if data.bestRecord == 0 {
@@ -104,11 +104,30 @@ extension WeekPostureView {
 }
 
 extension WeekPostureView {
-    // View에 보여주는 통계 중에 오늘의 데이터를 제외
-    private var filteredStatistics: [Statistic] {
+    // 최근 7일간의 통계 데이터 (오늘부터 7일 전까지)
+    private var past7DaysStatistics: [Statistic] {
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: Date())
-        return statisticManager.statistics.filter { calendar.startOfDay(for: $0.date) < today }
+        let sevenDaysAgo = calendar.date(byAdding: .day, value: -6, to: today)!
+        
+        // 최근 7일 범위의 모든 날짜 생성
+        var past7Days: [Date] = []
+        for i in 0..<7 {
+            if let date = calendar.date(byAdding: .day, value: -i, to: today) {
+                past7Days.append(date)
+            }
+        }
+        past7Days.reverse() // 오래된 날짜부터 정렬
+        
+        // 각 날짜에 대해 기록이 있으면 해당 기록, 없으면 빈 기록 생성
+        return past7Days.map { date in
+            let dayStart = calendar.startOfDay(for: date)
+            if let existingRecord = statisticManager.statistics.first(where: { calendar.startOfDay(for: $0.date) == dayStart }) {
+                return existingRecord
+            } else {
+                return Statistic(date: date, time: 0, notiCount: 0, bestRecord: 0)
+            }
+        }
     }
 }
 

@@ -74,7 +74,7 @@ struct WeekPostureView: View {
 
 extension WeekPostureView {
     private func getHeightStatistic(day: Statistic) -> Double {
-        guard let maxBestRecord = getMaxBestRecord(from: statisticManager.statistics) else {
+        guard let maxBestRecord = getMaxBestRecord(from: past7DaysStatistics) else {
             return 0
         }
 
@@ -82,17 +82,19 @@ extension WeekPostureView {
             return 0
         }
 
-        let calculatedHeight = Double(day.bestRecord) * (92 / Double(maxBestRecord))
+        // 최소 높이 10, 최대 높이 92로 설정
+        let minHeight = 10.0
+        let maxHeight = 92.0
+        let ratio = Double(day.bestRecord) / Double(maxBestRecord)
+        let calculatedHeight = minHeight + (ratio * (maxHeight - minHeight))
+        
         return calculatedHeight
     }
     
     private func getMaxBestRecord(from statistics: [Statistic]) -> Int? {
-        let calendar = Calendar.current
-        let today = calendar.startOfDay(for: Date())
-        
         return statistics
-            .filter { calendar.startOfDay(for: $0.date) < today }
             .map { $0.bestRecord }
+            .filter { $0 > 0 }  // 0보다 큰 값만 필터링
             .max()
     }
     

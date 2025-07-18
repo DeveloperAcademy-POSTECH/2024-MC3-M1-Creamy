@@ -12,7 +12,7 @@ struct SettingView: View {
     @EnvironmentObject private var statisticManager: StatisticManager
     @EnvironmentObject private var userManager: UserManager
     
-    // TODO: 민감도 조절 값으로 변경
+    // 민감도 조절 슬라이더 값 (기본값 2 = goodPostureRange 0.1)
     @State private var slideValue: Double = 2
     @ObservedObject var notificationManager: NotificationManager
     @ObservedObject var motionManager: HeadphoneMotionManager
@@ -407,6 +407,10 @@ struct SettingView: View {
         }
         .frame(width: 560, height: 788)
         .background(.white)
+        .onAppear {
+            // 현재 goodPostureRange 값을 기반으로 슬라이더 값 초기화
+            slideValue = convertRangeToSliderValue(userManager.user.goodPostureRange)
+        }
     }
 }
 
@@ -426,9 +430,18 @@ extension SettingView {
     
     // 슬라이더 값을 goodPostureRange로 변환하는 함수
     private func convertSliderValueToRange(_ sliderValue: Double) -> Double {
-        // 슬라이더 한단계 값-> 0.03
-        // slideValue가 0일 때 0.04
-        return 0.04 + (sliderValue * 0.03)
+        // 슬라이더 값에 따른 goodPostureRange 매핑
+        // 0: 3도(0.052), 1: 6도(0.105), 2: 9도(0.157), 3: 12도(0.209), 4: 15도(0.262)
+        let baseValue = 0.052
+        let increment = 0.053
+        return baseValue + (sliderValue * increment)
+    }
+    
+    // goodPostureRange 값을 슬라이더 값으로 역변환하는 함수
+    private func convertRangeToSliderValue(_ range: Double) -> Double {
+        let baseValue = 0.052
+        let increment = 0.053
+        return (range - baseValue) / increment
     }
     
     /// 슬라이더 값에 따라 goodPostureRange값 조정

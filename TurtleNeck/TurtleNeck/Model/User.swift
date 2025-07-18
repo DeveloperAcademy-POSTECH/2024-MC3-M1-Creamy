@@ -15,7 +15,7 @@ enum NotificationMode: Codable {
 struct User: Codable {
     var isFirst: Bool
     var goodPosture: Double?
-    var goodPostureRange : Double = 0.1 //약 5.7도
+    var goodPostureRange : Double = 0.157 //약 9도 (기본값)
     var disturbMode : Bool = false
     var notiCycle: Double = 10 //TODO: 10초 -> 10분으로 수정
     var notificationMode: NotificationMode = .default

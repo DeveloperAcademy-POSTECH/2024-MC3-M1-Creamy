@@ -203,7 +203,7 @@ extension AppDelegate {
         newWindow.backgroundColor = .white
         
         newWindow.center()
-        newWindow.level = .floating
+        newWindow.level = .normal
         newWindow.isMovableByWindowBackground = true
         newWindow.setFrameAutosaveName("SettingWindow")
         
@@ -223,6 +223,9 @@ extension AppDelegate {
         else{
             settingWindowController?.window?.makeKeyAndOrderFront(nil)
         }
+        
+        newWindow.makeKeyAndOrderFront(nil)
+        NSApp.activate(ignoringOtherApps: true)
     }
     
     func openMeasureView() {

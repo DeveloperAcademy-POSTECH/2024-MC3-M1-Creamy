@@ -223,6 +223,9 @@ extension AppDelegate {
         else{
             settingWindowController?.window?.makeKeyAndOrderFront(nil)
         }
+        
+        newWindow.makeKeyAndOrderFront(nil)
+        NSApp.activate(ignoringOtherApps: true)
     }
     
     func openMeasureView() {
